@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>记Android某APP逆向</title>
+    <link href="/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/"/>
+    <url>/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/</url>
+    
+    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="哈希校验错误">  <script id="hbeData" type="hbeData" data-hmacdigest="ea6a9b57108d13bca82e450ebd6427c0a2d7ace8fc306d23034eeacc75ad093a">8c00eff6ac0389fcbf25db1b6102be78f33255b6d3eeed6ecbd333bc2c493a71ce697edcfb255451f6b66c70f81e21fc6d719aa41b8c9fb19ba902233d593329eb656d56f1f4057ae53c80f1c1f58666e14aa263d4e35a69f14886e4cdad05c80c5a7acef3e49f03899a2effac9875a159c134cd75c646efca9f6d638f5a7f62e1e375febfb89b134fa207bb8b59b3f9ffd5330d97a7713c14573bb71f4ee1f3ece1dfbbb4ae1560afa80e0f56b0e8ac0d357f96b95c0ca1a99354600cb1fab083068d00c4889beeea82d8c6e8d3f5518a1ccf0c2777bf9eb236db9f9e0149b38248ba5b8cab50767e438799c825d0ff52dc2871cddaa685756d257f8c223e261ac284cd370e5d69f0fe407dc9d89030e806efb2a27565fa38937eb4e51679b03d322ac8ff9c33793d0e5f529fa63682f764a56a4357dd644d7d2f1dc2dfd83c2e7e351e8170cca52521e339ecaf5e9ba99bf80d729ce46b0d3136bb8ec7dc242368e08d726562fde153d12d8757a2697ac053cab1d1ed82843b56a3787add2d2b8e551ee86eabca84e00da7dd3bb316275111d250ab9cb5b083f99ea2f192bcee7c6f56d6ff8517e0304d2008ef952c1f6999e80c4d8a56d1f7970100d3182292bf92142ec817ea85166af4fe32da077a25d7c7599b794f87628efb27086129b5d5d6d8d30f37f3a872930e529fc4169dac2d3426a9cf8f1c521f206dff964c5f03c124a3d4ec7a29f7cbb867da99b1c04fc5f21ecf5388a3c33daebcdcdd91ff706a4f57db85b5f1f06f7ffe854ee04edecf7cab6a41a3496476124d46f65825f3577787602cca64eaf82881ea0020f0b0dba0582b4b053cd41c56097b23a0dc663f8ae88ab964d43ce59ec7468bc7ae07dcbe0796d6d689207ad5f9de363f8fd3aa9c172ee0d4345ccd9b1ad227b1b5271c296d6bc20bdf74b1ca4a365af7e503b09e75c6533a94970642932f39610b34ab465d8a1d241539ca495ba6f1cebf6a1b8c19ca23fd349658a763428bc10b3a8cb1daa1268b4533afb7c5ffb42138d4290e01312e6597ebbfb0ba5d6092e1dff4bca7d41ab3dfc12f7e2a1caeec3b33b5696248993b8158034b24ce3f35b6361cd2816be2b6dac7b5a53f43a48d9d6cf8b54232ed33f476af102886d22f8fdc95dd3e76e0a60d4739fc3483eb1bd99aded1b8f27eb52c44c015609f57b63ecaf0401d2cdc47f8dfe55e0362539d085cd5a84375095941cc9074551d54e9e279163b585354384b85b5f06f79ea9efe16a0379e9366e07c044bb0da500e52466a582b8832d9d6699991150b4770dd5778483d03942658624be4f5208376fd212bc07082b9a6c3380f8777720b18b0fa83fcfae4967cc2bacdf3fce42d865e3630ab992610d12bc1ba3316c0b661bd356311abaa23addf7512924078dee8e1081d14575b0c163d0452d96c889e698645287bb2d28d4748b6b564500dffc864d695d55380a4c9854fdf70c45a2feaa084e2783a93b05d5778a4db458e8e0773d1c76ab12b601801500cab25addf5e2c3f7cb93b492bf33fef946efb1740b6472a96177c2ca8b69beaf43a93ae3a03f07ff9e8bc00c61e043fa8d0ec474237f9e80f94ae9379b94b0035494aead754cefca1e6b37a563797caae69585cdf02260f275196373bd3144f4efe0e22f486dfd13edd255374d0eaf35e3309df47e791e753c9ba1b6b334db3dbe937d474fd24d7f04e4a0e03f6f295ec2ceb39d652babf68bcac02e41256b6b5d6c39cbdf53b2844829e01d648b43e4c62fb9c3ac9a53d511a5ce27e8c9bd27536fac0c0d5cac2d7fa4bd2b2f0375f355d782369219f8c431bb3d47525c8bbfaf7aac83d5f1fdd717ca86a9fa6f32855a639b64bf0b03cd6980e5c7a9670b99b96884bb3cfc08b8035c05a5bd2eafa1a98ca2d2c73d09263e6f625189f0c60b7aa6fb312468d84c68dee5b7a620fd8fcf6aca2c0fa9b42559e03ec395f602b17733c07346ab8894acb288da73bb7f279c70d13dc2ba3022883de57d763fa54eb7b70054ae40beb6d93b06ea56681f8d66b8f322cd04aa0f7cce91cae1e57aa566f3bb1193d34e2e0723231a1bc5732380e46031109991181b07e029fba6e48eb39d99f8616e3</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">需要密码才能访问</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>android</tag>
+      
+      <tag>reverse</tag>
+      
+      <tag>hook</tag>
+      
+      <tag>private</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>docker容器不显示中文</title>
     <link href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/"/>
     <url>/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/</url>

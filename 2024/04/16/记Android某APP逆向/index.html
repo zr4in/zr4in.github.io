@@ -16,25 +16,25 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="打算搬迁自己的笔记到组里的服务器上，又因为是服务器，对环境限制比较多，不会随便安装一些包和lib库，所以大家基本上都是docker开自己的容器用。 然后：  终端无法显示中文，实际上zsh的命令补全还是能显示中文的，但是终端就是不行  按照找到的教程，locale和locale -a查看本地正在使用以及支持的字符集：  这里看到LC_ALL&#x3D;C，按照某个教程里的说法，C就是POSIX，是不支持中文">
+    <meta name="description" content="这是一篇加密文章">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker容器不显示中文">
-<meta property="og:url" content="http://zr4in.github.io/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/index.html">
+<meta property="og:title" content="记Android某APP逆向">
+<meta property="og:url" content="http://zr4in.github.io/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="打算搬迁自己的笔记到组里的服务器上，又因为是服务器，对环境限制比较多，不会随便安装一些包和lib库，所以大家基本上都是docker开自己的容器用。 然后：  终端无法显示中文，实际上zsh的命令补全还是能显示中文的，但是终端就是不行  按照找到的教程，locale和locale -a查看本地正在使用以及支持的字符集：  这里看到LC_ALL&#x3D;C，按照某个教程里的说法，C就是POSIX，是不支持中文">
+<meta property="og:description" content="这是一篇加密文章">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/03/14/uPHk8FEq4SVAYpo.png">
-<meta property="article:published_time" content="2024-03-14T02:21:53.000Z">
-<meta property="article:modified_time" content="2024-03-14T07:58:18.783Z">
+<meta property="article:published_time" content="2024-04-16T07:22:16.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:44:23.389Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="docker">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="reverse">
+<meta property="article:tag" content="hook">
+<meta property="article:tag" content="private">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/03/14/uPHk8FEq4SVAYpo.png">
   
   
   
-  <title>docker容器不显示中文 - zr4in</title>
+  <title>记Android某APP逆向 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker容器不显示中文"></span>
+            <span id="subtitle" data-typed-text="记Android某APP逆向"></span>
           
         </div>
 
@@ -223,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-14 10:21" pubdate>
-          2024年3月14日 上午
+        <time datetime="2024-04-16 15:22" pubdate>
+          2024年4月16日 下午
         </time>
       </span>
     
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          591 字
+          188 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          5 分钟
+          2 分钟
         
       </span>
     
@@ -283,12 +283,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">docker容器不显示中文</h1>
+            <h1 id="seo-header">记Android某APP逆向</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-03-14T15:58:18+08:00
+                    本文最后更新于 2024-04-16T16:44:23+08:00
                   
                   
 
@@ -296,35 +296,22 @@
               </p>
             
             
-              <div class="markdown-body">
-                
-                <p>打算搬迁自己的笔记到组里的服务器上，又因为是服务器，对环境限制比较多，不会随便安装一些包和lib库，所以大家基本上都是docker开自己的容器用。</p>
-<p>然后：</p>
-<p><img src="https://s2.loli.net/2024/03/14/uPHk8FEq4SVAYpo.png" srcset="/img/loading.gif" lazyload alt="image-20240314104511933"></p>
-<p>终端无法显示中文，实际上<code>zsh</code>的命令补全还是能显示中文的，但是终端就是不行</p>
-<p><img src="https://s2.loli.net/2024/03/14/JFkHUG1vmegfPhq.png" srcset="/img/loading.gif" lazyload alt="image-20240314104637839"></p>
-<p>按照找到的教程，<code>locale</code>和<code>locale -a</code>查看本地正在使用以及支持的字符集：</p>
-<p><img src="https://s2.loli.net/2024/03/14/iHQOxWjlLrwX5hJ.png" srcset="/img/loading.gif" lazyload alt="image-20240314104823601"></p>
-<p>这里看到<code>LC_ALL=C</code>，按照某个教程里的说法，<code>C</code>就是<code>POSIX</code>，是不支持中文显示的，修改为<code>zh_CN.utf8</code>或者<code>C.utf8</code>就可以了，实测都是有效的，似乎是排序上有一些不同</p>
-<p><img src="https://s2.loli.net/2024/03/14/pf57C2rPzFxSuB6.png" srcset="/img/loading.gif" lazyload alt="image-20240314105152076"></p>
-<h5 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h5><p>关于各种<code>LC_*</code>变量以及<code>LANG</code>变量，看到的说法是<code>LC_ALL</code>是指定所有的字符集设置<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[LOCALE\]字符集设置 - Linux Guide (zj-linux-guide.readthedocs.io)](https://zj-linux-guide.readthedocs.io/zh-cn/latest/tool-install-configure/[LOCALE]字符集设置/)">[2]</span></a></sup>，看到很多教程上说让修改<code>LANG</code>变量，实际上试了一下是没用的</p>
-<p>比如<code>LANG=C.utf8</code>且<code>LC_ALL=C</code>，可以看到还是显示不了中文：</p>
-<p><img src="https://s2.loli.net/2024/03/14/KlYbREoxAsJItif.png" srcset="/img/loading.gif" lazyload alt="image-20240314105437274"></p>
-<p>包括把<code>LANG</code>设置为<code>zh_CN.utf8</code>也没有用：</p>
-<p><img src="https://s2.loli.net/2024/03/14/xhdyP8tuzrWgfXA.png" srcset="/img/loading.gif" lazyload alt="image-20240314105558850"></p>
-<p>总的来说就是，只要<code>LC_ALL</code>是不支持中文字符的<code>C</code>，修改<code>LANG</code>就没有用，主要是<code>LC_ALL</code>变量的设置，因为设置了<code>LC_ALL</code>变量，其他的<code>LC_*</code>变量也都修改了，但是只设置<code>LANG</code>就会只修改<code>LANG</code>，如图修改<code>LC_ALL</code>：</p>
-<p><img src="https://s2.loli.net/2024/03/14/zPKLpY5FTif9q2S.png" srcset="/img/loading.gif" lazyload alt="image-20240314105921600"></p>
-<p>and，很多教程里有的地方写的是<code>zh_CN.UTF-8</code>，有的是<code>zh_CN.utf-8</code>，测试了一下，设置<code>LC_ALL=zh_CN.UTF-8</code>也是有效的，但我觉得还是和<code>locale -a</code>的某一行输出（for example <code>zh_CN.utf8</code>）里保持一致可能会好一点，这一点可能需要去翻一翻文档去确认一下怎么设置最规范，但是我没有去翻</p>
-<p>如果<code>locale -a</code>输出里没有自己需要的字符集，可以通过<code>dpkg-reconfigure locales</code>安装，如果显示没有<code>locales</code>，需要安装<code>locales</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[明眸如初 (zywvvd.com)](https://www.zywvvd.com/notes/system/linux/ubuntu-language-zh-cn/ubuntu-language-zh-cn/)">[1]</span></a></sup></p>
-<h5 id="后后记"><a href="#后后记" class="headerlink" title="后后记"></a>后后记</h5><p>无语，忘记是什么时候的事，<code>.zshrc</code>里我自己添加了字符集的设置：</p>
-<p><img src="https://s2.loli.net/2024/03/14/lBQZNAYcMexWpzU.png" srcset="/img/loading.gif" lazyload alt="image-20240314111948828"></p>
-<p>我就说为什么设置了<code>/etc/environment</code>没有用，总之，不管是<code>/etc/environment</code>还是<code>.zshrc</code>，能把<code>LC_ALL</code>变量设置成<code>zh_CN.utf8</code>而不是<code>C</code>就行</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.zywvvd.com/notes/system/linux/ubuntu-language-zh-cn/ubuntu-language-zh-cn/">明眸如初 (zywvvd.com)</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://zj-linux-guide.readthedocs.io/zh-cn/latest/tool-install-configure/[LOCALE]%E5%AD%97%E7%AC%A6%E9%9B%86%E8%AE%BE%E7%BD%AE/">LOCALE]字符集设置 - Linux Guide (zj-linux-guide.readthedocs.io)</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>（我讨厌CSDN，但是还是要放个引用在这里）<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44455388/article/details/109092222">docker 容器中不支持中文的解决方法_docker locale-CSDN博客</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
-                
-              </div>
+              
+              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="哈希校验错误">
+  <script id="hbeData" type="hbeData" data-hmacdigest="ea6a9b57108d13bca82e450ebd6427c0a2d7ace8fc306d23034eeacc75ad093a">8c00eff6ac0389fcbf25db1b6102be78f33255b6d3eeed6ecbd333bc2c493a71ce697edcfb255451f6b66c70f81e21fc6d719aa41b8c9fb19ba902233d593329eb656d56f1f4057ae53c80f1c1f58666e14aa263d4e35a69f14886e4cdad05c80c5a7acef3e49f03899a2effac9875a159c134cd75c646efca9f6d638f5a7f62e1e375febfb89b134fa207bb8b59b3f9ffd5330d97a7713c14573bb71f4ee1f3ece1dfbbb4ae1560afa80e0f56b0e8ac0d357f96b95c0ca1a99354600cb1fab083068d00c4889beeea82d8c6e8d3f5518a1ccf0c2777bf9eb236db9f9e0149b38248ba5b8cab50767e438799c825d0ff52dc2871cddaa685756d257f8c223e261ac284cd370e5d69f0fe407dc9d89030e806efb2a27565fa38937eb4e51679b03d322ac8ff9c33793d0e5f529fa63682f764a56a4357dd644d7d2f1dc2dfd83c2e7e351e8170cca52521e339ecaf5e9ba99bf80d729ce46b0d3136bb8ec7dc242368e08d726562fde153d12d8757a2697ac053cab1d1ed82843b56a3787add2d2b8e551ee86eabca84e00da7dd3bb316275111d250ab9cb5b083f99ea2f192bcee7c6f56d6ff8517e0304d2008ef952c1f6999e80c4d8a56d1f7970100d3182292bf92142ec817ea85166af4fe32da077a25d7c7599b794f87628efb27086129b5d5d6d8d30f37f3a872930e529fc4169dac2d3426a9cf8f1c521f206dff964c5f03c124a3d4ec7a29f7cbb867da99b1c04fc5f21ecf5388a3c33daebcdcdd91ff706a4f57db85b5f1f06f7ffe854ee04edecf7cab6a41a3496476124d46f65825f3577787602cca64eaf82881ea0020f0b0dba0582b4b053cd41c56097b23a0dc663f8ae88ab964d43ce59ec7468bc7ae07dcbe0796d6d689207ad5f9de363f8fd3aa9c172ee0d4345ccd9b1ad227b1b5271c296d6bc20bdf74b1ca4a365af7e503b09e75c6533a94970642932f39610b34ab465d8a1d241539ca495ba6f1cebf6a1b8c19ca23fd349658a763428bc10b3a8cb1daa1268b4533afb7c5ffb42138d4290e01312e6597ebbfb0ba5d6092e1dff4bca7d41ab3dfc12f7e2a1caeec3b33b5696248993b8158034b24ce3f35b6361cd2816be2b6dac7b5a53f43a48d9d6cf8b54232ed33f476af102886d22f8fdc95dd3e76e0a60d4739fc3483eb1bd99aded1b8f27eb52c44c015609f57b63ecaf0401d2cdc47f8dfe55e0362539d085cd5a84375095941cc9074551d54e9e279163b585354384b85b5f06f79ea9efe16a0379e9366e07c044bb0da500e52466a582b8832d9d6699991150b4770dd5778483d03942658624be4f5208376fd212bc07082b9a6c3380f8777720b18b0fa83fcfae4967cc2bacdf3fce42d865e3630ab992610d12bc1ba3316c0b661bd356311abaa23addf7512924078dee8e1081d14575b0c163d0452d96c889e698645287bb2d28d4748b6b564500dffc864d695d55380a4c9854fdf70c45a2feaa084e2783a93b05d5778a4db458e8e0773d1c76ab12b601801500cab25addf5e2c3f7cb93b492bf33fef946efb1740b6472a96177c2ca8b69beaf43a93ae3a03f07ff9e8bc00c61e043fa8d0ec474237f9e80f94ae9379b94b0035494aead754cefca1e6b37a563797caae69585cdf02260f275196373bd3144f4efe0e22f486dfd13edd255374d0eaf35e3309df47e791e753c9ba1b6b334db3dbe937d474fd24d7f04e4a0e03f6f295ec2ceb39d652babf68bcac02e41256b6b5d6c39cbdf53b2844829e01d648b43e4c62fb9c3ac9a53d511a5ce27e8c9bd27536fac0c0d5cac2d7fa4bd2b2f0375f355d782369219f8c431bb3d47525c8bbfaf7aac83d5f1fdd717ca86a9fa6f32855a639b64bf0b03cd6980e5c7a9670b99b96884bb3cfc08b8035c05a5bd2eafa1a98ca2d2c73d09263e6f625189f0c60b7aa6fb312468d84c68dee5b7a620fd8fcf6aca2c0fa9b42559e03ec395f602b17733c07346ab8894acb288da73bb7f279c70d13dc2ba3022883de57d763fa54eb7b70054ae40beb6d93b06ea56681f8d66b8f322cd04aa0f7cce91cae1e57aa566f3bb1193d34e2e0723231a1bc5732380e46031109991181b07e029fba6e48eb39d99f8616e3</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">需要密码才能访问</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              
+
+              
             
             <hr/>
             <div>
@@ -334,9 +321,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/docker/" class="print-no-link">#docker</a>
+        <a href="/tags/android/" class="print-no-link">#android</a>
       
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
+        <a href="/tags/reverse/" class="print-no-link">#reverse</a>
+      
+        <a href="/tags/hook/" class="print-no-link">#hook</a>
+      
+        <a href="/tags/private/" class="print-no-link">#private</a>
       
     </div>
   
@@ -348,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker容器不显示中文</div>
-      <div>http://zr4in.github.io/2024/03/14/docker容器不显示中文/</div>
+      <div>记Android某APP逆向</div>
+      <div>http://zr4in.github.io/2024/04/16/记Android某APP逆向/</div>
     </div>
     <div class="license-meta">
       
@@ -361,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月14日</div>
+          <div>2024年4月16日</div>
         </div>
       
       
@@ -393,18 +384,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/" title="记Android某APP逆向">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记Android某APP逆向</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/07/%E6%B2%81%E5%9B%AD%E6%98%A5-%E9%95%BF%E6%B2%99/" title="沁园春-长沙">
-                        <span class="hidden-mobile">沁园春-长沙</span>
+                      <a href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/" title="docker容器不显示中文">
+                        <span class="hidden-mobile">docker容器不显示中文</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -631,6 +616,23 @@
     }
   });
 </script>
+
+
+  
+  <script defer>
+    if (document.getElementById('hbePass') || document.querySelector('hbe-prefix')) {
+      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
+        var hbePrefix = document.querySelector('hbe-prefix');
+        hbePrefix.parentElement.classList.add('markdown-body');
+        Fluid.utils.retry(function() {
+          if (Fluid.boot && Fluid.boot.refresh) {
+            Fluid.boot.refresh();
+            return true;
+          }
+        }, 100, 10);
+      })
+    }
+  </script>
 
 
   
