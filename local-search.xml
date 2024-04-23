@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>windows右键菜单新建markdown文档</title>
+    <link href="/2024/04/23/windows%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E6%A1%A3/"/>
+    <url>/2024/04/23/windows%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E6%A1%A3/</url>
+    
+    <content type="html"><![CDATA[<p>typora的官网上有相应的教程<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Add New “Markdown” Item in Context Menu - Typora Support](https://support.typora.io/New-File-in-Context/)">[1]</span></a></sup>，就是更改windows的注册表，这样可以直接右键新建markdown文件，就不用朴素地新建txt文件然后再改后缀了，typora给出的注册表是：</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Windows Registry Editor Version <span class="hljs-number">5.00</span><br><br>[<span class="hljs-meta">HKEY_CLASSES_ROOT\.md</span>]<br>@=<span class="hljs-string">&quot;markdown&quot;</span><br><br>[<span class="hljs-meta">HKEY_CLASSES_ROOT\.md\ShellNew</span>]<br><span class="hljs-string">&quot;NullFile&quot;</span>=<span class="hljs-string">&quot;&quot;</span><br><br>[<span class="hljs-meta">HKEY_CLASSES_ROOT\markdown</span>]<br>@=<span class="hljs-string">&quot;Blank Markdown file&quot;</span><br></code></pre></td></tr></table></figure><p>可以先新建txt，然后复制进去，再改后缀为reg，然后双击运行，这样右键的新建菜单会有”Blank Markdown file”选项（个人感觉把Blank直接去掉更优雅）</p><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://support.typora.io/New-File-in-Context/">Add New “Markdown” Item in Context Menu - Typora Support</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>mix</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>记Android某APP逆向</title>
     <link href="/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/"/>
     <url>/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/</url>
