@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>WLAN局域网抓包探索</title>
+    <link href="/2024/08/08/WLAN%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8A%93%E5%8C%85%E6%8E%A2%E7%B4%A2/"/>
+    <url>/2024/08/08/WLAN%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8A%93%E5%8C%85%E6%8E%A2%E7%B4%A2/</url>
+    
+    <content type="html"><![CDATA[<p>之前记录过在ubuntu用linux_router来搭建无线网络抓包环境<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[wireshark+ssh输出重定向跨主机抓包 - zr4in](https://zr4in.github.io/2024/05/13/wireshark-ssh输出重定向跨主机抓包/)">[1]</span></a></sup>。大概的网络结构是这样的：</p><p><img src="https://s2.loli.net/2024/08/08/rZBn5dP2jiLSb8F.png" alt="image-20240808153135907"></p><p>Ubuntu上有两张网卡，一张有线eth0一张无线wlan0，其中eth0连接到上游的路由器，而wlan0用来开启hotspot作为无线AP，给其他的无线设备提供Wi-Fi。这样在Ubuntu上直接使用tcpdump，抓取wlan0这张网卡上的所有流量，实际上就相当于在左侧这个网络的第二层（甚至第一层？）上抓包，那么就能抓取整个无线局域网中各个设备之间以及这些设备和外界互联网之间的流量。</p><p>在这种情况下可以抓包，但是却没办法对WLAN中的设备进行更细粒度的管理和操作，比如禁用某个设备和某个外界IP的连接，总之做实验需要这些操作，但是用linux_router做不到。于是决定折腾。以下是弯路：</p><h2 id="x86-64主机安装PVE-openwrt虚拟机"><a href="#x86-64主机安装PVE-openwrt虚拟机" class="headerlink" title="x86_64主机安装PVE+openwrt虚拟机"></a>x86_64主机安装PVE+openwrt虚拟机</h2><p>被学长安利使用PVE安装openwrt虚拟机，然后在实验室发的电脑上安装pve，结果硬件直通的时候，intel的ax201网卡驱动有问题，pve和openwrt都无法识别pcie设备，于是借（白嫖）来了他已经安装好PVE和openwrt的一个工控主机。但是主机上只有4个RJ45接口，没有无线网卡。于是构思了下面的结构：</p><p><img src="https://s2.loli.net/2024/08/08/t1xunsYylq4oM6S.png" alt="image-20240808163053275"></p><p>可以看出来和第一张图几乎是没有区别的（因为根本就是用上面那张图改的），唯一的区别就是openwrt上没有无线网卡，只能把一个小米路由器改成有线中继模式，然后作为一个无线交换机接到openwrt的eth1上，eth1接口上提供dhcp服务，并且作为局域网的网关。</p><p>看上去很完美，但是实际上满足不了前面提到的需求。因为小米的路由器起到了交换机的作用，所以局域网内部设备之间的报文实际上完全没有经过网关，那么在openwrt的eth1上抓包的话，局域网内部的设备之间的流量是完全看不到的，只能抓到广播报文和流出去的报文。第一张图是因为Ubuntu的无线网卡提供了AP，所以可以抓二层的包，但是这张图，只能抓到经过eth1流经openwrt，最终路由到互联网上的报文。</p><p>搞了半天还是在有无线网卡的主机上折腾，这样相当于交换机也是可以抓包的（因为交换机就在主机里面），所以接下来试着折腾在树莓派上装个openwrt，待续。</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>流量分析</tag>
+      
+      <tag>openwrt</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>通过ssh隧道使用代理</title>
+    <link href="/2024/07/11/%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/"/>
+    <url>/2024/07/11/%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<p>实验室发的电脑性能太过孱弱了，就被我放在那当成24小时开机的个人服务器来用了，主要是做一些实验和作为sftp服务器，然后就在想，既然可以通过ssh隧道，作为文件服务器（其实是不是ftp over ssh这里先不深究），那么能不能通过ssh作为代理转发所有的流量呢？今天搜了一下果然有，先摆两个链接在这里<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[How to use SSH as a secure Proxy (networklessons.com)](https://networklessons.com/uncategorized/how-to-use-ssh-as-a-secure-proxy)">[1]</span></a></sup><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[SSH Tunneling and Proxying | Baeldung on Linux](https://www.baeldung.com/linux/ssh-tunneling-and-proxying)">[2]</span></a></sup>。</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://networklessons.com/uncategorized/how-to-use-ssh-as-a-secure-proxy">How to use SSH as a secure Proxy (networklessons.com)</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a href="https://www.baeldung.com/linux/ssh-tunneling-and-proxying">SSH Tunneling and Proxying | Baeldung on Linux</a><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>network</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>nothing important</title>
     <link href="/2024/07/10/nothing-important/"/>
     <url>/2024/07/10/nothing-important/</url>
