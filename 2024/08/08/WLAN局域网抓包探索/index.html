@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/08/08/pjzVOqiKUyl9PS5.png">
 <meta property="article:published_time" content="2024-08-08T07:16:39.000Z">
-<meta property="article:modified_time" content="2024-08-09T08:54:17.996Z">
+<meta property="article:modified_time" content="2024-08-09T10:10:14.934Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="openwrt">
 <meta property="article:tag" content="流量分析">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.3k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          18 分钟
+          20 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-08-09T16:54:17+08:00
+                    本文最后更新于 2024-08-09T18:10:14+08:00
                   
                   
 
@@ -336,6 +336,13 @@
 <p><img src="https://s2.loli.net/2024/08/09/za4BNndLCJgKhRO.png" srcset="/img/loading.gif" lazyload alt="image-20240809165240360"></p>
 <h3 id="web后台更改设置无法生效"><a href="#web后台更改设置无法生效" class="headerlink" title="web后台更改设置无法生效"></a>web后台更改设置无法生效</h3><p>如果在web后台更改设置，然后点击apply，然后刷新页面发现实际上并没有apply成功，那有可能是因为<code>readonly</code>的文件系统导致的，按照前面说的，运行<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>执行完上面的过程之后，树莓派已经变成一个合格的无线路由器了，然后就是其他的更改了。</p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>树莓派4B安装openwrt似乎存在2.4G频段的AP无法使用的情况，经过上述的配置之后，可以在5G频段以AP模式工作，但是无法在2.4G频段下以AP模式工作<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="[2.4 GHz radio doesn't work on Raspberry Pi 4B · Issue #9600 · openwrt/openwrt · GitHub](https://github.com/openwrt/openwrt/issues/9600)">[8]</span></a></sup>，会出现各种各样的报错。</p>
+<p>然后根据这个issue中的讨论，这个问题很早之前就存在了，然后inconnu299<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://github.com/openwrt/openwrt/issues/9600#issuecomment-1279742554">[9]</span></a></sup>的回复是有效的，主要是下面这些配置</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gams">config wifi-device <span class="hljs-string">&#x27;radio0&#x27;</span><br>	...<br>	<span class="hljs-keyword">option</span> channel <span class="hljs-string">&#x27;1&#x27;</span><br>	<span class="hljs-keyword">option</span> disabled <span class="hljs-string">&#x27;0&#x27;</span><br>	<span class="hljs-keyword">option</span> short_gi_40 <span class="hljs-string">&#x27;0&#x27;</span><br>	<span class="hljs-keyword">option</span> cell_density <span class="hljs-string">&#x27;0&#x27;</span><br>	<span class="hljs-keyword">option</span> htmode <span class="hljs-string">&#x27;HT40&#x27;</span><br>	...<br></code></pre></td></tr></table></figure>
+
+<p>配置之后重启，然后就可以了。</p>
+<p>hhhh，tmd，配置环境真是太有意思了。</p>
+<p>暂时更到这里。</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://pa.ci/251.html">树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://firmware-selector.openwrt.org/">OpenWrt Firmware Selector</a>
@@ -343,7 +350,9 @@
 <a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://yuaneu.ro/archives/openwrt.html">树莓派软路由openwrt折腾记 - yuaneuro’s blog</a>
 <a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/read-only-root-filesystem/111913">Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum</a>
 <a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/QuentinHsu/Document-Page/issues/12">树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu&#x2F;Document-Page · GitHub</a>
-<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/openwrt/openwrt/issues/9600">2.4 GHz radio doesn’t work on Raspberry Pi 4B · Issue #9600 · openwrt&#x2F;openwrt · GitHub</a>
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/openwrt/openwrt/issues/9600#issuecomment-1279742554">https://github.com/openwrt/openwrt/issues/9600#issuecomment-1279742554</a>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
