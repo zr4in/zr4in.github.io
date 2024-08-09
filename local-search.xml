@@ -8,17 +8,17 @@
     <link href="/2024/08/08/WLAN%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8A%93%E5%8C%85%E6%8E%A2%E7%B4%A2/"/>
     <url>/2024/08/08/WLAN%E5%B1%80%E5%9F%9F%E7%BD%91%E6%8A%93%E5%8C%85%E6%8E%A2%E7%B4%A2/</url>
     
-    <content type="html"><![CDATA[<p>之前记录过在ubuntu用linux_router来搭建无线网络抓包环境<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[wireshark+ssh输出重定向跨主机抓包 - zr4in](https://zr4in.github.io/2024/05/13/wireshark-ssh输出重定向跨主机抓包/)">[1]</span></a></sup>。大概的网络结构是这样的：</p><p><img src="https://s2.loli.net/2024/08/08/rZBn5dP2jiLSb8F.png" alt="image-20240808153135907"></p><p>Ubuntu上有两张网卡，一张有线eth0一张无线wlan0，其中eth0连接到上游的路由器，而wlan0用来开启hotspot作为无线AP，给其他的无线设备提供Wi-Fi。这样在Ubuntu上直接使用tcpdump，抓取wlan0这张网卡上的所有流量，实际上就相当于在左侧这个网络的第二层（甚至第一层？）上抓包，那么就能抓取整个无线局域网中各个设备之间以及这些设备和外界互联网之间的流量。</p><p>在这种情况下可以抓包，但是却没办法对WLAN中的设备进行更细粒度的管理和操作，比如禁用某个设备和某个外界IP的连接，总之做实验需要这些操作，但是用linux_router做不到。于是决定折腾。以下是弯路：</p><h2 id="x86-64主机安装PVE-openwrt虚拟机"><a href="#x86-64主机安装PVE-openwrt虚拟机" class="headerlink" title="x86_64主机安装PVE+openwrt虚拟机"></a>x86_64主机安装PVE+openwrt虚拟机</h2><p>被学长安利使用PVE安装openwrt虚拟机，然后在实验室发的电脑上安装pve，结果硬件直通的时候，intel的ax201网卡驱动有问题，pve和openwrt都无法识别pcie设备，于是借（白嫖）来了他已经安装好PVE和openwrt的一个工控主机。但是主机上只有4个RJ45接口，没有无线网卡。于是构思了下面的结构：</p><p><img src="https://s2.loli.net/2024/08/08/t1xunsYylq4oM6S.png" alt="image-20240808163053275"></p><p>可以看出来和第一张图几乎是没有区别的（因为根本就是用上面那张图改的），唯一的区别就是openwrt上没有无线网卡，只能把一个小米路由器改成有线中继模式，然后作为一个无线交换机接到openwrt的eth1上，eth1接口上提供dhcp服务，并且作为局域网的网关。</p><p>看上去很完美，但是实际上满足不了前面提到的需求。因为小米的路由器起到了交换机的作用，所以局域网内部设备之间的报文实际上完全没有经过网关，那么在openwrt的eth1上抓包的话，局域网内部的设备之间的流量是完全看不到的，只能抓到广播报文和流出去的报文。第一张图是因为Ubuntu的无线网卡提供了AP，所以可以抓二层的包，但是这张图，只能抓到经过eth1流经openwrt，最终路由到互联网上的报文。</p><p>搞了半天还是在有无线网卡的主机上折腾，这样相当于交换机也是可以抓包的（因为交换机就在主机里面），所以接下来试着折腾在树莓派上装个openwrt，待续。</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    <content type="html"><![CDATA[<p>之前记录过在ubuntu用linux_router来搭建无线网络抓包环境<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[wireshark+ssh输出重定向跨主机抓包 - zr4in](https://zr4in.github.io/2024/05/13/wireshark-ssh输出重定向跨主机抓包/)">[1]</span></a></sup>。大概的网络结构是这样的：</p><p><img src="https://s2.loli.net/2024/08/08/rZBn5dP2jiLSb8F.png" alt="image-20240808153135907"></p><p>Ubuntu上有两张网卡，一张有线eth0一张无线wlan0，其中eth0连接到上游的路由器，而wlan0用来开启hotspot作为无线AP，给其他的无线设备提供Wi-Fi。这样在Ubuntu上直接使用tcpdump，抓取wlan0这张网卡上的所有流量，实际上就相当于在左侧这个网络的第二层（甚至第一层？）上抓包，那么就能抓取整个无线局域网中各个设备之间以及这些设备和外界互联网之间的流量。</p><p>在这种情况下可以抓包，但是却没办法对WLAN中的设备进行更细粒度的管理和操作，比如禁用某个设备和某个外界IP的连接，总之做实验需要这些操作，但是用linux_router做不到。于是决定折腾。以下是弯路：</p><h2 id="x86-64主机安装PVE-openwrt虚拟机"><a href="#x86-64主机安装PVE-openwrt虚拟机" class="headerlink" title="x86_64主机安装PVE+openwrt虚拟机"></a>x86_64主机安装PVE+openwrt虚拟机</h2><p>被学长安利使用PVE安装openwrt虚拟机，然后在实验室发的电脑上安装pve，结果硬件直通的时候，intel的ax201网卡驱动有问题，pve和openwrt都无法识别pcie设备，于是借（白嫖）来了他已经安装好PVE和openwrt的一个工控主机。但是主机上只有4个RJ45接口，没有无线网卡。于是构思了下面的结构：</p><p><img src="https://s2.loli.net/2024/08/08/t1xunsYylq4oM6S.png" alt="image-20240808163053275"></p><p>可以看出来和第一张图几乎是没有区别的（因为根本就是用上面那张图改的），唯一的区别就是openwrt上没有无线网卡，只能把一个小米路由器改成有线中继模式，然后作为一个无线交换机接到openwrt的eth1上，eth1接口上提供dhcp服务，并且作为局域网的网关。</p><p>看上去很完美，但是实际上满足不了前面提到的需求。因为小米的路由器起到了交换机的作用，所以局域网内部设备之间的报文实际上完全没有经过网关，那么在openwrt的eth1上抓包的话，局域网内部的设备之间的流量是完全看不到的，只能抓到广播报文和流出去的报文。第一张图是因为Ubuntu的无线网卡提供了AP，所以可以抓二层的包，但是这张图，只能抓到经过eth1流经openwrt，最终路由到互联网上的报文。</p><p>搞了半天还是在有无线网卡的主机上折腾，这样相当于交换机也是可以抓包的（因为交换机就在主机里面），所以接下来试着折腾在树莓派上装个openwrt，待续。</p><h2 id="树莓派-openwrt"><a href="#树莓派-openwrt" class="headerlink" title="树莓派+openwrt"></a>树莓派+openwrt</h2><p>首先是编译镜像，按照找到的教程<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)](https://pa.ci/251.html)">[2]</span></a></sup>上的说法，从某个网站<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)">[3]</span></a></sup>上编译自定义的固件，先输入使用的型号（<code>Raspberry Pi 4B/400/CM4 (64bit)</code>），右边还可以选择openwrt的版本，默认是最新版（23.05.4），然后展开首次运行的脚本，进行一些定制的设置，点击右下角的齿轮，会自动输入模板，然后把相应设置项的注释符号<code>#</code>删掉，并更改自己想改的设置，比如wifi的ssid和口令，还有root的密码，然后点击请求构建。之后下载FACTORY (EXT4)版本。</p><p><img src="https://s2.loli.net/2024/08/09/XTycYWpCi75mFZk.png" alt="image-20240809112632822"></p><p>下载下来的文件解压后获得img镜像文件，使用烧录镜像的软件（我用的树莓派官方的）烧录进启动的设备（SD卡或者U盘），然后插到树莓派上通电启动。</p><h3 id="无法启动"><a href="#无法启动" class="headerlink" title="无法启动"></a>无法启动</h3><p>似乎使用u盘作为启动设备会有一点小小的故障，无法启动，查资料应该是有一些bug，感觉是因为固件网站<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)">[3]</span></a></sup>默认大家是通过SD卡启动的，所以镜像文件里的设置是固定的，总之解决方案在<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu/Document-Page · GitHub](https://github.com/QuentinHsu/Document-Page/issues/12)">[7]</span></a></sup>中有提到，更改烧录镜像后的启动设备中的一个文件的内容：</p><blockquote><p>在root分区（应该是打错了，实际上是boot分区）有个cmdline.txt，把<code>root=/dev/mmcblk0p2</code>改成<code>root=/dev/sda2</code>就行了</p></blockquote><p>然后继续，通电启动，按照<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)](https://pa.ci/251.html)">[2]</span></a></sup>的说法，实际上这时候应该能找到树莓派的wifi了，但是我自己试下来并没有，刚开始时只能通过命令行访问树莓派，<code>ip addr</code>查看发现只有<code>br-lan</code>这个网桥设备有<code>192.168.1.1</code>这个ip，这个应该是openwrt的子网内部的ip，树莓派还有个<code>eth0</code>的以太网网卡，是没有ip的，试了一下插到自己有网络连接的路由器上，发现<code>eth0</code>刚开始还能自动获取ip，后来干脆ip都没有了。</p><p>没有wifi，而且有线网卡也不会自动dhcp，通过命令行改<code>eth0</code>的设置也不行。而且改<code>/etc/config/network</code>文件还会发现文件系统是<code>readonly</code>，后来查资料发现可能是某种bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX](https://global.v2ex.com/t/798492)">[4]</span></a></sup>，后来按照<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup>中的说法应该是意外断电导致的（确实在安装的时候我自己手动断电过好几次，因为实在不知道怎么操作），<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup><sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum](https://forum.openwrt.org/t/read-only-root-filesystem/111913)">[6]</span></a></sup>给出的解决方案有：<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了，注意<code>[your device]</code>换成你用的启动设备，我的是<code>sda2</code>（和前面结局无法启动的bug时是对应的，也就是启动的操作系统分区）。</p><p>总之后来的解决办法是，把树莓派的以太网口和自己的电脑的以太网口连到一起，有些教程说自己电脑设置dhcp就可以，我试了一下好像不行，总之手动设置ip肯定也是可以的，设置自己的电脑的ip为<code>192.168.1.2</code>（应该不和openwrt的<code>192.168.1.1</code>重复就行），然后通过浏览器访问<code>http://192.168.1.1</code>也就是openwrt的管理后台，在这里更改openwrt的设置，</p><p>吃个午饭，下午续更</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a href="https://pa.ci/251.html">树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)</a><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a href="https://firmware-selector.openwrt.org/">OpenWrt Firmware Selector</a><a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a href="https://global.v2ex.com/t/798492">关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX</a><a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a href="https://yuaneu.ro/archives/openwrt.html">树莓派软路由openwrt折腾记 - yuaneuro’s blog</a><a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a href="https://forum.openwrt.org/t/read-only-root-filesystem/111913">Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum</a><a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a href="https://github.com/QuentinHsu/Document-Page/issues/12">树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu&#x2F;Document-Page · GitHub</a><a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
     
     
     
     <tags>
       
+      <tag>linux</tag>
+      
       <tag>openwrt</tag>
       
       <tag>流量分析</tag>
-      
-      <tag>linux</tag>
       
     </tags>
     
@@ -77,9 +77,9 @@
     
     <tags>
       
-      <tag>流量分析</tag>
-      
       <tag>linux</tag>
+      
+      <tag>流量分析</tag>
       
     </tags>
     
@@ -98,9 +98,9 @@
     
     <tags>
       
-      <tag>流量分析</tag>
-      
       <tag>linux</tag>
+      
+      <tag>流量分析</tag>
       
     </tags>
     
@@ -161,9 +161,9 @@
     
     <tags>
       
-      <tag>linux</tag>
-      
       <tag>docker</tag>
+      
+      <tag>linux</tag>
       
     </tags>
     

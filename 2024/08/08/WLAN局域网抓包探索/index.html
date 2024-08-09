@@ -25,11 +25,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/08/08/pjzVOqiKUyl9PS5.png">
 <meta property="article:published_time" content="2024-08-08T07:16:39.000Z">
-<meta property="article:modified_time" content="2024-08-08T08:38:17.209Z">
+<meta property="article:modified_time" content="2024-08-09T04:03:16.541Z">
 <meta property="article:author" content="zr4in">
+<meta property="article:tag" content="linux">
 <meta property="article:tag" content="openwrt">
 <meta property="article:tag" content="流量分析">
-<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/08/08/pjzVOqiKUyl9PS5.png">
   
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          692 字
+          1.6k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          6 分钟
+          14 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-08-08T16:38:17+08:00
+                    本文最后更新于 2024-08-09T12:03:16+08:00
                   
                   
 
@@ -308,8 +308,25 @@
 <p>可以看出来和第一张图几乎是没有区别的（因为根本就是用上面那张图改的），唯一的区别就是openwrt上没有无线网卡，只能把一个小米路由器改成有线中继模式，然后作为一个无线交换机接到openwrt的eth1上，eth1接口上提供dhcp服务，并且作为局域网的网关。</p>
 <p>看上去很完美，但是实际上满足不了前面提到的需求。因为小米的路由器起到了交换机的作用，所以局域网内部设备之间的报文实际上完全没有经过网关，那么在openwrt的eth1上抓包的话，局域网内部的设备之间的流量是完全看不到的，只能抓到广播报文和流出去的报文。第一张图是因为Ubuntu的无线网卡提供了AP，所以可以抓二层的包，但是这张图，只能抓到经过eth1流经openwrt，最终路由到互联网上的报文。</p>
 <p>搞了半天还是在有无线网卡的主机上折腾，这样相当于交换机也是可以抓包的（因为交换机就在主机里面），所以接下来试着折腾在树莓派上装个openwrt，待续。</p>
+<h2 id="树莓派-openwrt"><a href="#树莓派-openwrt" class="headerlink" title="树莓派+openwrt"></a>树莓派+openwrt</h2><p>首先是编译镜像，按照找到的教程<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)](https://pa.ci/251.html)">[2]</span></a></sup>上的说法，从某个网站<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)">[3]</span></a></sup>上编译自定义的固件，先输入使用的型号（<code>Raspberry Pi 4B/400/CM4 (64bit)</code>），右边还可以选择openwrt的版本，默认是最新版（23.05.4），然后展开首次运行的脚本，进行一些定制的设置，点击右下角的齿轮，会自动输入模板，然后把相应设置项的注释符号<code>#</code>删掉，并更改自己想改的设置，比如wifi的ssid和口令，还有root的密码，然后点击请求构建。之后下载FACTORY (EXT4)版本。</p>
+<p><img src="https://s2.loli.net/2024/08/09/XTycYWpCi75mFZk.png" srcset="/img/loading.gif" lazyload alt="image-20240809112632822"></p>
+<p>下载下来的文件解压后获得img镜像文件，使用烧录镜像的软件（我用的树莓派官方的）烧录进启动的设备（SD卡或者U盘），然后插到树莓派上通电启动。</p>
+<h3 id="无法启动"><a href="#无法启动" class="headerlink" title="无法启动"></a>无法启动</h3><p>似乎使用u盘作为启动设备会有一点小小的故障，无法启动，查资料应该是有一些bug，感觉是因为固件网站<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)">[3]</span></a></sup>默认大家是通过SD卡启动的，所以镜像文件里的设置是固定的，总之解决方案在<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu/Document-Page · GitHub](https://github.com/QuentinHsu/Document-Page/issues/12)">[7]</span></a></sup>中有提到，更改烧录镜像后的启动设备中的一个文件的内容：</p>
+<blockquote>
+<p>在root分区（应该是打错了，实际上是boot分区）有个cmdline.txt，把<code>root=/dev/mmcblk0p2</code>改成<code>root=/dev/sda2</code>就行了</p>
+</blockquote>
+<p>然后继续，通电启动，按照<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)](https://pa.ci/251.html)">[2]</span></a></sup>的说法，实际上这时候应该能找到树莓派的wifi了，但是我自己试下来并没有，刚开始时只能通过命令行访问树莓派，<code>ip addr</code>查看发现只有<code>br-lan</code>这个网桥设备有<code>192.168.1.1</code>这个ip，这个应该是openwrt的子网内部的ip，树莓派还有个<code>eth0</code>的以太网网卡，是没有ip的，试了一下插到自己有网络连接的路由器上，发现<code>eth0</code>刚开始还能自动获取ip，后来干脆ip都没有了。</p>
+<p>没有wifi，而且有线网卡也不会自动dhcp，通过命令行改<code>eth0</code>的设置也不行。而且改<code>/etc/config/network</code>文件还会发现文件系统是<code>readonly</code>，后来查资料发现可能是某种bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX](https://global.v2ex.com/t/798492)">[4]</span></a></sup>，后来按照<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup>中的说法应该是意外断电导致的（确实在安装的时候我自己手动断电过好几次，因为实在不知道怎么操作），<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup><sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum](https://forum.openwrt.org/t/read-only-root-filesystem/111913)">[6]</span></a></sup>给出的解决方案有：<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了，注意<code>[your device]</code>换成你用的启动设备，我的是<code>sda2</code>（和前面结局无法启动的bug时是对应的，也就是启动的操作系统分区）。</p>
+<p>总之后来的解决办法是，把树莓派的以太网口和自己的电脑的以太网口连到一起，有些教程说自己电脑设置dhcp就可以，我试了一下好像不行，总之手动设置ip肯定也是可以的，设置自己的电脑的ip为<code>192.168.1.2</code>（应该不和openwrt的<code>192.168.1.1</code>重复就行），然后通过浏览器访问<code>http://192.168.1.1</code>也就是openwrt的管理后台，在这里更改openwrt的设置，</p>
+<p>吃个午饭，下午续更</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://pa.ci/251.html">树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://firmware-selector.openwrt.org/">OpenWrt Firmware Selector</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://global.v2ex.com/t/798492">关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://yuaneu.ro/archives/openwrt.html">树莓派软路由openwrt折腾记 - yuaneuro’s blog</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/read-only-root-filesystem/111913">Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum</a>
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/QuentinHsu/Document-Page/issues/12">树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu&#x2F;Document-Page · GitHub</a>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -321,11 +338,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
         <a href="/tags/openwrt/" class="print-no-link">#openwrt</a>
       
         <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="print-no-link">#流量分析</a>
-      
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
     </div>
   
