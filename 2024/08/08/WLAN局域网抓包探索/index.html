@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/08/08/pjzVOqiKUyl9PS5.png">
 <meta property="article:published_time" content="2024-08-08T07:16:39.000Z">
-<meta property="article:modified_time" content="2024-08-09T10:28:15.503Z">
+<meta property="article:modified_time" content="2024-09-04T13:11:47.259Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="openwrt">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.4k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          20 分钟
+          21 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-08-09T18:28:15+08:00
+                    本文最后更新于 2024-09-04T21:11:47+08:00
                   
                   
 
@@ -316,7 +316,7 @@
 <p>在root分区（应该是打错了，实际上是boot分区）有个cmdline.txt，把<code>root=/dev/mmcblk0p2</code>改成<code>root=/dev/sda2</code>就行了</p>
 </blockquote>
 <p>然后继续，通电启动，按照<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)](https://pa.ci/251.html)">[2]</span></a></sup>的说法，实际上这时候应该能找到树莓派的wifi了，但是我自己试下来并没有，刚开始时只能通过命令行访问树莓派，<code>ip addr</code>查看发现只有<code>br-lan</code>这个网桥设备有<code>192.168.1.1</code>这个ip，这个应该是openwrt的子网内部的ip，树莓派还有个<code>eth0</code>的以太网网卡，是没有ip的，试了一下插到自己有网络连接的路由器上，发现<code>eth0</code>刚开始还能自动获取ip，后来干脆ip都没有了。</p>
-<h3 id="没有ip无法进入web后台"><a href="#没有ip无法进入web后台" class="headerlink" title="没有ip无法进入web后台"></a>没有ip无法进入web后台</h3><p>没有wifi，而且有线网卡也不会自动dhcp，通过命令行改<code>eth0</code>的设置也不行，这样就没办法通过openwrt的web后台来配置路由器了。而且通过命令行修改<code>/etc/config/network</code>文件还会发现文件系统是<code>readonly</code>，后来查资料发现可能是某种bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX](https://global.v2ex.com/t/798492)">[4]</span></a></sup>，后来按照<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup>中的说法应该是意外断电导致的（确实在安装的时候我自己手动断电过好几次，因为实在不知道怎么操作），<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup><sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum](https://forum.openwrt.org/t/read-only-root-filesystem/111913)">[6]</span></a></sup>给出的解决方案有：<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了，注意<code>[your device]</code>换成你用的启动设备，我的是<code>sda2</code>（和前面结局无法启动的bug时是对应的，也就是启动的操作系统分区）。</p>
+<h3 id="没有ip无法进入web后台"><a href="#没有ip无法进入web后台" class="headerlink" title="没有ip无法进入web后台"></a>没有ip无法进入web后台</h3><p>没有wifi，而且有线网卡也不会自动dhcp，通过命令行改<code>eth0</code>的设置也不行，这样就没办法通过openwrt的web后台来配置路由器了。而且通过命令行修改<code>/etc/config/network</code>文件还会发现文件系统是<code>readonly</code>，后来查资料发现可能是某种bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[关于树莓派刷写 Openwrt 固件后的一个小疑惑 - V2EX](https://global.v2ex.com/t/798492)">[4]</span></a></sup>，后来按照<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup>中的说法应该是意外断电导致的（确实在安装的时候我自己手动断电过好几次，因为实在不知道怎么操作），<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派软路由openwrt折腾记 - yuaneuro's blog](https://yuaneu.ro/archives/openwrt.html)">[5]</span></a></sup><sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Read only root filesystem - Installing and Using OpenWrt - OpenWrt Forum](https://forum.openwrt.org/t/read-only-root-filesystem/111913)">[6]</span></a></sup>给出的解决方案有：<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了，注意<code>[your device]</code>换成你用的启动设备，我的是<code>sda2</code>（和前面解决无法启动的bug时是对应的，也就是启动的操作系统分区）。</p>
 <p>总之后来的解决办法是，把树莓派的以太网口和自己的电脑的以太网口连到一起，有些教程说自己电脑设置dhcp就可以，我试了一下好像不行</p>
 <p><img src="https://s2.loli.net/2024/08/09/qZBAHWrl2mY3hPn.png" srcset="/img/loading.gif" lazyload alt="image-20240809162335323"></p>
 <p>总之手动设置ip肯定也是可以的，设置自己的电脑的ip为<code>192.168.1.2</code>（应该不和openwrt的<code>192.168.1.1</code>重复就行）</p>
@@ -331,7 +331,7 @@
 <p><img src="https://s2.loli.net/2024/08/09/2FqA8fBWTp3SPig.png" srcset="/img/loading.gif" lazyload alt="image-20240809164614181"></p>
 <p>然后把原来的br-lan这个interface改一下（因为这个interface也用了eth0这个物理设备，会出现冲突，改到无线网络接口上，选中wireless设备就行）：</p>
 <p><img src="https://s2.loli.net/2024/08/09/cROwWQCahqSkLvF.png" srcset="/img/loading.gif" lazyload alt="image-20240809164743052"></p>
-<p>然后save apply，执行之后实际上目前这个浏览器的窗口就不会有响应了，因为现在网络拓扑已经变化了，这时候可以把树莓派上的网线接到上游的路由器了，由上层的路由器dhcp分配给它一个ip，可以通过这个ip来访问后台：</p>
+<p>然后save apply，执行之后实际上目前这个浏览器的窗口就不会有响应了，因为现在网络拓扑已经变化了，这时候可以把树莓派上的网线接到上游的路由器了。注意这里尽快把网线换到路由器上，忘记在哪看到的资料说多少秒内如果没有按照现有的配置成功完成设置，openwrt会自动reset回上次的设置，save and apply的时候有一个弹窗显示的时间应该就是timeout。由上层的路由器dhcp分配给它一个ip，可以通过这个ip来访问后台：</p>
 <p><img src="https://s2.loli.net/2024/08/09/za4BNndLCJgKhRO.png" srcset="/img/loading.gif" lazyload alt="image-20240809165240360"></p>
 <h3 id="web后台更改设置无法生效"><a href="#web后台更改设置无法生效" class="headerlink" title="web后台更改设置无法生效"></a>web后台更改设置无法生效</h3><p>如果在web后台更改设置，然后点击apply，然后刷新页面发现实际上并没有apply成功，那有可能是因为<code>readonly</code>的文件系统导致的，按照前面说的，运行<code>e2fsck -y /dev/[your device]</code>然后<code>reboot</code>重启就可以了。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>执行完上面的过程之后，树莓派已经变成一个合格的无线路由器了，然后就是其他的更改了。</p>
@@ -340,8 +340,8 @@
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">config wifi-device <span class="hljs-string">&#x27;radio0&#x27;</span><br>        <span class="hljs-keyword">option</span> <span class="hljs-keyword">type</span> <span class="hljs-string">&#x27;mac80211&#x27;</span><br>        <span class="hljs-keyword">option</span> <span class="hljs-type">path</span> <span class="hljs-string">&#x27;platform/soc/fe300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1&#x27;</span><br>        <span class="hljs-keyword">option</span> channel <span class="hljs-string">&#x27;1&#x27;</span><br>        <span class="hljs-keyword">option</span> band <span class="hljs-string">&#x27;2g&#x27;</span><br>        <span class="hljs-keyword">option</span> disabled <span class="hljs-string">&#x27;0&#x27;</span><br>        <span class="hljs-keyword">option</span> short_gi_40 <span class="hljs-string">&#x27;0&#x27;</span><br>        <span class="hljs-keyword">option</span> htmode <span class="hljs-string">&#x27;HT40&#x27;</span><br>        <span class="hljs-keyword">option</span> cell_density <span class="hljs-string">&#x27;0&#x27;</span><br>#       <span class="hljs-keyword">option</span> legacy_rates <span class="hljs-string">&#x27;1&#x27;</span><br><br>config wifi-iface <span class="hljs-string">&#x27;wifinet0&#x27;</span><br>        <span class="hljs-keyword">option</span> device <span class="hljs-string">&#x27;radio0&#x27;</span><br>        <span class="hljs-keyword">option</span> mode <span class="hljs-string">&#x27;ap&#x27;</span><br>        <span class="hljs-keyword">option</span> ssid <span class="hljs-string">&#x27;your_ssid&#x27;</span><br>        <span class="hljs-keyword">option</span> encryption <span class="hljs-string">&#x27;psk2&#x27;</span><br>        <span class="hljs-keyword">option</span> key <span class="hljs-string">&#x27;your_wifi_password&#x27;</span><br>        <span class="hljs-keyword">option</span> network <span class="hljs-string">&#x27;lan&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <p>配置之后重启，然后就可以了。</p>
-<p>hhhh，tmd，配置环境真是太有意思了。</p>
-<p>暂时更到这里。</p>
+<p>。</p>
+<p>暂时更到这里。一些可能有用的链接<sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Wireless AP on Raspberry Pi 4B not working - Installing and Using OpenWrt / Network and Wireless Configuration - OpenWrt Forum](https://forum.openwrt.org/t/wireless-ap-on-raspberry-pi-4b-not-working/94875)">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Wireless is not Associated - Installing and Using OpenWrt / Network and Wireless Configuration - OpenWrt Forum](https://forum.openwrt.org/t/wireless-is-not-associated/63291/36)">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="[树莓派 4B OpenWrt 旁路由教程 | 叶寻的博客 (cyrusyip.org)](https://cyrusyip.org/zh-cn/posts/2021/08/30/raspberry-pi-4b-openwrt/)">[12]</span></a></sup><sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="[nftables 入门：从配置文件到端口转发 | Rachel's Blog | Rachel030219 (rachelt.one)](https://blog.rachelt.one/articles/new-to-nftables-from-config-to-dnat/)">[13]</span></a></sup></p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://zr4in.github.io/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/">wireshark+ssh输出重定向跨主机抓包 - zr4in</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://pa.ci/251.html">树莓派4B安装OpenWrt旁路由并设置相关软件（保姆式教程） - 怕刺 (pa.ci)</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://firmware-selector.openwrt.org/">OpenWrt Firmware Selector</a>
@@ -351,7 +351,11 @@
 <a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/QuentinHsu/Document-Page/issues/12">树莓派4B用USB启动OpenWrt固件 · Issue #12 · QuentinHsu&#x2F;Document-Page · GitHub</a>
 <a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/openwrt/openwrt/issues/9600">2.4 GHz radio doesn’t work on Raspberry Pi 4B · Issue #9600 · openwrt&#x2F;openwrt · GitHub</a>
 <a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/openwrt/openwrt/issues/9600#issuecomment-1279742554">https://github.com/openwrt/openwrt/issues/9600#issuecomment-1279742554</a>
-<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/wireless-ap-on-raspberry-pi-4b-not-working/94875">Wireless AP on Raspberry Pi 4B not working - Installing and Using OpenWrt &#x2F; Network and Wireless Configuration - OpenWrt Forum</a>
+<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:11" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/wireless-is-not-associated/63291/36">Wireless is not Associated - Installing and Using OpenWrt &#x2F; Network and Wireless Configuration - OpenWrt Forum</a>
+<a href="#fnref:11" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:12" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://cyrusyip.org/zh-cn/posts/2021/08/30/raspberry-pi-4b-openwrt/">树莓派 4B OpenWrt 旁路由教程 | 叶寻的博客 (cyrusyip.org)</a>
+<a href="#fnref:12" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:13" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.rachelt.one/articles/new-to-nftables-from-config-to-dnat/">nftables 入门：从配置文件到端口转发 | Rachel’s Blog | Rachel030219 (rachelt.one)</a>
+<a href="#fnref:13" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -423,6 +427,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/09/04/%E9%80%9A%E8%BF%87frida-hook-ssl%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96APP%E6%B5%81%E9%87%8F/" title="通过frida hook ssl函数获取APP流量">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">通过frida hook ssl函数获取APP流量</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
