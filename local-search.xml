@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>《炼金术战争》</title>
+    <link href="/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/"/>
+    <url>/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/</url>
+    
+    <content type="html"><![CDATA[<h2 id="作者简介"><a href="#作者简介" class="headerlink" title="作者简介"></a>作者简介</h2><p>伊恩·特里吉利斯是一位大胡子江湖医生和某个名誉扫地的塔罗牌预言师的儿子。他还是另一位大胡子乔治·马丁的天才徒弟。<br>他在明尼苏达州出生长大，他的父母为了躲避一位佛兰德亲王的怒火而逃到了那里。（按他的说法，详细的故事还会牵扯到一艘荷兰不定期货船与一匹偷来的马。）如今他和妻子与一只饮食过量的猫住在新墨西哥州，而他在那里与作家、科学家及其他“恶党”为伍。<br>伊恩·特里吉利斯毕业于明尼苏达州州立大学，物理学博士。现就职于美国洛斯阿拉莫斯国家实验室。代表作品：“炼金术战争”系列，“神魔二战”系列。</p><h2 id="机械人"><a href="#机械人" class="headerlink" title="机械人"></a>机械人</h2><p>贾克斯的自由<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="炼金术战争——机械人，Page165">[1]</span></a></sup></p><blockquote><p>自由的感觉……无可比拟。</p><p>自由意志是一片真空，一片负空间。其中没有压力，没有强迫，没有痛苦。是他的意识——此前存在众多禁制，不断争夺其主导权的意识——之中的一片空白。它是照相底片，记录着贾克斯被铸造出来的这118年里的每一分钟的存在。</p><p>它压倒一切。令他兴奋，以及恐惧。</p><p>压倒一切。他能做他想做的任何事。但“任何事都可以”也就代表“没什么特别的事“。自由不会推动他的脚步，也不会为他指引方向。人类是怎么指引自己的？他们怎么知道哪些事该做，哪些不该做？没有禁制和超禁制在争夺生活中每次行动的主导权，他们怎么知道该在何时做些什么？没人告诉他们该做什么，他们又是如何安排每日生活的？</p></blockquote><p>安娜斯塔西亚·贝尔<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="炼金术战争——机械人，Page216">[2]</span></a></sup></p><blockquote><p>“你说我们人类与我们的造物并没有太大分别，这一点没说错。但方向跟你主张的不同。喀拉客并不是另一种拥有灵魂的造物。我们人类也缺少了同样的东西。可悲的事实在于，神父，所谓的灵魂或者自由意志并不存在。二者都只是幻想而已。”</p></blockquote><h2 id="Refreneces"><a href="#Refreneces" class="headerlink" title="Refreneces"></a>Refreneces</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>炼金术战争——机械人，Page165<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>炼金术战争——机械人，Page216<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>随笔</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>通过frida hook ssl函数获取APP流量</title>
     <link href="/2024/09/04/%E9%80%9A%E8%BF%87frida-hook-ssl%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96APP%E6%B5%81%E9%87%8F/"/>
     <url>/2024/09/04/%E9%80%9A%E8%BF%87frida-hook-ssl%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96APP%E6%B5%81%E9%87%8F/</url>
@@ -18,11 +37,11 @@
       
       <tag>android</tag>
       
-      <tag>frida</tag>
-      
       <tag>reverse</tag>
       
       <tag>hook</tag>
+      
+      <tag>frida</tag>
       
     </tags>
     
