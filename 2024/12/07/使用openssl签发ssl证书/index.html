@@ -16,24 +16,25 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="作者简介伊恩·特里吉利斯是一位大胡子江湖医生和某个名誉扫地的塔罗牌预言师的儿子。他还是另一位大胡子乔治·马丁的天才徒弟。他在明尼苏达州出生长大，他的父母为了躲避一位佛兰德亲王的怒火而逃到了那里。（按他的说法，详细的故事还会牵扯到一艘荷兰不定期货船与一匹偷来的马。）如今他和妻子与一只饮食过量的猫住在新墨西哥州，而他在那里与作家、科学家及其他“恶党”为伍。伊恩·特里吉利斯毕业于明尼苏达州州立大学，物理">
+    <meta name="description" content="如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露） 步骤openssl生成rsa秘钥 1openssl genrsa -out root.rsa.key 2048  使用秘钥生成证书申请 1openssl req -new -key root.rsa.key -out root.rsa.csr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《炼金术战争》">
-<meta property="og:url" content="http://zr4in.github.io/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/index.html">
+<meta property="og:title" content="使用openssl签发ssl证书">
+<meta property="og:url" content="http://zr4in.github.io/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="作者简介伊恩·特里吉利斯是一位大胡子江湖医生和某个名誉扫地的塔罗牌预言师的儿子。他还是另一位大胡子乔治·马丁的天才徒弟。他在明尼苏达州出生长大，他的父母为了躲避一位佛兰德亲王的怒火而逃到了那里。（按他的说法，详细的故事还会牵扯到一艘荷兰不定期货船与一匹偷来的马。）如今他和妻子与一只饮食过量的猫住在新墨西哥州，而他在那里与作家、科学家及其他“恶党”为伍。伊恩·特里吉利斯毕业于明尼苏达州州立大学，物理">
+<meta property="og:description" content="如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露） 步骤openssl生成rsa秘钥 1openssl genrsa -out root.rsa.key 2048  使用秘钥生成证书申请 1openssl req -new -key root.rsa.key -out root.rsa.csr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/12/01/7NnySUlCpd6g1s4.png">
-<meta property="article:published_time" content="2024-12-01T08:15:30.000Z">
-<meta property="article:modified_time" content="2024-12-01T08:49:56.876Z">
+<meta property="og:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
+<meta property="article:published_time" content="2024-12-07T09:35:58.000Z">
+<meta property="article:modified_time" content="2024-12-07T14:35:43.639Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="network">
+<meta property="article:tag" content="ssl">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/01/7NnySUlCpd6g1s4.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
   
   
   
-  <title>《炼金术战争》 - zr4in</title>
+  <title>使用openssl签发ssl证书 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="《炼金术战争》"></span>
+            <span id="subtitle" data-typed-text="使用openssl签发ssl证书"></span>
           
         </div>
 
@@ -222,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-01 16:15" pubdate>
-          2024年12月1日 下午
+        <time datetime="2024-12-07 17:35" pubdate>
+          2024年12月7日 下午
         </time>
       </span>
     
@@ -234,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          602 字
+          774 字
         
       </span>
     
@@ -245,7 +246,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -282,12 +283,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">《炼金术战争》</h1>
+            <h1 id="seo-header">使用openssl签发ssl证书</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-12-01T16:49:56+08:00
+                    本文最后更新于 2024-12-07T22:35:43+08:00
                   
                   
 
@@ -297,21 +298,58 @@
             
               <div class="markdown-body">
                 
-                <h2 id="作者简介"><a href="#作者简介" class="headerlink" title="作者简介"></a>作者简介</h2><p>伊恩·特里吉利斯是一位大胡子江湖医生和某个名誉扫地的塔罗牌预言师的儿子。他还是另一位大胡子乔治·马丁的天才徒弟。<br>他在明尼苏达州出生长大，他的父母为了躲避一位佛兰德亲王的怒火而逃到了那里。（按他的说法，详细的故事还会牵扯到一艘荷兰不定期货船与一匹偷来的马。）如今他和妻子与一只饮食过量的猫住在新墨西哥州，而他在那里与作家、科学家及其他“恶党”为伍。<br>伊恩·特里吉利斯毕业于明尼苏达州州立大学，物理学博士。现就职于美国洛斯阿拉莫斯国家实验室。代表作品：“炼金术战争”系列，“神魔二战”系列。</p>
-<h2 id="机械人"><a href="#机械人" class="headerlink" title="机械人"></a>机械人</h2><p>贾克斯的自由<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="炼金术战争——机械人，Page165">[1]</span></a></sup></p>
-<blockquote>
-<p>自由的感觉……无可比拟。</p>
-<p>自由意志是一片真空，一片负空间。其中没有压力，没有强迫，没有痛苦。是他的意识——此前存在众多禁制，不断争夺其主导权的意识——之中的一片空白。它是照相底片，记录着贾克斯被铸造出来的这118年里的每一分钟的存在。</p>
-<p>它压倒一切。令他兴奋，以及恐惧。</p>
-<p>压倒一切。他能做他想做的任何事。但“任何事都可以”也就代表“没什么特别的事“。自由不会推动他的脚步，也不会为他指引方向。人类是怎么指引自己的？他们怎么知道哪些事该做，哪些不该做？没有禁制和超禁制在争夺生活中每次行动的主导权，他们怎么知道该在何时做些什么？没人告诉他们该做什么，他们又是如何安排每日生活的？</p>
-</blockquote>
-<p>安娜斯塔西亚·贝尔<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="炼金术战争——机械人，Page216">[2]</span></a></sup></p>
-<blockquote>
-<p>“你说我们人类与我们的造物并没有太大分别，这一点没说错。但方向跟你主张的不同。喀拉客并不是另一种拥有灵魂的造物。我们人类也缺少了同样的东西。可悲的事实在于，神父，所谓的灵魂或者自由意志并不存在。二者都只是幻想而已。”</p>
-</blockquote>
-<h2 id="Refreneces"><a href="#Refreneces" class="headerlink" title="Refreneces"></a>Refreneces</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>炼金术战争——机械人，Page165
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>炼金术战争——机械人，Page216
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                <p>如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露）</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>openssl生成rsa秘钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out root.rsa.key 2048<br></code></pre></td></tr></table></figure>
+
+<p>使用秘钥生成证书申请</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key root.rsa.key -out root.rsa.csr<br></code></pre></td></tr></table></figure>
+
+<p>再用生成的秘钥自己给自己签名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> root.rsa.csr -out root.crt -signkey root.rsa.key -days 365<br></code></pre></td></tr></table></figure>
+
+<p>如此生成了一个有效期一年的自签名证书。</p>
+<p>如果要在不同的域名（或者IP）上使用ssl，还需要针对每一个主机各自签发证书。步骤类似的</p>
+<p>生成秘钥</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">openssl genrsa -<span class="hljs-keyword">out</span> <span class="hljs-keyword">server</span>.rsa.key <span class="hljs-number">2048</span><br></code></pre></td></tr></table></figure>
+
+<p>使用秘钥生成证书申请</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.rsa.key -out server.rsa.csr<br></code></pre></td></tr></table></figure>
+
+<p>再用刚刚的根证书对这个证书申请签名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> server.rsa.csr -out server.crt -days 365 -CA root.crt -CAkey root.rsa.key -CAcreateserial -sha256<br></code></pre></td></tr></table></figure>
+
+<p>如此签发了一个有效期一年的证书。</p>
+<h2 id="but"><a href="#but" class="headerlink" title="but"></a>but</h2><p>但是目前测试在客户端（Edge on Windows11）上试了一下还是会报错，虽然windows已经把root.crt安装到可信的根证书颁发机构。Chrome报错是<code>net::ERR_CERT_COMMON_NAME_INVALID</code></p>
+<h2 id="Subject-Alternative-Name"><a href="#Subject-Alternative-Name" class="headerlink" title="Subject Alternative Name"></a>Subject Alternative Name</h2><p>根据IdeaWand<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="[使用OpenSSL生成含有Subject Alternative Name(SAN)的证书 | IdeaWand](https://blog.ideawand.com/2017/11/22/build-certificate-that-support-Subject-Alternative-Name-SAN/)">[7]</span></a></sup>的说法，现在的浏览器基本上都放弃了CommonName。转而使用Subject Alternative Name，所以需要生成带有SAN的证书。</p>
+<p>所以在生成服务器的证书的时候需要指定这些extension。根据zmc<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenSSL证书通过Subject Alternative Name扩展字段扩展证书支持的域名 - 人艰不拆_zmc - 博客园](https://www.cnblogs.com/zhangmingcheng/p/18412749)">[8]</span></a></sup>的教程</p>
+<p>首先生成根证书的过程是不变的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out root.rsa.key 2048<br>openssl req -new -key root.rsa.key -out root.rsa.csr<br>openssl x509 -req -<span class="hljs-keyword">in</span> root.rsa.csr -out root.crt -signkey root.rsa.key -days 365<br></code></pre></td></tr></table></figure>
+
+<p>然后生成服务器证书的秘钥也是不变的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out server.rsa.key 2048<br></code></pre></td></tr></table></figure>
+
+<p>然后需要编写配置文件，在配置文件中指定一些extension字段，server.conf</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[ req ]</span><br><span class="hljs-attr">default_bits</span> = <span class="hljs-number">2048</span><br><span class="hljs-attr">prompt</span> = <span class="hljs-literal">no</span><br><span class="hljs-attr">default_md</span> = sha256<br><span class="hljs-attr">req_extensions</span> = v3_ext<br><span class="hljs-attr">distinguished_name</span> = dn<br><br><span class="hljs-section">[ dn ]</span><br><span class="hljs-attr">C</span> = CN<br><span class="hljs-attr">ST</span> = Province Name<br><span class="hljs-attr">L</span> = City<br><span class="hljs-attr">O</span> = Organization Name<br><span class="hljs-attr">OU</span> = Organization Unit Name<br><span class="hljs-attr">CN</span> = Common Name<br><br><span class="hljs-section">[ req_ext ]</span><br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ alt_names ]</span><br><span class="hljs-attr">DNS.1</span> = DNS name <span class="hljs-number">1</span> <span class="hljs-comment"># 域名</span><br><span class="hljs-attr">DNS.2</span> = DNS name <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个域名</span><br><span class="hljs-attr">IP.1</span> = IP <span class="hljs-number">1</span> <span class="hljs-comment"># IP地址</span><br><span class="hljs-attr">IP.2</span> = IP <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个IP地址</span><br><br><span class="hljs-section">[ v3_ext ]</span><br><span class="hljs-comment"># basicConstraints=CA:FALSE</span><br><span class="hljs-comment"># keyUsage=keyEncipherment,dataEncipherment</span><br><span class="hljs-comment"># extendedKeyUsage=serverAuth,clientAuth</span><br><span class="hljs-attr">subjectAltName</span>=@alt_names<br></code></pre></td></tr></table></figure>
+
+<p>注释掉的三行大概是一些控制证书的用途的字段，不知道是哪一行导致的不能用于https，所以就都注释掉了。</p>
+<p>然后依赖这个配置文件，生成服务器证书的申请</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.rsa.key -out server.rsa.csr -config server.conf<br></code></pre></td></tr></table></figure>
+
+<p>然后使用自签名的根证书，签发服务器证书。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> server.rsa.csr -out server.crt -days 365 -CA root.crt -CAkey root.rsa.key -CAcreateserial -sha256 -extensions v3_ext -extfile server.conf<br></code></pre></td></tr></table></figure>
+
+<p>然后得到的<code>server.crt</code>就是有效的证书，然后就<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Apache配置ssl证书-实现https访问 | Galiyy'blog](https://galiyy.github.io/2020/03/31/Apache配置ssl证书-实现https访问/)">[6]</span></a></sup>可以用于https了。</p>
+<p><img src="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png" srcset="/img/loading.gif" lazyload alt="image-20241207215657035"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4">使用openssl制作自定义CA、自签名ssl证书</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://ningyu1.github.io/site/post/51-ssl-cert/">Openssl生成自签名证书，简单步骤 - 凝雨 - Yun</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhaobowen/p/13321578.html">自签名证书和CA证书的区别和制作、使用 - 名字很长容易被惦记 - 博客园</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://breezetemple.github.io/2019/04/08/setup-your-own-CA-with-OpenSSL/">使用 OpenSSL 生成私钥和签名并自己做 CA 签名 |</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.tangyuecan.com/2021/12/17/%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E6%90%AD%E5%BB%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%AF%E4%BF%A1%E4%BB%BB%E7%9A%84ssl%E8%AF%81%E4%B9%A6/">局域网内搭建浏览器可信任的SSL证书 – 唐玥璨 | 博客</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://galiyy.github.io/2020/03/31/Apache%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6-%E5%AE%9E%E7%8E%B0https%E8%AE%BF%E9%97%AE/">Apache配置ssl证书-实现https访问 | Galiyy’blog</a>
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.ideawand.com/2017/11/22/build-certificate-that-support-Subject-Alternative-Name-SAN/">使用OpenSSL生成含有Subject Alternative Name(SAN)的证书 | IdeaWand</a>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/18412749">OpenSSL证书通过Subject Alternative Name扩展字段扩展证书支持的域名 - 人艰不拆_zmc - 博客园</a>
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -323,7 +361,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9A%8F%E7%AC%94/" class="print-no-link">#随笔</a>
+        <a href="/tags/network/" class="print-no-link">#network</a>
+      
+        <a href="/tags/ssl/" class="print-no-link">#ssl</a>
       
     </div>
   
@@ -335,8 +375,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>《炼金术战争》</div>
-      <div>http://zr4in.github.io/2024/12/01/《炼金术战争》/</div>
+      <div>使用openssl签发ssl证书</div>
+      <div>http://zr4in.github.io/2024/12/07/使用openssl签发ssl证书/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +388,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月1日</div>
+          <div>2024年12月7日</div>
         </div>
       
       
@@ -380,18 +420,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/" title="使用openssl签发ssl证书">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用openssl签发ssl证书</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/04/%E9%80%9A%E8%BF%87frida-hook-ssl%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96APP%E6%B5%81%E9%87%8F/" title="通过frida hook ssl函数获取APP流量">
-                        <span class="hidden-mobile">通过frida hook ssl函数获取APP流量</span>
+                      <a href="/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/" title="《炼金术战争》">
+                        <span class="hidden-mobile">《炼金术战争》</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

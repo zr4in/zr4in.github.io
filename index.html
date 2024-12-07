@@ -236,6 +236,54 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/" target="_self">
+          <img src="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png" srcset="/img/loading.gif" lazyload alt="使用openssl签发ssl证书">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/" target="_self">
+          使用openssl签发ssl证书
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/" target="_self">
+        <div>
+          如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露） 步骤openssl生成rsa秘钥 1openssl genrsa -out root.rsa.key 2048  使用秘钥生成证书申请 1openssl req -new -key root.rsa.key -out root.rsa.csr
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-12-07 17:35" pubdate>
+              2024-12-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/network/">#network</a>
+            
+              <a href="/tags/ssl/">#ssl</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/" target="_self">
           <img src="https://s2.loli.net/2024/12/01/7NnySUlCpd6g1s4.png" srcset="/img/loading.gif" lazyload alt="《炼金术战争》">
         </a>
@@ -320,11 +368,11 @@
             
               <a href="/tags/android/">#android</a>
             
+              <a href="/tags/frida/">#frida</a>
+            
               <a href="/tags/reverse/">#reverse</a>
             
               <a href="/tags/hook/">#hook</a>
-            
-              <a href="/tags/frida/">#frida</a>
             
           </div>
         
@@ -661,54 +709,6 @@
               <a href="/tags/reverse/">#reverse</a>
             
               <a href="/tags/hook/">#hook</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/" target="_self">
-          <img src="https://s2.loli.net/2024/03/14/uPHk8FEq4SVAYpo.png" srcset="/img/loading.gif" lazyload alt="docker容器不显示中文">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/" target="_self">
-          docker容器不显示中文
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/" target="_self">
-        <div>
-          打算搬迁自己的笔记到组里的服务器上，又因为是服务器，对环境限制比较多，不会随便安装一些包和lib库，所以大家基本上都是docker开自己的容器用。 然后：  终端无法显示中文，实际上zsh的命令补全还是能显示中文的，但是终端就是不行  按照找到的教程，locale和locale -a查看本地正在使用以及支持的字符集：  这里看到LC_ALL=C，按照某个教程里的说法，C就是POSIX，是不支持中文
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-03-14 10:21" pubdate>
-              2024-03-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-              <a href="/tags/docker/">#docker</a>
             
           </div>
         
