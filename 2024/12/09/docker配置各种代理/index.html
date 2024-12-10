@@ -16,25 +16,26 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露） 步骤openssl生成rsa秘钥 1openssl genrsa -out root.rsa.key 2048  使用秘钥生成证书申请 1openssl req -new -key root.rsa.key -out root.rsa.csr">
+    <meta name="description" content="参考总结自SkyWT的博客[1] Docker daemon代理问题：从DockerHub拉取镜像时可能出现网络问题。 解决方案：在 &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;http-proxy.conf 编写 systemd 配置，配置 HTTP 和 HTTPS 代理： 123[Service]Environment&#x3D;&quot;HTTP_PROXY&#x3D;http:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用openssl签发ssl证书">
-<meta property="og:url" content="http://zr4in.github.io/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/index.html">
+<meta property="og:title" content="docker配置各种代理">
+<meta property="og:url" content="http://zr4in.github.io/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露） 步骤openssl生成rsa秘钥 1openssl genrsa -out root.rsa.key 2048  使用秘钥生成证书申请 1openssl req -new -key root.rsa.key -out root.rsa.csr">
+<meta property="og:description" content="参考总结自SkyWT的博客[1] Docker daemon代理问题：从DockerHub拉取镜像时可能出现网络问题。 解决方案：在 &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;http-proxy.conf 编写 systemd 配置，配置 HTTP 和 HTTPS 代理： 123[Service]Environment&#x3D;&quot;HTTP_PROXY&#x3D;http:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
-<meta property="article:published_time" content="2024-12-07T09:35:58.000Z">
-<meta property="article:modified_time" content="2024-12-07T14:35:43.639Z">
+<meta property="og:image" content="https://s2.loli.net/2024/12/09/wUCfsQ9jYiWymRH.png">
+<meta property="article:published_time" content="2024-12-09T09:30:44.000Z">
+<meta property="article:modified_time" content="2024-12-10T02:40:54.250Z">
 <meta property="article:author" content="zr4in">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="docker">
 <meta property="article:tag" content="network">
-<meta property="article:tag" content="ssl">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/09/wUCfsQ9jYiWymRH.png">
   
   
   
-  <title>使用openssl签发ssl证书 - zr4in</title>
+  <title>docker配置各种代理 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用openssl签发ssl证书"></span>
+            <span id="subtitle" data-typed-text="docker配置各种代理"></span>
           
         </div>
 
@@ -223,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-07 17:35" pubdate>
-          2024年12月7日 下午
+        <time datetime="2024-12-09 17:30" pubdate>
+          2024年12月9日 下午
         </time>
       </span>
     
@@ -235,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          774 字
+          356 字
         
       </span>
     
@@ -246,7 +247,7 @@
         
         
         
-          7 分钟
+          3 分钟
         
       </span>
     
@@ -283,12 +284,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">使用openssl签发ssl证书</h1>
+            <h1 id="seo-header">docker配置各种代理</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-12-07T22:35:43+08:00
+                    本文最后更新于 2024-12-10T10:40:54+08:00
                   
                   
 
@@ -298,58 +299,29 @@
             
               <div class="markdown-body">
                 
-                <p>如果想给自己的服务用上ssl，需要证书服务，一般都需要购买才行，但是其实主要是信任的问题，所以完全可以用自己的自签名的证书（只要自己想办法确认私钥不会泄露）</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>openssl生成rsa秘钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out root.rsa.key 2048<br></code></pre></td></tr></table></figure>
+                <p>参考总结自<a target="_blank" rel="noopener" href="https://skywt.cn/blog/">SkyWT</a>的博客<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Docker 代理配置方法合集](https://skywt.cn/blog/docker-proxy-configuration/)">[1]</span></a></sup></p>
+<h2 id="Docker-daemon代理"><a href="#Docker-daemon代理" class="headerlink" title="Docker daemon代理"></a>Docker daemon代理</h2><p><strong>问题</strong>：从DockerHub拉取镜像时可能出现网络问题。</p>
+<p><strong>解决方案</strong>：在 <code>/etc/systemd/system/docker.service.d/http-proxy.conf</code> 编写 systemd 配置，配置 HTTP 和 HTTPS 代理：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTP_PROXY=http://127.0.0.1:1080&quot;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTPS_PROXY=http://127.0.0.1:1080&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>使用秘钥生成证书申请</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key root.rsa.key -out root.rsa.csr<br></code></pre></td></tr></table></figure>
+<p>配置完之后重新加载配置文件并重启docker：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure>
 
-<p>再用生成的秘钥自己给自己签名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> root.rsa.csr -out root.crt -signkey root.rsa.key -days 365<br></code></pre></td></tr></table></figure>
+<p>note：不同的发行版中service文件的位置不一样，在archlinux中位于<code>/usr/lib/systemd/system/docker.service</code></p>
+<h2 id="容器内代理"><a href="#容器内代理" class="headerlink" title="容器内代理"></a>容器内代理</h2><p><strong>问题</strong>：配置每个容器的代理环境变量较繁琐。<br><strong>解决方案</strong>：在 <code>~/.docker/config.json</code> 中设置全局代理配置。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;proxies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;default&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;httpProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;httpsProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;noProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;*.test.example.com,.example.org,127.0.0.0/8,192.168.0.0/16&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>如此生成了一个有效期一年的自签名证书。</p>
-<p>如果要在不同的域名（或者IP）上使用ssl，还需要针对每一个主机各自签发证书。步骤类似的</p>
-<p>生成秘钥</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">openssl genrsa -<span class="hljs-keyword">out</span> <span class="hljs-keyword">server</span>.rsa.key <span class="hljs-number">2048</span><br></code></pre></td></tr></table></figure>
+<p>note：使用sudo启动的容器，配置文件按照<code>/root/.docker/config.json</code>，并且，这里的proxy如果设置为<code>localhost</code>或者<code>127.0.0.1</code>，指的是容器自己的地址。</p>
+<h2 id="Build代理"><a href="#Build代理" class="headerlink" title="Build代理"></a>Build代理</h2><p><strong>问题</strong>：docker build 时网络问题。</p>
+<p><strong>解决方案</strong>：使用<code>docker build</code>时添加参数<code>--network=host</code>设置build网络。或者在<code>docker-compose.yml</code>中设置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">build:</span><br>  <span class="hljs-attr">context:</span> <span class="hljs-string">.</span><br>  <span class="hljs-attr">network:</span> <span class="hljs-string">host</span><br>  <span class="hljs-attr">dockerfile:</span> <span class="hljs-string">Dockerfile</span><br></code></pre></td></tr></table></figure>
 
-<p>使用秘钥生成证书申请</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.rsa.key -out server.rsa.csr<br></code></pre></td></tr></table></figure>
+<p>然后在<code>Dockerfile</code>中设定环境变量：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ENV</span> http_proxy=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> HTTP_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> https_proxy=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> HTTPS_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br></code></pre></td></tr></table></figure>
 
-<p>再用刚刚的根证书对这个证书申请签名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> server.rsa.csr -out server.crt -days 365 -CA root.crt -CAkey root.rsa.key -CAcreateserial -sha256<br></code></pre></td></tr></table></figure>
-
-<p>如此签发了一个有效期一年的证书。</p>
-<h2 id="but"><a href="#but" class="headerlink" title="but"></a>but</h2><p>但是目前测试在客户端（Edge on Windows11）上试了一下还是会报错，虽然windows已经把root.crt安装到可信的根证书颁发机构。Chrome报错是<code>net::ERR_CERT_COMMON_NAME_INVALID</code></p>
-<h2 id="Subject-Alternative-Name"><a href="#Subject-Alternative-Name" class="headerlink" title="Subject Alternative Name"></a>Subject Alternative Name</h2><p>根据IdeaWand<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="[使用OpenSSL生成含有Subject Alternative Name(SAN)的证书 | IdeaWand](https://blog.ideawand.com/2017/11/22/build-certificate-that-support-Subject-Alternative-Name-SAN/)">[7]</span></a></sup>的说法，现在的浏览器基本上都放弃了CommonName。转而使用Subject Alternative Name，所以需要生成带有SAN的证书。</p>
-<p>所以在生成服务器的证书的时候需要指定这些extension。根据zmc<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="[OpenSSL证书通过Subject Alternative Name扩展字段扩展证书支持的域名 - 人艰不拆_zmc - 博客园](https://www.cnblogs.com/zhangmingcheng/p/18412749)">[8]</span></a></sup>的教程</p>
-<p>首先生成根证书的过程是不变的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out root.rsa.key 2048<br>openssl req -new -key root.rsa.key -out root.rsa.csr<br>openssl x509 -req -<span class="hljs-keyword">in</span> root.rsa.csr -out root.crt -signkey root.rsa.key -days 365<br></code></pre></td></tr></table></figure>
-
-<p>然后生成服务器证书的秘钥也是不变的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out server.rsa.key 2048<br></code></pre></td></tr></table></figure>
-
-<p>然后需要编写配置文件，在配置文件中指定一些extension字段，server.conf</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[ req ]</span><br><span class="hljs-attr">default_bits</span> = <span class="hljs-number">2048</span><br><span class="hljs-attr">prompt</span> = <span class="hljs-literal">no</span><br><span class="hljs-attr">default_md</span> = sha256<br><span class="hljs-attr">req_extensions</span> = v3_ext<br><span class="hljs-attr">distinguished_name</span> = dn<br><br><span class="hljs-section">[ dn ]</span><br><span class="hljs-attr">C</span> = CN<br><span class="hljs-attr">ST</span> = Province Name<br><span class="hljs-attr">L</span> = City<br><span class="hljs-attr">O</span> = Organization Name<br><span class="hljs-attr">OU</span> = Organization Unit Name<br><span class="hljs-attr">CN</span> = Common Name<br><br><span class="hljs-section">[ req_ext ]</span><br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ alt_names ]</span><br><span class="hljs-attr">DNS.1</span> = DNS name <span class="hljs-number">1</span> <span class="hljs-comment"># 域名</span><br><span class="hljs-attr">DNS.2</span> = DNS name <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个域名</span><br><span class="hljs-attr">IP.1</span> = IP <span class="hljs-number">1</span> <span class="hljs-comment"># IP地址</span><br><span class="hljs-attr">IP.2</span> = IP <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个IP地址</span><br><br><span class="hljs-section">[ v3_ext ]</span><br><span class="hljs-comment"># basicConstraints=CA:FALSE</span><br><span class="hljs-comment"># keyUsage=keyEncipherment,dataEncipherment</span><br><span class="hljs-comment"># extendedKeyUsage=serverAuth,clientAuth</span><br><span class="hljs-attr">subjectAltName</span>=@alt_names<br></code></pre></td></tr></table></figure>
-
-<p>注释掉的三行大概是一些控制证书的用途的字段，不知道是哪一行导致的不能用于https，所以就都注释掉了。</p>
-<p>然后依赖这个配置文件，生成服务器证书的申请</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.rsa.key -out server.rsa.csr -config server.conf<br></code></pre></td></tr></table></figure>
-
-<p>然后使用自签名的根证书，签发服务器证书。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -<span class="hljs-keyword">in</span> server.rsa.csr -out server.crt -days 365 -CA root.crt -CAkey root.rsa.key -CAcreateserial -sha256 -extensions v3_ext -extfile server.conf<br></code></pre></td></tr></table></figure>
-
-<p>然后得到的<code>server.crt</code>就是有效的证书，然后就<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Apache配置ssl证书-实现https访问 | Galiyy'blog](https://galiyy.github.io/2020/03/31/Apache配置ssl证书-实现https访问/)">[6]</span></a></sup>可以用于https了。</p>
-<p><img src="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png" srcset="/img/loading.gif" lazyload alt="image-20241207215657035"></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4">使用openssl制作自定义CA、自签名ssl证书</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://ningyu1.github.io/site/post/51-ssl-cert/">Openssl生成自签名证书，简单步骤 - 凝雨 - Yun</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhaobowen/p/13321578.html">自签名证书和CA证书的区别和制作、使用 - 名字很长容易被惦记 - 博客园</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://breezetemple.github.io/2019/04/08/setup-your-own-CA-with-OpenSSL/">使用 OpenSSL 生成私钥和签名并自己做 CA 签名 |</a>
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.tangyuecan.com/2021/12/17/%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E6%90%AD%E5%BB%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%AF%E4%BF%A1%E4%BB%BB%E7%9A%84ssl%E8%AF%81%E4%B9%A6/">局域网内搭建浏览器可信任的SSL证书 – 唐玥璨 | 博客</a>
-<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://galiyy.github.io/2020/03/31/Apache%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6-%E5%AE%9E%E7%8E%B0https%E8%AE%BF%E9%97%AE/">Apache配置ssl证书-实现https访问 | Galiyy’blog</a>
-<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.ideawand.com/2017/11/22/build-certificate-that-support-Subject-Alternative-Name-SAN/">使用OpenSSL生成含有Subject Alternative Name(SAN)的证书 | IdeaWand</a>
-<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/18412749">OpenSSL证书通过Subject Alternative Name扩展字段扩展证书支持的域名 - 人艰不拆_zmc - 博客园</a>
-<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://skywt.cn/blog/docker-proxy-configuration/">Docker 代理配置方法合集</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.docker.com/blog/what-does-docker-do/">What Does Docker Do? | Docker</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -361,9 +333,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/network/" class="print-no-link">#network</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
-        <a href="/tags/ssl/" class="print-no-link">#ssl</a>
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
+      
+        <a href="/tags/network/" class="print-no-link">#network</a>
       
     </div>
   
@@ -375,8 +349,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用openssl签发ssl证书</div>
-      <div>http://zr4in.github.io/2024/12/07/使用openssl签发ssl证书/</div>
+      <div>docker配置各种代理</div>
+      <div>http://zr4in.github.io/2024/12/09/docker配置各种代理/</div>
     </div>
     <div class="license-meta">
       
@@ -388,7 +362,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月7日</div>
+          <div>2024年12月9日</div>
         </div>
       
       
@@ -420,18 +394,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/" title="docker配置各种代理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker配置各种代理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/01/%E3%80%8A%E7%82%BC%E9%87%91%E6%9C%AF%E6%88%98%E4%BA%89%E3%80%8B/" title="《炼金术战争》">
-                        <span class="hidden-mobile">《炼金术战争》</span>
+                      <a href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/" title="使用openssl签发ssl证书">
+                        <span class="hidden-mobile">使用openssl签发ssl证书</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>docker配置各种代理</title>
+    <link href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/"/>
+    <url>/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<p>参考总结自<a href="https://skywt.cn/blog/">SkyWT</a>的博客<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Docker 代理配置方法合集](https://skywt.cn/blog/docker-proxy-configuration/)">[1]</span></a></sup></p><h2 id="Docker-daemon代理"><a href="#Docker-daemon代理" class="headerlink" title="Docker daemon代理"></a>Docker daemon代理</h2><p><strong>问题</strong>：从DockerHub拉取镜像时可能出现网络问题。</p><p><strong>解决方案</strong>：在 <code>/etc/systemd/system/docker.service.d/http-proxy.conf</code> 编写 systemd 配置，配置 HTTP 和 HTTPS 代理：</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTP_PROXY=http://127.0.0.1:1080&quot;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTPS_PROXY=http://127.0.0.1:1080&quot;</span><br></code></pre></td></tr></table></figure><p>配置完之后重新加载配置文件并重启docker：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure><p>note：不同的发行版中service文件的位置不一样，在archlinux中位于<code>/usr/lib/systemd/system/docker.service</code></p><h2 id="容器内代理"><a href="#容器内代理" class="headerlink" title="容器内代理"></a>容器内代理</h2><p><strong>问题</strong>：配置每个容器的代理环境变量较繁琐。<br><strong>解决方案</strong>：在 <code>~/.docker/config.json</code> 中设置全局代理配置。</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;proxies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;default&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;httpProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;httpsProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;noProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;*.test.example.com,.example.org,127.0.0.0/8,192.168.0.0/16&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><p>note：使用sudo启动的容器，配置文件按照<code>/root/.docker/config.json</code>，并且，这里的proxy如果设置为<code>localhost</code>或者<code>127.0.0.1</code>，指的是容器自己的地址。</p><h2 id="Build代理"><a href="#Build代理" class="headerlink" title="Build代理"></a>Build代理</h2><p><strong>问题</strong>：docker build 时网络问题。</p><p><strong>解决方案</strong>：使用<code>docker build</code>时添加参数<code>--network=host</code>设置build网络。或者在<code>docker-compose.yml</code>中设置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">build:</span><br>  <span class="hljs-attr">context:</span> <span class="hljs-string">.</span><br>  <span class="hljs-attr">network:</span> <span class="hljs-string">host</span><br>  <span class="hljs-attr">dockerfile:</span> <span class="hljs-string">Dockerfile</span><br></code></pre></td></tr></table></figure><p>然后在<code>Dockerfile</code>中设定环境变量：</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ENV</span> http_proxy=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> HTTP_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> https_proxy=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br><span class="hljs-keyword">ENV</span> HTTPS_PROXY=<span class="hljs-string">&quot;http://127.0.0.1:1080&quot;</span><br></code></pre></td></tr></table></figure><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://skywt.cn/blog/docker-proxy-configuration/">Docker 代理配置方法合集</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a href="https://www.docker.com/blog/what-does-docker-do/">What Does Docker Do? | Docker</a><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>docker</tag>
+      
+      <tag>network</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用openssl签发ssl证书</title>
     <link href="/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/"/>
     <url>/2024/12/07/%E4%BD%BF%E7%94%A8openssl%E7%AD%BE%E5%8F%91ssl%E8%AF%81%E4%B9%A6/</url>
@@ -58,11 +81,11 @@
       
       <tag>android</tag>
       
-      <tag>frida</tag>
-      
       <tag>reverse</tag>
       
       <tag>hook</tag>
+      
+      <tag>frida</tag>
       
     </tags>
     
