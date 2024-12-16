@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
 <meta property="article:published_time" content="2024-12-07T09:35:58.000Z">
-<meta property="article:modified_time" content="2024-12-07T14:35:43.639Z">
+<meta property="article:modified_time" content="2024-12-16T15:39:07.721Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="network">
 <meta property="article:tag" content="ssl">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          774 字
+          809 字
         
       </span>
     
@@ -288,7 +288,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-12-07T22:35:43+08:00
+                    本文最后更新于 2024-12-16T23:39:07+08:00
                   
                   
 
@@ -310,6 +310,9 @@
 
 <p>如此生成了一个有效期一年的自签名证书。</p>
 <p>如果要在不同的域名（或者IP）上使用ssl，还需要针对每一个主机各自签发证书。步骤类似的</p>
+<blockquote>
+<p>note：按照接下来这几步生成的证书现在浏览器已经不认了，建议直接跳转到后两小节Subject Alternatice Name</p>
+</blockquote>
 <p>生成秘钥</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">openssl genrsa -<span class="hljs-keyword">out</span> <span class="hljs-keyword">server</span>.rsa.key <span class="hljs-number">2048</span><br></code></pre></td></tr></table></figure>
 

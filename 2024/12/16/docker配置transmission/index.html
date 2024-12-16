@@ -16,25 +16,25 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="现在的IoT设备往往依赖于蓝牙、zigbee或者wifi等无线通信介质，为了更清晰地了解设备的通信，有必要学习一下wifi抓包。 Airomon-ng试过用iwconfig直接设置网卡为Monitor模式，然后直接用wireshark抓包，是不行的，应该还有其他设置，就不管了，还是用现成的工具吧[1] airmon-ng先设置网卡为监听模式： 1sudo airmon-ng start wlo1">
+    <meta name="description" content="有一些网站会限制使用的bt客户端的版本，然后archlinux由于滚动更新，软件都是最新版本的，所以docker就非常好用。 docker-compose.yaml12345678910111213141516171819202122232425version: &quot;2.1&quot;services:  transmission:    image: linuxserver&#x2F;transm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无线网卡混杂模式wifi抓包">
-<meta property="og:url" content="http://zr4in.github.io/2024/04/24/%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E6%B7%B7%E6%9D%82%E6%A8%A1%E5%BC%8Fwifi%E6%8A%93%E5%8C%85/index.html">
+<meta property="og:title" content="docker配置transmission">
+<meta property="og:url" content="http://zr4in.github.io/2024/12/16/docker%E9%85%8D%E7%BD%AEtransmission/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="现在的IoT设备往往依赖于蓝牙、zigbee或者wifi等无线通信介质，为了更清晰地了解设备的通信，有必要学习一下wifi抓包。 Airomon-ng试过用iwconfig直接设置网卡为Monitor模式，然后直接用wireshark抓包，是不行的，应该还有其他设置，就不管了，还是用现成的工具吧[1] airmon-ng先设置网卡为监听模式： 1sudo airmon-ng start wlo1">
+<meta property="og:description" content="有一些网站会限制使用的bt客户端的版本，然后archlinux由于滚动更新，软件都是最新版本的，所以docker就非常好用。 docker-compose.yaml12345678910111213141516171819202122232425version: &quot;2.1&quot;services:  transmission:    image: linuxserver&#x2F;transm">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/04/24/xLGdFNpUtb9Mg8T.png">
-<meta property="article:published_time" content="2024-04-24T07:03:45.000Z">
-<meta property="article:modified_time" content="2024-04-24T07:58:07.858Z">
+<meta property="og:image" content="https://s2.loli.net/2024/12/16/fehAsOHEl4jtGSk.png">
+<meta property="article:published_time" content="2024-12-16T12:08:31.000Z">
+<meta property="article:modified_time" content="2024-12-16T15:39:07.720Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="流量分析">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="linuxserver">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/04/24/xLGdFNpUtb9Mg8T.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/16/fehAsOHEl4jtGSk.png">
   
   
   
-  <title>无线网卡混杂模式wifi抓包 - zr4in</title>
+  <title>docker配置transmission - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="无线网卡混杂模式wifi抓包"></span>
+            <span id="subtitle" data-typed-text="docker配置transmission"></span>
           
         </div>
 
@@ -223,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-24 15:03" pubdate>
-          2024年4月24日 下午
+        <time datetime="2024-12-16 20:08" pubdate>
+          2024年12月16日 晚上
         </time>
       </span>
     
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          302 字
+          444 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -283,12 +283,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">无线网卡混杂模式wifi抓包</h1>
+            <h1 id="seo-header">docker配置transmission</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-04-24T15:58:07+08:00
+                    本文最后更新于 2024-12-16T23:39:07+08:00
                   
                   
 
@@ -298,21 +298,18 @@
             
               <div class="markdown-body">
                 
-                <p>现在的IoT设备往往依赖于蓝牙、zigbee或者wifi等无线通信介质，为了更清晰地了解设备的通信，有必要学习一下wifi抓包。</p>
-<h2 id="Airomon-ng"><a href="#Airomon-ng" class="headerlink" title="Airomon-ng"></a>Airomon-ng</h2><p>试过用<code>iwconfig</code>直接设置网卡为<code>Monitor</code>模式，然后直接用wireshark抓包，是不行的，应该还有其他设置，就不管了，还是用现成的工具吧<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Linux环境下Wi-Fi抓包说明 - Nordic Semiconductor中文官网](https://www.nordicsemi.cn/news/linux-environment-wifi-packet-capture-instructions/)">[1]</span></a></sup></p>
-<p><code>airmon-ng</code>先设置网卡为监听模式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo airmon-ng start wlo1<br></code></pre></td></tr></table></figure>
+                <p>有一些网站会限制使用的bt客户端的版本，然后archlinux由于滚动更新，软件都是最新版本的，所以docker就非常好用。</p>
+<h2 id="docker-compose-yaml"><a href="#docker-compose-yaml" class="headerlink" title="docker-compose.yaml"></a>docker-compose.yaml</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;2.1&quot;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">transmission:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">linuxserver/transmission:latest</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">transmission</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PUID=1000</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PGID=1000</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Etc/UTC</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TRANSMISSION_WEB_HOME=</span> <span class="hljs-comment">#可选</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">USER=</span> <span class="hljs-comment">#可选，此处设置WebUI账户</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PASS=</span> <span class="hljs-comment">#可选，此处设置WebUI密码</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">WHITELIST=</span> <span class="hljs-comment">#可选， 指定可访问WebUI的白名单的ip列表，逗号分隔</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">RPCPORT=</span> <span class="hljs-comment">#可选，此处设置WebUI端口，默认为9091</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PEERPORT=</span> <span class="hljs-comment">#可选，此处设置种子链接端口，默认为51413</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">HOST_WHITELIST=</span> <span class="hljs-comment">#可选</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/config:/config</span> <span class="hljs-comment">#挂载TR设置文件存储</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/downloads:/downloads</span> <span class="hljs-comment">#挂载TR下载文件存储</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/watch:/watch</span> <span class="hljs-comment">#挂载TR种子监听文件存储</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">9091</span><span class="hljs-string">:9091</span> <span class="hljs-comment">#NAT转发RPC端口</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">51413</span><span class="hljs-string">:51413</span> <span class="hljs-comment">#NAT转发PEER端口</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">51413</span><span class="hljs-string">:51413/udp</span> <span class="hljs-comment">#NAT转发PEER(UDP)端口</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">unless-stopped</span><br></code></pre></td></tr></table></figure>
 
-<p>注意如果输出提示有其他进程可能会影响抓包，就按照提示执行对应命令kill掉其他进程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo airmon-ng check <span class="hljs-built_in">kill</span><br></code></pre></td></tr></table></figure>
+<p>配置文件来自<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[[Docker\]Transmission（官方🐋Docker版）安装 - invites.fun](https://invites.fun/d/694)">[1]</span></a></sup>（有一些修改）。linuxserver官方文档<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[linuxserver/transmission - Docker Image | Docker Hub](https://hub.docker.com/r/linuxserver/transmission)">[2]</span></a></sup></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;2.1&quot;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">transmission:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">linuxserver/transmission:4.0.5</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">transmission</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PUID=1000</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PGID=1000</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Etc/UTC</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TRANSMISSION_WEB_HOME=/config/web/src</span> <span class="hljs-comment">#配置美化之后的webui</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">USER=username_of_webui</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PASS=password_of_webui</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">WHITELIST=</span> <span class="hljs-comment">#可选， 指定可访问WebUI的白名单的ip列表，逗号分隔</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">RPCPORT=</span> <span class="hljs-comment">#可选，此处设置WebUI端口，默认为9091</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">PEERPORT=</span> <span class="hljs-comment">#可选，此处设置种子链接端口，默认为51413</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">HOST_WHITELIST=</span> <span class="hljs-comment">#可选</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/home/tr/config:/config</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/home/tr/downloads:/downloads</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/home/tr/watch:/watch</span><br>    <span class="hljs-attr">network_mode:</span> <span class="hljs-string">host</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">unless-stopped</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">airodump-ng -c 6 --bssid mac_address_of_ap wlo1mon --output-format pcap -w file_to_write<br></code></pre></td></tr></table></figure>
-
-<p><code>-c 6</code>指定了第6个信道，<code>--bssid</code>指定要抓取的ap的mac地址，然后是开启抓包模式的网卡的名称<code>wlo1mon</code>，然后<code>-w</code>指定要把抓取的报文写到哪个文件。</p>
-<h2 id="解密wifi报文"><a href="#解密wifi报文" class="headerlink" title="解密wifi报文"></a>解密wifi报文</h2><p>在知道wifi密码并且抓到设备握手的报文之后，可以解密已加密的wifi报文<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[用Wireshark解密无线网络数据包 | F1v3's Notes (x-f1v3.github.io)](https://x-f1v3.github.io/blog/用Wireshark解密无线网络数据包.html)">[2]</span></a></sup>，有时候需要删除wireshark的配置文件避免出现bug<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[解密 802.11 加密数据包 | (breezetemple.github.io)](https://breezetemple.github.io/2019/05/31/decryption-802-11-with-wireshark/)">[3]</span></a></sup></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.nordicsemi.cn/news/linux-environment-wifi-packet-capture-instructions/">Linux环境下Wi-Fi抓包说明 - Nordic Semiconductor中文官网</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://x-f1v3.github.io/blog/%E7%94%A8Wireshark%E8%A7%A3%E5%AF%86%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E5%8C%85.html">用Wireshark解密无线网络数据包 | F1v3’s Notes (x-f1v3.github.io)</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://breezetemple.github.io/2019/05/31/decryption-802-11-with-wireshark/">解密 802.11 加密数据包 | (breezetemple.github.io)</a>
+<p>网络模式改成了<code>host</code>，然后增加了web_home，可以用来改变UI</p>
+<p>从release页面<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Releases · ronggang/transmission-web-control](https://github.com/ronggang/transmission-web-control/releases)">[3]</span></a></sup>下载webui的源代码，然后确保把解压后的<code>src</code>文件夹中的内容放到之前配置的<code>/config/web/src</code>（因为<code>config</code>文件夹已经映射过了，所以也就是<code>home/tr/config/web/src</code>）中。</p>
+<p>然后<code>docker compose up -d</code>即可。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>[<a target="_blank" rel="noopener" href="https://invites.fun/d/694">Docker]Transmission（官方🐋Docker版）安装 - invites.fun</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://hub.docker.com/r/linuxserver/transmission">linuxserver&#x2F;transmission - Docker Image | Docker Hub</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/ronggang/transmission-web-control/releases">Releases · ronggang&#x2F;transmission-web-control</a>
 <a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
@@ -325,9 +322,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
       
-        <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="print-no-link">#流量分析</a>
+        <a href="/tags/linuxserver/" class="print-no-link">#linuxserver</a>
       
     </div>
   
@@ -339,8 +336,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>无线网卡混杂模式wifi抓包</div>
-      <div>http://zr4in.github.io/2024/04/24/无线网卡混杂模式wifi抓包/</div>
+      <div>docker配置transmission</div>
+      <div>http://zr4in.github.io/2024/12/16/docker配置transmission/</div>
     </div>
     <div class="license-meta">
       
@@ -352,7 +349,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月24日</div>
+          <div>2024年12月16日</div>
         </div>
       
       
@@ -384,18 +381,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/" title="wireshark+ssh输出重定向跨主机抓包">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">wireshark+ssh输出重定向跨主机抓包</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/23/windows%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E6%A1%A3/" title="windows右键菜单新建markdown文档">
-                        <span class="hidden-mobile">windows右键菜单新建markdown文档</span>
+                      <a href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/" title="docker配置各种代理">
+                        <span class="hidden-mobile">docker配置各种代理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
