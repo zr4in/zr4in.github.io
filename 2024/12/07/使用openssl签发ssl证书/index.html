@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/07/mNcDsAxhnGFkXrI.png">
 <meta property="article:published_time" content="2024-12-07T09:35:58.000Z">
-<meta property="article:modified_time" content="2024-12-16T15:39:07.721Z">
+<meta property="article:modified_time" content="2024-12-31T02:47:24.183Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="network">
 <meta property="article:tag" content="ssl">
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          809 字
+          864 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -288,7 +288,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-12-16T23:39:07+08:00
+                    本文最后更新于 2024-12-31T10:47:24+08:00
                   
                   
 
@@ -312,6 +312,7 @@
 <p>如果要在不同的域名（或者IP）上使用ssl，还需要针对每一个主机各自签发证书。步骤类似的</p>
 <blockquote>
 <p>note：按照接下来这几步生成的证书现在浏览器已经不认了，建议直接跳转到后两小节Subject Alternatice Name</p>
+<p>note2：由于安卓手机对安装的CA证书有限制，所以需要在生成root证书时，加上<code>CA:TRUE</code>的扩展字段，生成这类证书的过程参考这里<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://foreverzmyer.hashnode.dev/cert">[9]</span></a></sup>。</p>
 </blockquote>
 <p>生成秘钥</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">openssl genrsa -<span class="hljs-keyword">out</span> <span class="hljs-keyword">server</span>.rsa.key <span class="hljs-number">2048</span><br></code></pre></td></tr></table></figure>
@@ -333,9 +334,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -out server.rsa.key 2048<br></code></pre></td></tr></table></figure>
 
 <p>然后需要编写配置文件，在配置文件中指定一些extension字段，server.conf</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[ req ]</span><br><span class="hljs-attr">default_bits</span> = <span class="hljs-number">2048</span><br><span class="hljs-attr">prompt</span> = <span class="hljs-literal">no</span><br><span class="hljs-attr">default_md</span> = sha256<br><span class="hljs-attr">req_extensions</span> = v3_ext<br><span class="hljs-attr">distinguished_name</span> = dn<br><br><span class="hljs-section">[ dn ]</span><br><span class="hljs-attr">C</span> = CN<br><span class="hljs-attr">ST</span> = Province Name<br><span class="hljs-attr">L</span> = City<br><span class="hljs-attr">O</span> = Organization Name<br><span class="hljs-attr">OU</span> = Organization Unit Name<br><span class="hljs-attr">CN</span> = Common Name<br><br><span class="hljs-section">[ req_ext ]</span><br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ alt_names ]</span><br><span class="hljs-attr">DNS.1</span> = DNS name <span class="hljs-number">1</span> <span class="hljs-comment"># 域名</span><br><span class="hljs-attr">DNS.2</span> = DNS name <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个域名</span><br><span class="hljs-attr">IP.1</span> = IP <span class="hljs-number">1</span> <span class="hljs-comment"># IP地址</span><br><span class="hljs-attr">IP.2</span> = IP <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个IP地址</span><br><br><span class="hljs-section">[ v3_ext ]</span><br><span class="hljs-comment"># basicConstraints=CA:FALSE</span><br><span class="hljs-comment"># keyUsage=keyEncipherment,dataEncipherment</span><br><span class="hljs-comment"># extendedKeyUsage=serverAuth,clientAuth</span><br><span class="hljs-attr">subjectAltName</span>=@alt_names<br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[ req ]</span><br><span class="hljs-attr">default_bits</span> = <span class="hljs-number">2048</span><br><span class="hljs-attr">prompt</span> = <span class="hljs-literal">no</span><br><span class="hljs-attr">default_md</span> = sha256<br><span class="hljs-attr">req_extensions</span> = v3_ext<br><span class="hljs-attr">distinguished_name</span> = dn<br><br><span class="hljs-section">[ dn ]</span><br><span class="hljs-attr">C</span> = CN<br><span class="hljs-attr">ST</span> = Province Name<br><span class="hljs-attr">L</span> = City<br><span class="hljs-attr">O</span> = Organization Name<br><span class="hljs-attr">OU</span> = Organization Unit Name<br><span class="hljs-attr">CN</span> = Common Name<br><br><span class="hljs-section">[ req_ext ]</span><br><span class="hljs-attr">subjectAltName</span> = @alt_names<br><br><span class="hljs-section">[ alt_names ]</span><br><span class="hljs-attr">DNS.1</span> = DNS name <span class="hljs-number">1</span> <span class="hljs-comment"># 域名</span><br><span class="hljs-attr">DNS.2</span> = DNS name <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个域名</span><br><span class="hljs-attr">IP.1</span> = IP <span class="hljs-number">1</span> <span class="hljs-comment"># IP地址</span><br><span class="hljs-attr">IP.2</span> = IP <span class="hljs-number">2</span> <span class="hljs-comment"># 另一个IP地址</span><br><br><span class="hljs-section">[ v3_ext ]</span><br><span class="hljs-attr">basicConstraints</span>=CA:<span class="hljs-literal">FALSE</span><br><span class="hljs-comment"># keyUsage=keyEncipherment,dataEncipherment</span><br><span class="hljs-comment"># extendedKeyUsage=serverAuth,clientAuth</span><br><span class="hljs-attr">subjectAltName</span>=@alt_names<br></code></pre></td></tr></table></figure>
 
-<p>注释掉的三行大概是一些控制证书的用途的字段，不知道是哪一行导致的不能用于https，所以就都注释掉了。</p>
+<p>注释掉的行大概是一些控制证书的用途的字段，不知道是哪一行导致的不能用于https，所以就都注释掉了。</p>
 <p>然后依赖这个配置文件，生成服务器证书的申请</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.rsa.key -out server.rsa.csr -config server.conf<br></code></pre></td></tr></table></figure>
 
@@ -352,7 +353,8 @@
 <a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://galiyy.github.io/2020/03/31/Apache%E9%85%8D%E7%BD%AEssl%E8%AF%81%E4%B9%A6-%E5%AE%9E%E7%8E%B0https%E8%AE%BF%E9%97%AE/">Apache配置ssl证书-实现https访问 | Galiyy’blog</a>
 <a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.ideawand.com/2017/11/22/build-certificate-that-support-Subject-Alternative-Name-SAN/">使用OpenSSL生成含有Subject Alternative Name(SAN)的证书 | IdeaWand</a>
 <a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/18412749">OpenSSL证书通过Subject Alternative Name扩展字段扩展证书支持的域名 - 人艰不拆_zmc - 博客园</a>
-<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://foreverzmyer.hashnode.dev/cert">https://foreverzmyer.hashnode.dev/cert</a>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
