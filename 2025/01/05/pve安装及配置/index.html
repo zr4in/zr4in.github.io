@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/01/06/fBrgQcF3vPlNwEj.png">
 <meta property="article:published_time" content="2025-01-05T13:58:20.000Z">
-<meta property="article:modified_time" content="2025-01-09T03:29:32.356Z">
+<meta property="article:modified_time" content="2025-01-09T08:03:32.350Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="pve">
@@ -290,7 +290,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-01-09T11:29:32+08:00
+                    本文最后更新于 2025-01-09T16:03:32+08:00
                   
                   
 
@@ -302,7 +302,7 @@
                 
                 <p>咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。</p>
 <h2 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h2><p>Proxmox VE<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Proxmox Virtual Environment - Open-Source Server Virtualization Platform](https://www.proxmox.com/en/proxmox-virtual-environment/overview)">[1]</span></a></sup>是一个基于debian的linux发行版，开源的服务器虚拟化平台。</p>
-<h2 id="安装PVE"><a href="#安装PVE" class="headerlink" title="安装PVE"></a>安装PVE</h2><p>使用ventoy<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Ventoy](https://www.ventoy.net/cn/index.html)">[2]</span></a></sup>安装，如果ventoy版本是有bug的版本的话，在安装pve的时候有可能会遇到No Device with Valid ISO Found的问题，似乎是ventoy的bug<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[[SOLVED\] - [ERROR] No Device with Valid ISO Found | Proxmox Support Forum](https://forum.proxmox.com/threads/error-no-device-with-valid-iso-found.134510/)">[3]</span></a></sup>，更新到1.0.99版本就行了，但是后面安装好之后，还会有bug，无法启动。表现就是启动的时候会卡在<code>Loading initial ramdisk...</code>，然后又是google一番，发现是pve和ventoy的bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote">&lt;span class&#x3D;”hint–top hint–rounded” aria-label&#x3D;”<a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/ventoy-install-of-proxmox-8-1-halts-at-loading-initial-ramdisk.143196/">Ventoy install of Proxmox 8.1 halts at “Loading initial ramdisk” | Proxmox Support Forum</a>“&gt;[4]</span></a></sup>。按照帖子上的说法，编辑<code>/etc/default/grub.d/installer.cfg</code>这个文件，删掉<code>voty</code>参数的部分。我的改完之后是<code>GRUB_CMDLINE_LINUX=&quot;$GRUB_CMDLINE_LINUX&quot;</code>，然后运行<code>update-grub</code>更新配置文件，然后就可以了。</p>
+<h2 id="安装PVE"><a href="#安装PVE" class="headerlink" title="安装PVE"></a>安装PVE</h2><p>使用ventoy<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Ventoy](https://www.ventoy.net/cn/index.html)">[2]</span></a></sup>安装，如果ventoy版本是有bug的版本的话，在安装pve的时候有可能会遇到No Device with Valid ISO Found的问题，似乎是ventoy的bug<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[\[SOLVED\] - \[ERROR\] No Device with Valid ISO Found | Proxmox Support Forum](https://forum.proxmox.com/threads/error-no-device-with-valid-iso-found.134510/)">[3]</span></a></sup>，更新到1.0.99版本就行了，但是后面安装好之后，还会有bug，无法启动。表现就是启动的时候会卡在<code>Loading initial ramdisk...</code>，然后又是google一番，发现是pve和ventoy的bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Ventoy install of Proxmox 8.1 halts at Loading initial ramdisk | Proxmox Support Forum](https://forum.proxmox.com/threads/ventoy-install-of-proxmox-8-1-halts-at-loading-initial-ramdisk.143196/)">[4]</span></a></sup>。按照帖子上的说法，编辑<code>/etc/default/grub.d/installer.cfg</code>这个文件，删掉<code>voty</code>参数的部分。我的改完之后是<code>GRUB_CMDLINE_LINUX=&quot;$GRUB_CMDLINE_LINUX&quot;</code>，然后运行<code>update-grub</code>更新配置文件，然后就可以了。</p>
 <p><del>世界就是一个巨大的bug，为什么这么多bug。</del></p>
 <p>如果显示器显示登录的界面了（只有命令行），就是安装成功了，然后按照命令行的提示，在另一台电脑上访问web界面就可以了。note：必须用https访问，可以直接安装这个证书或者后面自己配置证书。刚好可以用之前openssl自己创建的证书。</p>
 <h2 id="配置证书"><a href="#配置证书" class="headerlink" title="配置证书"></a>配置证书</h2><p>参考<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[佛西博客 - Proxmox VE配置ssl证书](https://foxi.buduanwang.vip/virtualization/256.html/)">[5]</span></a></sup></p>
@@ -363,8 +363,8 @@
 
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.proxmox.com/en/proxmox-virtual-environment/overview">Proxmox Virtual Environment - Open-Source Server Virtualization Platform</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/index.html">Ventoy</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>[<a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/error-no-device-with-valid-iso-found.134510/">SOLVED] - [ERROR] No Device with Valid ISO Found | Proxmox Support Forum</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/ventoy-install-of-proxmox-8-1-halts-at-loading-initial-ramdisk.143196/">Ventoy install of Proxmox 8.1 halts at “Loading initial ramdisk” | Proxmox Support Forum</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/error-no-device-with-valid-iso-found.134510/">[SOLVED] - [ERROR] No Device with Valid ISO Found | Proxmox Support Forum</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://forum.proxmox.com/threads/ventoy-install-of-proxmox-8-1-halts-at-loading-initial-ramdisk.143196/">Ventoy install of Proxmox 8.1 halts at Loading initial ramdisk | Proxmox Support Forum</a>
 <a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://foxi.buduanwang.vip/virtualization/256.html/">佛西博客 - Proxmox VE配置ssl证书</a>
 <a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/a85g06k7/">容易被忽略的PVE细节—PVE的tips_NAS存储_什么值得买</a>
 <a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.xh86.me/?p=724">PVE开启硬件直通功能 – 杂七杂八</a>
