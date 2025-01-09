@@ -16,24 +16,24 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常用命令1234567891011121314151617181920212223242526docker run -itd -p 10022:22 -v ~&#x2F;data:&#x2F;root&#x2F;data --name my_container ubuntu:22.04 bash# docker运行容器，添加端口映射和目录映射docker ps -a# 列出所有的容器，-a表示不管有没有在运行docker ex">
+    <meta name="description" content="appium以及appium-inspector安装及配置appium需要使用比较新的版本的nodejs 12345678910111213141516171819sudo apt updatecurl -fsSL https:&#x2F;&#x2F;deb.nodesource.com&#x2F;setup_18.x | sudo -E bash -sudo apt install -y nodejsnode -vnpm -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker常用命令以及环境工作配置备份">
-<meta property="og:url" content="http://zr4in.github.io/2024/12/30/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%A5%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%B7%A5%E4%BD%9C%E9%85%8D%E7%BD%AE%E5%A4%87%E4%BB%BD/index.html">
+<meta property="og:title" content="appium inspector配置">
+<meta property="og:url" content="http://zr4in.github.io/2025/01/03/appium-inspector%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="常用命令1234567891011121314151617181920212223242526docker run -itd -p 10022:22 -v ~&#x2F;data:&#x2F;root&#x2F;data --name my_container ubuntu:22.04 bash# docker运行容器，添加端口映射和目录映射docker ps -a# 列出所有的容器，-a表示不管有没有在运行docker ex">
+<meta property="og:description" content="appium以及appium-inspector安装及配置appium需要使用比较新的版本的nodejs 12345678910111213141516171819sudo apt updatecurl -fsSL https:&#x2F;&#x2F;deb.nodesource.com&#x2F;setup_18.x | sudo -E bash -sudo apt install -y nodejsnode -vnpm -">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/12/30/DIJAHkSVO8nczFt.png">
-<meta property="article:published_time" content="2024-12-30T08:01:43.000Z">
-<meta property="article:modified_time" content="2025-01-06T16:08:44.881Z">
+<meta property="article:published_time" content="2025-01-03T13:57:09.000Z">
+<meta property="article:modified_time" content="2025-01-06T16:08:44.880Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="docker">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="adb">
+<meta property="article:tag" content="appium">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/30/DIJAHkSVO8nczFt.png">
   
   
   
-  <title>docker常用命令以及环境工作配置备份 - zr4in</title>
+  <title>appium inspector配置 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="docker常用命令以及环境工作配置备份"></span>
+            <span id="subtitle" data-typed-text="appium inspector配置"></span>
           
         </div>
 
@@ -222,8 +222,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-30 16:01" pubdate>
-          2024年12月30日 下午
+        <time datetime="2025-01-03 21:57" pubdate>
+          2025年1月3日 晚上
         </time>
       </span>
     
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          657 字
+          339 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          6 分钟
+          3 分钟
         
       </span>
     
@@ -282,7 +282,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">docker常用命令以及环境工作配置备份</h1>
+            <h1 id="seo-header">appium inspector配置</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
@@ -297,24 +297,25 @@
             
               <div class="markdown-body">
                 
-                <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -itd -p 10022:22 -v ~/data:/root/data --name my_container ubuntu:22.04 bash<br><span class="hljs-comment"># docker运行容器，添加端口映射和目录映射</span><br><br>docker ps -a<br><span class="hljs-comment"># 列出所有的容器，-a表示不管有没有在运行</span><br><br>docker <span class="hljs-built_in">exec</span> -it my_container bash<br><span class="hljs-comment"># docker进入容器并获取一个可交互的终端</span><br><br>docker start my_container<br><span class="hljs-comment"># start启动容器，stop关闭，restart重启</span><br><br>docker <span class="hljs-built_in">rm</span> -f my_container<br><span class="hljs-comment"># 删除某个容器，-f强制删除（不用手动关闭容器）</span><br><br>docker inspect my_container<br><span class="hljs-comment"># docker查看容器的信息（比如网络什么的）</span><br><br>docker network <span class="hljs-built_in">ls</span><br><span class="hljs-comment"># 列出docker的网络</span><br><br>docker network inspcet network_name_or_id<br><span class="hljs-comment"># docker查看该网络的信息（比如有哪些容器在这个网络上）</span><br><br>docker nerwork <span class="hljs-built_in">rm</span> network_name<br><span class="hljs-comment"># 删除某个网络（需要重启docker）</span><br></code></pre></td></tr></table></figure>
+                <h2 id="appium以及appium-inspector安装及配置"><a href="#appium以及appium-inspector安装及配置" class="headerlink" title="appium以及appium-inspector安装及配置"></a>appium以及appium-inspector安装及配置</h2><p>appium需要使用比较新的版本的nodejs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -<br>sudo apt install -y nodejs<br>node -v<br>npm -v<br><br>sudo apt install openjdk-17-jdk<br><br>wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip<br>sudo unzip commandlinetools-linux-6858069_latest.zip<br><br>sudo <span class="hljs-built_in">ln</span> -s /path/to/sdkmanager /bin/sdkmanager<br>sudo sdkmanager --proxy=http --proxy_host=host --proxy_port=port --sdk_root=/opt/android-sdk <span class="hljs-string">&quot;platforms;android-28&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">sudo sdkmanager --proxy=http --proxy_host=host --proxy_port=port --sdk_root=/opt/android-sdk &quot;</span>platform-tools<span class="hljs-string">&quot;</span><br><span class="hljs-string"></span><br><span class="hljs-string">sudo ln -s /path/to/adb /bin/adb</span><br><span class="hljs-string">sudo npm config set proxy http://your-proxy-server:port</span><br><span class="hljs-string">sudo npm install -g appium</span><br><span class="hljs-string">appium driver install uiautomator2</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="docker网段与外部冲突"><a href="#docker网段与外部冲突" class="headerlink" title="docker网段与外部冲突"></a>docker网段与外部冲突</h2><p>如果 Docker 的默认网段与外部网络网段发生冲突，可以通过以下步骤进行更改：</p>
-<p><strong>编辑 Docker 配置文件</strong>：通常，Docker 的配置文件位于 <code>/etc/docker/daemon.json</code>。如果该文件不存在，可以创建它。</p>
-<p><strong>配置自定义网段</strong>：在 <code>daemon.json</code> 文件中添加或修改以下内容来设置一个新的网段：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br> <span class="hljs-attr">&quot;bip&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.30.0.1/16&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>子网内通过adb连接到手机，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">adb connect <span class="hljs-variable">$ip</span>:<span class="hljs-variable">$port</span><br></code></pre></td></tr></table></figure>
 
-<p>这里的 <code>172.30.0.1/16</code> 是一个示例网段，可以根据需要选择一个不冲突的私有网段。</p>
-<p><strong>重启 Docker 服务</strong>：保存配置文件后，重启 Docker 服务以应用更改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl restart docker<br></code></pre></td></tr></table></figure>
+<p>获取包名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">adb shell pm list packages | grep xxx<br></code></pre></td></tr></table></figure>
 
-<p><strong>验证更改</strong>：重启后，可以运行以下命令来验证 Docker 是否使用了新的网段：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker network inspect bridge<br></code></pre></td></tr></table></figure>
+<p>获取启动activity：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">adb shell monkey -p com.package.name -c android.intent.category.LAUNCHER -v -v 0 | grep  Using<br></code></pre></td></tr></table></figure>
 
-<p>检查输出中的 <code>Subnet</code> 信息是否与配置一致。这样设置后，Docker 将使用你指定的网段，从而避免与外部网络冲突。如果<code>ip r</code>发现还有对应的路由表，可能需要<code>docker network rm n_name</code>手动删除无用的网络。</p>
-<h2 id="配置常用环境"><a href="#配置常用环境" class="headerlink" title="配置常用环境"></a>配置常用环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash">PUB_KEYS=(<span class="hljs-string">&quot;pub key1&quot;</span> <span class="hljs-string">&quot;pub key2&quot;</span>)<br>apt update &amp;&amp; apt install ca-certificates -y<br><span class="hljs-built_in">mv</span> /etc/apt/sources.list /etc/apt/sources.list.backup<br><span class="hljs-built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt;<span class="hljs-string">EOF</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse</span><br><span class="hljs-string"></span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse</span><br><span class="hljs-string">EOF</span><br>apt update &amp;&amp; apt upgrade -y &amp;&amp; apt install nano git wget curl openssh-server zsh -y<br>sed -i <span class="hljs-string">&quot;s/#PubkeyAuthentication.*$/PubkeyAuthentication\ yes/g&quot;</span> /etc/ssh/sshd_config<br>sed -i <span class="hljs-string">&quot;s/#PasswordAuthentication.*$/PasswordAuthentication\ no/g&quot;</span> /etc/ssh/sshd_config<br>sed -i <span class="hljs-string">&quot;s/#AuthorizedKeysFile.*$/AuthorizedKeysFile\ .ssh\/authorized_keys/g&quot;</span> /etc/ssh/sshd_config<br><span class="hljs-keyword">if</span> [ ! -d ~/.ssh/ ]; <span class="hljs-keyword">then</span><br>	<span class="hljs-built_in">mkdir</span> ~/.ssh<br><span class="hljs-keyword">fi</span><br><span class="hljs-keyword">if</span> [ ! -f ~/.ssh/authorized_keys ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">touch</span> ~/.ssh/authorized_keys<br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">chmod</span> 600 ~/.ssh/authorized_keys<br><span class="hljs-keyword">for</span> pub <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;PUB_KEYS[@]&#125;</span>&quot;</span>;<br>	<span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-variable">$pub</span> &gt;&gt; ~/.ssh/authorized_keys<br><span class="hljs-keyword">done</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;service ssh start&quot;</span> &gt;&gt; ~/.bashrc<br>usermod -s `<span class="hljs-built_in">which</span> zsh` root<br>sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting<br>sed -i <span class="hljs-string">&quot;s/^plugins=(git.*$/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g&quot;</span> ~/.zshrc<br>git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k<br>sed -i <span class="hljs-string">&quot;s/^ZSH_THEME=.*$/ZSH_THEME=powerlevel10k\/powerlevel10k/g&quot;</span> ~/.zshrc<br></code></pre></td></tr></table></figure>
+<p>appium服务器中运行<code>appium</code>启动服务，然后配置appium-inspector：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;platformName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Android&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;appium:platformVersion&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9.0&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;appium:deviceName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;device-serial&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;appium:appPackage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;com.package.name&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;appium:appActivity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;com.package.name.Activity&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;appium:automationName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;UiAutomator2&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
+<h2 id="ADB常用命令"><a href="#ADB常用命令" class="headerlink" title="ADB常用命令"></a>ADB常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">adb devices<br><span class="hljs-comment"># 列出已连接的设备</span><br><br>adb connect 192.168.1.111:5555<br><span class="hljs-comment"># 连接到局域网的adb设备</span><br><br>adb -s serial-0001 shell <span class="hljs-built_in">ls</span><br><span class="hljs-comment"># 通过adb连接的设备（连接多个设备时通过-s参数指定设备编号）中执行ls命令</span><br><span class="hljs-comment"># 如果只有一个adb设备，-s加不加无所谓</span><br><br>adb shell pm list packages | grep xxx<br>adb shell pm list packages | findstr xxx<br><span class="hljs-comment"># 列出所有安装的包，重定向输出然后正则匹配，linux用grep，windows用findstr</span><br><br>adb shell /system/bin/screencap -p /sdcard/ss.png<br>adb pull /sdcard/ss.png .<br><span class="hljs-comment"># adb获取设备截图并pull到本地</span><br></code></pre></td></tr></table></figure>
 
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lixuefang69/p/15425471.html">利用adb命令对手机截图保存到电脑 - 曦涵 - 博客园</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -326,7 +327,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/docker/" class="print-no-link">#docker</a>
+        <a href="/tags/android/" class="print-no-link">#android</a>
+      
+        <a href="/tags/adb/" class="print-no-link">#adb</a>
+      
+        <a href="/tags/appium/" class="print-no-link">#appium</a>
       
     </div>
   
@@ -338,8 +343,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>docker常用命令以及环境工作配置备份</div>
-      <div>http://zr4in.github.io/2024/12/30/docker常用命令以及环境工作配置备份/</div>
+      <div>appium inspector配置</div>
+      <div>http://zr4in.github.io/2025/01/03/appium-inspector配置/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +356,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月30日</div>
+          <div>2025年1月3日</div>
         </div>
       
       
@@ -383,9 +388,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/03/appium-inspector%E9%85%8D%E7%BD%AE/" title="appium inspector配置">
+                      <a href="/2025/01/05/pve%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" title="pve安装及配置">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">appium inspector配置</span>
+                        <span class="hidden-mobile">pve安装及配置</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -393,8 +398,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/12/16/docker%E9%85%8D%E7%BD%AEtransmission/" title="docker配置transmission">
-                        <span class="hidden-mobile">docker配置transmission</span>
+                      <a href="/2024/12/30/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%A5%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%B7%A5%E4%BD%9C%E9%85%8D%E7%BD%AE%E5%A4%87%E4%BB%BD/" title="docker常用命令以及环境工作配置备份">
+                        <span class="hidden-mobile">docker常用命令以及环境工作配置备份</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
