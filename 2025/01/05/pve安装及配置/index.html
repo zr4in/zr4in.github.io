@@ -16,16 +16,16 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。 PVEProxmox VE[1]是一个基于debian的linux发行版，开源的服务器虚拟化平台。 安装PVE使用ventoy[2]安装，如果ventoy版本是有bug的版本的话，在安装pv">
+    <meta name="description" content="咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。  主板+CPU+内存条：￥350 机箱：280+54-20-90+118&#x3D;￥342 PCIE扩展卡：￥35 电源：￥283 Total：￥1010  还没算硬盘，多少有点贵了。不过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pve安装及配置">
 <meta property="og:url" content="http://zr4in.github.io/2025/01/05/pve%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。 PVEProxmox VE[1]是一个基于debian的linux发行版，开源的服务器虚拟化平台。 安装PVE使用ventoy[2]安装，如果ventoy版本是有bug的版本的话，在安装pv">
+<meta property="og:description" content="咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。  主板+CPU+内存条：￥350 机箱：280+54-20-90+118&#x3D;￥342 PCIE扩展卡：￥35 电源：￥283 Total：￥1010  还没算硬盘，多少有点贵了。不过">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/01/06/fBrgQcF3vPlNwEj.png">
 <meta property="article:published_time" content="2025-01-05T13:58:20.000Z">
-<meta property="article:modified_time" content="2025-01-09T08:03:32.350Z">
+<meta property="article:modified_time" content="2025-01-17T13:42:25.305Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="pve">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.7k 字
         
       </span>
     
@@ -290,7 +290,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-01-09T16:03:32+08:00
+                    本文最后更新于 2025-01-17T21:42:25+08:00
                   
                   
 
@@ -301,6 +301,14 @@
               <div class="markdown-body">
                 
                 <p>咸鱼捡垃圾碰巧捡了个华硕B250M主板+Intel i5 7500，碰巧捡了个拓扑龙的8盘位机箱，碰巧捡了个pcie转sata卡，碰巧捡了个益恒250W flex电源，碰巧捡了好几块机械硬盘。折腾一下pve。</p>
+<blockquote>
+<p>主板+CPU+内存条：￥350</p>
+<p>机箱：280+54-20-90+118&#x3D;￥342</p>
+<p>PCIE扩展卡：￥35</p>
+<p>电源：￥283</p>
+<p>Total：￥1010</p>
+</blockquote>
+<p>还没算硬盘，多少有点贵了。不过相比最新的硬件比如N100什么的，还是便宜不少，N100主板+CPU套装一般就600左右了。</p>
 <h2 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h2><p>Proxmox VE<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Proxmox Virtual Environment - Open-Source Server Virtualization Platform](https://www.proxmox.com/en/proxmox-virtual-environment/overview)">[1]</span></a></sup>是一个基于debian的linux发行版，开源的服务器虚拟化平台。</p>
 <h2 id="安装PVE"><a href="#安装PVE" class="headerlink" title="安装PVE"></a>安装PVE</h2><p>使用ventoy<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Ventoy](https://www.ventoy.net/cn/index.html)">[2]</span></a></sup>安装，如果ventoy版本是有bug的版本的话，在安装pve的时候有可能会遇到No Device with Valid ISO Found的问题，似乎是ventoy的bug<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[\[SOLVED\] - \[ERROR\] No Device with Valid ISO Found | Proxmox Support Forum](https://forum.proxmox.com/threads/error-no-device-with-valid-iso-found.134510/)">[3]</span></a></sup>，更新到1.0.99版本就行了，但是后面安装好之后，还会有bug，无法启动。表现就是启动的时候会卡在<code>Loading initial ramdisk...</code>，然后又是google一番，发现是pve和ventoy的bug<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Ventoy install of Proxmox 8.1 halts at Loading initial ramdisk | Proxmox Support Forum](https://forum.proxmox.com/threads/ventoy-install-of-proxmox-8-1-halts-at-loading-initial-ramdisk.143196/)">[4]</span></a></sup>。按照帖子上的说法，编辑<code>/etc/default/grub.d/installer.cfg</code>这个文件，删掉<code>voty</code>参数的部分。我的改完之后是<code>GRUB_CMDLINE_LINUX=&quot;$GRUB_CMDLINE_LINUX&quot;</code>，然后运行<code>update-grub</code>更新配置文件，然后就可以了。</p>
 <p><del>世界就是一个巨大的bug，为什么这么多bug。</del></p>
@@ -447,6 +455,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/02/25/%E5%9C%A8%E5%9D%9A%E5%86%B0%E8%BF%98%E7%9B%96%E7%9D%80%E5%8C%97%E6%B5%B7%E7%9A%84%E6%97%B6%E5%80%99/" title="在坚冰还盖着北海的时候">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在坚冰还盖着北海的时候</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
