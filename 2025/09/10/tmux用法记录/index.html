@@ -16,24 +16,26 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Man in the mirror If you wanna make the world A better place Take a look at yourself And then make that change  无名的人 你来自于 南方的村落 来自粗糙的双手 你站在 楼宇的缝隙 可你没有退缩 我来自于 北方的春天 来自一步一回首 背后有 告别的路口 温暖每个日落 当家乡入冬 的时候 列">
+    <meta name="description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="M">
-<meta property="og:url" content="http://zr4in.github.io/2024/07/10/M/index.html">
+<meta property="og:title" content="tmux用法记录">
+<meta property="og:url" content="http://zr4in.github.io/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="Man in the mirror If you wanna make the world A better place Take a look at yourself And then make that change  无名的人 你来自于 南方的村落 来自粗糙的双手 你站在 楼宇的缝隙 可你没有退缩 我来自于 北方的春天 来自一步一回首 背后有 告别的路口 温暖每个日落 当家乡入冬 的时候 列">
+<meta property="og:description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/07/10/dXK9JYPDavxE4Zj.png">
-<meta property="article:published_time" content="2024-07-10T10:16:30.000Z">
-<meta property="article:modified_time" content="2025-06-17T13:52:00.479Z">
+<meta property="og:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
+<meta property="article:published_time" content="2025-09-10T08:31:16.000Z">
+<meta property="article:modified_time" content="2025-09-13T11:48:26.968Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="tmux">
+<meta property="article:tag" content="terminal">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/07/10/dXK9JYPDavxE4Zj.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
   
   
   
-  <title>M - zr4in</title>
+  <title>tmux用法记录 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="M"></span>
+            <span id="subtitle" data-typed-text="tmux用法记录"></span>
           
         </div>
 
@@ -222,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-10 18:16" pubdate>
-          2024年7月10日 晚上
+        <time datetime="2025-09-10 16:31" pubdate>
+          2025年9月10日 下午
         </time>
       </span>
     
@@ -234,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          189 字
+          208 字
         
       </span>
     
@@ -282,12 +284,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">M</h1>
+            <h1 id="seo-header">tmux用法记录</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-06-17T21:52:00+08:00
+                    本文最后更新于 2025-09-13T19:48:26+08:00
                   
                   
 
@@ -297,46 +299,16 @@
             
               <div class="markdown-body">
                 
-                <h2 id="Man-in-the-mirror"><a href="#Man-in-the-mirror" class="headerlink" title="Man in the mirror"></a>Man in the mirror</h2><blockquote>
-<p>If you wanna make the world</p>
-<p>A better place</p>
-<p>Take a look at yourself</p>
-<p>And then make that change</p>
-</blockquote>
-<h2 id="无名的人"><a href="#无名的人" class="headerlink" title="无名的人"></a>无名的人</h2><blockquote>
-<p>你来自于 南方的村落 来自粗糙的双手</p>
-<p>你站在 楼宇的缝隙 可你没有退缩</p>
-<p>我来自于 北方的春天 来自一步一回首</p>
-<p>背后有 告别的路口 温暖每个日落</p>
-<p>当家乡入冬 的时候</p>
-<p>列车到站 以后</p>
-<p>小时候的风 再吹过</p>
-<p>回忆起单纯 的快乐</p>
-<p>在熟悉的 街头</p>
-<p>有人 会用所有的温柔 喊出你的</p>
-<p>名字</p>
-</blockquote>
-<h2 id="Life-Will-Change"><a href="#Life-Will-Change" class="headerlink" title="Life Will Change"></a>Life Will Change</h2><blockquote>
-<p>And you’ll know we were out there</p>
-<p>Swatted lies in the making</p>
-<p>Your empire for the taking</p>
-<p>Can’t hold on or life won’t change</p>
-<p>And our voices rang out here</p>
-<p>Took the mask off to feel free</p>
-<p>Fought it out in the debris</p>
-<p>Now we know that life will change</p>
-</blockquote>
-<h2 id="我不知道"><a href="#我不知道" class="headerlink" title="我不知道"></a>我不知道</h2><blockquote>
-<p>星星和月亮一起闪耀</p>
-<p>驱散了孤独和寂寥</p>
-<p>洒向黑暗的每一秒</p>
-<p>也会把你照耀</p>
-<p>受伤的孩子不再哭闹</p>
-<p>疲惫的人不再奔跑</p>
-<p>又看到你开心地笑</p>
-<p>仿佛什么 什么 都不知道</p>
-</blockquote>
+                <p>tmux是一个终端复用器<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Tmux 使用教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/10/tmux.html)">[1]</span></a></sup>，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。</p>
+<h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><p>在<code>~/.tmux.conf</code>中设置<code>set -g mouse on</code>可以全局启用鼠标</p>
+<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p><code>Ctrl+B</code>是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如</p>
+<p><code>Ctrl+B</code>松开之后，按下<code>D</code>可以脱离（detach）当前的session，但该session仍会在后台运行</p>
+<p><code>Ctrl+B</code>，<code>?</code>进入使用帮助，然后<code>Q</code>退出使用帮助</p>
+<h2 id="Session管理"><a href="#Session管理" class="headerlink" title="Session管理"></a>Session管理</h2><p>直接运行<code>tmux</code>命令会新建一个session并按数字自动编号，更方便的方法是通过name来命名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出当前所有的session</span><br>tmux <span class="hljs-built_in">ls</span><br>tmux list-session<br><br><span class="hljs-comment"># 新建session</span><br>tmux new -s name<br><br><span class="hljs-comment"># attach session 0/name</span><br>tmux attach -t 0<br>tmux attach -t name<br></code></pre></td></tr></table></figure>
 
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">Tmux 使用教程 - 阮一峰的网络日志</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -348,7 +320,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9A%8F%E7%AC%94/" class="print-no-link">#随笔</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+        <a href="/tags/tmux/" class="print-no-link">#tmux</a>
+      
+        <a href="/tags/terminal/" class="print-no-link">#terminal</a>
       
     </div>
   
@@ -360,8 +336,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>M</div>
-      <div>http://zr4in.github.io/2024/07/10/M/</div>
+      <div>tmux用法记录</div>
+      <div>http://zr4in.github.io/2025/09/10/tmux用法记录/</div>
     </div>
     <div class="license-meta">
       
@@ -373,7 +349,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月10日</div>
+          <div>2025年9月10日</div>
         </div>
       
       
@@ -405,18 +381,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/11/%E9%80%9A%E8%BF%87ssh%E9%9A%A7%E9%81%93%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/" title="通过ssh隧道使用代理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">通过ssh隧道使用代理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/13/wireshark-ssh%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%B7%A8%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85/" title="wireshark+ssh输出重定向跨主机抓包">
-                        <span class="hidden-mobile">wireshark+ssh输出重定向跨主机抓包</span>
+                      <a href="/2025/05/25/%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%A2%8E%E5%BF%B5/" title="一些碎碎念">
+                        <span class="hidden-mobile">一些碎碎念</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

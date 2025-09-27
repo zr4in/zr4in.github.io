@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/09/wUCfsQ9jYiWymRH.png">
 <meta property="article:published_time" content="2024-12-09T09:30:44.000Z">
-<meta property="article:modified_time" content="2024-12-10T02:40:54.250Z">
+<meta property="article:modified_time" content="2025-07-31T03:06:39.470Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="docker">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          356 字
+          442 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-12-10T10:40:54+08:00
+                    本文最后更新于 2025-07-31T11:06:39+08:00
                   
                   
 
@@ -308,6 +308,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></td></tr></table></figure>
 
 <p>note：不同的发行版中service文件的位置不一样，在archlinux中位于<code>/usr/lib/systemd/system/docker.service</code></p>
+<h3 id="AI的答案"><a href="#AI的答案" class="headerlink" title="AI的答案"></a>AI的答案</h3><p>直接更改系统设置每次更新系统重启之后就会被覆盖，新建一个目录保存配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /etc/systemd/system/docker.service.d<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTP_PROXY=http://127.0.0.1:7890&quot;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;HTTPS_PROXY=http://127.0.0.1:7890&quot;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl daemon-reexec<br>systemctl daemon-reload<br>systemctl restart docker<br><span class="hljs-comment"># 验证是否有效：</span><br>systemctl show --property=Environment docker<br></code></pre></td></tr></table></figure>
+
 <h2 id="容器内代理"><a href="#容器内代理" class="headerlink" title="容器内代理"></a>容器内代理</h2><p><strong>问题</strong>：配置每个容器的代理环境变量较繁琐。<br><strong>解决方案</strong>：在 <code>~/.docker/config.json</code> 中设置全局代理配置。</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;proxies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;default&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;httpProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;httpsProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;http://example:1080&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;noProxy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;*.test.example.com,.example.org,127.0.0.0/8,192.168.0.0/16&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
