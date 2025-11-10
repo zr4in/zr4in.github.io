@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" href="/img/avatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zr4in">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一下自己探索安卓逆向的过程，纯新手脚本小子，如有谬误恳请各位斧正。 root首先是获取手机的root权限，比较简单的方法是模拟器，一般都会直接开放root，但是有些app可能会有虚拟机检测，没有的话最好，有的话可能需要花心思考虑绕过，或者使用真机。 使用真机一般会好很多。真机root一般会用到magisk[1]，然后也需要对应手机型号的镜像文件（所以一般需要厂商支持root，比如小米的手机和g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记Android某APP逆向">
+<meta property="og:url" content="http://zr4in.github.io/2024/04/16/%E8%AE%B0Android%E6%9F%90APP%E9%80%86%E5%90%91/index.html">
+<meta property="og:site_name" content="zr4in">
+<meta property="og:description" content="记录一下自己探索安卓逆向的过程，纯新手脚本小子，如有谬误恳请各位斧正。 root首先是获取手机的root权限，比较简单的方法是模拟器，一般都会直接开放root，但是有些app可能会有虚拟机检测，没有的话最好，有的话可能需要花心思考虑绕过，或者使用真机。 使用真机一般会好很多。真机root一般会用到magisk[1]，然后也需要对应手机型号的镜像文件（所以一般需要厂商支持root，比如小米的手机和g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/04/23/oljbFkX2YnrVHzG.png">
+<meta property="article:published_time" content="2024-04-16T07:22:16.000Z">
+<meta property="article:modified_time" content="2025-09-22T08:06:09.093Z">
+<meta property="article:author" content="zr4in">
+<meta property="article:tag" content="android">
+<meta property="article:tag" content="reverse">
+<meta property="article:tag" content="hook">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/04/23/oljbFkX2YnrVHzG.png">
+  
+  
+  
+  <title>记Android某APP逆向 - zr4in</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zr4in.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zr4in - blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/home_background.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="记Android某APP逆向"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-16 15:22" pubdate>
+          2024年4月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">记Android某APP逆向</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2025-09-22T16:06:09+08:00
+                  
+                  
+
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>记录一下自己探索安卓逆向的过程，纯新手脚本小子，如有谬误恳请各位斧正。</p>
+<h2 id="root"><a href="#root" class="headerlink" title="root"></a>root</h2><p>首先是获取手机的root权限，比较简单的方法是模拟器，一般都会直接开放root，但是有些app可能会有虚拟机检测，没有的话最好，有的话可能需要花心思考虑绕过，或者使用真机。</p>
+<p>使用真机一般会好很多。真机root一般会用到magisk<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[topjohnwu/Magisk: The Magic Mask for Android (github.com)](https://github.com/topjohnwu/Magisk)">[1]</span></a></sup>，然后也需要对应手机型号的镜像文件（所以一般需要厂商支持root，比如小米的手机和google的pixel），这篇blog就先不讲怎么root的了，教程其实很多。</p>
+<h2 id="Frida"><a href="#Frida" class="headerlink" title="Frida"></a>Frida</h2><p>然后是Frida<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[frida/frida: Clone this repo to build Frida (github.com)](https://github.com/frida/frida)">[2]</span></a></sup>，Frida是一个python + js的hook框架<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Frida 原理及简单使用 - Only-xiaoxiao - 博客园 (cnblogs.com)](https://www.cnblogs.com/Only-xiaoxiao/p/17294561.html)">[3]</span></a></sup>，本质上是一种动态插桩工具。使用的时候，在需要hook的地方，比如Android手机上以root权限运行对应架构（x86或者arm，虚拟机一般x86，真机一般arm）的frida-server，然后在进行hook的地方运行frida或者frida-tools工具，frida和frida-tools并不是同一个东西，我暂时没有专门去搞清楚这两者的联系，但是需要注意的是两者需要版本兼容<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Frida server 和 python client下载 版本对应关系 - 悟透 - 博客园 (cnblogs.com)](https://www.cnblogs.com/wutou/p/17884865.html)">[4]</span></a></sup>。一般直接安装最新版应该就可以：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">pip install frida<br>pip install frida-tools<br></code></pre></td></tr></table></figure>
+
+<h2 id="jadx"><a href="#jadx" class="headerlink" title="jadx"></a>jadx</h2><p>jadx<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[skylot/jadx: Dex to Java decompiler (github.com)](https://github.com/skylot/jadx)">[5]</span></a></sup>是一个开源安卓逆向工具，主要用于逆向分析apk，反编译为java源代码（当然一般不可能完美反编译，遇到过一些报错的地方）</p>
+<p>如果apk没有加壳的话，直接把apk拖到jadx里就行，jadx会自动完成分析，比如这样：</p>
+<p><img src="https://s2.loli.net/2024/04/23/MxLacvCR19o6myg.png" srcset="/img/loading.gif" lazyload alt="image-20240423095710623"></p>
+<p>如果代码是混淆过的，那可能会比较难过，只能慢慢看了，或许程序分析领域会有针对反混淆的研究，但是个人感觉可能都是比较ad-hoc的，而且其实混淆不是很严重的话，根据log或者一些字符串来进行推测，应该也是能分析的，我目前还没有用什么反混淆的工具，jadx自带反混淆工具，但也只是把一些函数名或者类名中的不常见的字符给去掉，换成一些常见字符加上数字编号。</p>
+<h2 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h2><p>hook通俗点就是钩子（<del>沟子</del>）（<del>坏，沟子文学逐渐污染互联网</del>），把正常的实现替换为自己想要的实现，比如app中某个函数想要检测环境然后返回true或者false，然后你希望它永远返回true，就可以利用hook</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> java_class = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&quot;com.app.classname&quot;</span>);<br>    <br>    java_class.<span class="hljs-property">function_name</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&quot;para list&quot;</span>).<span class="hljs-property">implemeation</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-string">&quot;para list&quot;</span></span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>然后使用frida的命令行工具将代码注入到对应的app进程就可以了<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="[frida的用法--Hook Java代码篇 - luoyesiqiu - 博客园 (cnblogs.com)](https://www.cnblogs.com/luoyesiqiu/p/10718997.html)">[6]</span></a></sup></p>
+<h2 id="example"><a href="#example" class="headerlink" title="example"></a>example</h2><p>以运动健康app为例，比如希望知道它所有的加密操作（代码忘记从哪复制来的了，如有问题请联系我）：</p>
+
+    <div class="fold">
+      <div class="fold-title fold-default collapsed" data-toggle="collapse" href="#collapse-e064c6af" role="button" aria-expanded="false" aria-controls="collapse-e064c6af">
+        <div class="fold-arrow">▶</div>js code
+      </div>
+      <div class="fold-collapse collapse" id="collapse-e064c6af">
+        <div class="fold-content">
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">showStacks</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-title function_">send</span>(<span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&quot;android.util.Log&quot;</span>).<span class="hljs-title function_">getStackTraceString</span>(<span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&quot;java.lang.Exception&quot;</span>).$new()));<br>    &#125;);<br>&#125;; <span class="hljs-comment">// print stack info</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bytesToHex</span>(<span class="hljs-params">arr</span>) &#123;<br>    <span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-property">length</span>; i++) &#123;<br>        <span class="hljs-keyword">var</span> tmp = arr[i];<br>        <span class="hljs-keyword">if</span> (tmp &lt; <span class="hljs-number">0</span>) &#123;<br>            tmp = (<span class="hljs-number">255</span> + tmp + <span class="hljs-number">1</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            tmp = tmp.<span class="hljs-title function_">toString</span>(<span class="hljs-number">16</span>);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (tmp.<span class="hljs-property">length</span> == <span class="hljs-number">1</span>) &#123;<br>            tmp = <span class="hljs-string">&quot;0&quot;</span> + tmp;<br>        &#125;<br>        str += tmp;<br>    &#125;<br>    <span class="hljs-keyword">return</span> str;<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bytesToBase64</span>(<span class="hljs-params">e</span>) &#123;<br>    <span class="hljs-keyword">var</span> base64EncodeChars = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span>;<br>    <span class="hljs-keyword">var</span> r, a, c, h, o, t;<br>    <span class="hljs-keyword">for</span> (c = e.<span class="hljs-property">length</span>, a = <span class="hljs-number">0</span>, r = <span class="hljs-string">&#x27;&#x27;</span>; a &lt; c;) &#123;<br>        <span class="hljs-keyword">if</span> (h = <span class="hljs-number">255</span> &amp; e[a++], a == c) &#123;<br>            r += base64EncodeChars.<span class="hljs-title function_">charAt</span>(h &gt;&gt; <span class="hljs-number">2</span>),<br>            r += base64EncodeChars.<span class="hljs-title function_">charAt</span>((<span class="hljs-number">3</span> &amp; h) &lt;&lt; <span class="hljs-number">4</span>),<br>            r += <span class="hljs-string">&#x27;==&#x27;</span>;<br>            <span class="hljs-keyword">break</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> (o = e[a++], a == c) &#123;<br>            r += base64EncodeChars.<span class="hljs-title function_">charAt</span>(h &gt;&gt; <span class="hljs-number">2</span>),<br>            r += base64EncodeChars.<span class="hljs-title function_">charAt</span>((<span class="hljs-number">3</span> &amp; h) &lt;&lt; <span class="hljs-number">4</span> | (<span class="hljs-number">240</span> &amp; o) &gt;&gt; <span class="hljs-number">4</span>),<br>            r += base64EncodeChars.<span class="hljs-title function_">charAt</span>((<span class="hljs-number">15</span> &amp; o) &lt;&lt; <span class="hljs-number">2</span>),<br>            r += <span class="hljs-string">&#x27;=&#x27;</span>;<br>            <span class="hljs-keyword">break</span><br>        &#125;<br>        t = e[a++],<br>        r += base64EncodeChars.<span class="hljs-title function_">charAt</span>(h &gt;&gt; <span class="hljs-number">2</span>),<br>        r += base64EncodeChars.<span class="hljs-title function_">charAt</span>((<span class="hljs-number">3</span> &amp; h) &lt;&lt; <span class="hljs-number">4</span> | (<span class="hljs-number">240</span> &amp; o) &gt;&gt; <span class="hljs-number">4</span>),<br>        r += base64EncodeChars.<span class="hljs-title function_">charAt</span>((<span class="hljs-number">15</span> &amp; o) &lt;&lt; <span class="hljs-number">2</span> | (<span class="hljs-number">192</span> &amp; t) &gt;&gt; <span class="hljs-number">6</span>),<br>        r += base64EncodeChars.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">63</span> &amp; t)<br>    &#125;<br>    <span class="hljs-keyword">return</span> r<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bytesToString</span>(<span class="hljs-params">arr</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> arr === <span class="hljs-string">&#x27;string&#x27;</span>) &#123;<br>        <span class="hljs-keyword">return</span> arr;<br>    &#125;<br>    <span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;&#x27;</span>,<br>    _arr = arr;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; _arr.<span class="hljs-property">length</span>; i++) &#123;<br>        <span class="hljs-keyword">var</span> one = _arr[i].<span class="hljs-title function_">toString</span>(<span class="hljs-number">2</span>),<br>        v = one.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^1+?(?=0)/</span>);<br>        <span class="hljs-keyword">if</span> (v &amp;&amp; one.<span class="hljs-property">length</span> == <span class="hljs-number">8</span>) &#123;<br>            <span class="hljs-keyword">var</span> bytesLength = v[<span class="hljs-number">0</span>].<span class="hljs-property">length</span>;<br>            <span class="hljs-keyword">var</span> store = _arr[i].<span class="hljs-title function_">toString</span>(<span class="hljs-number">2</span>).<span class="hljs-title function_">slice</span>(<span class="hljs-number">7</span> - bytesLength);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> st = <span class="hljs-number">1</span>; st &lt; bytesLength; st++) &#123;<br>                store += _arr[st + i].<span class="hljs-title function_">toString</span>(<span class="hljs-number">2</span>).<span class="hljs-title function_">slice</span>(<span class="hljs-number">2</span>);<br>            &#125;<br>            str += <span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(<span class="hljs-built_in">parseInt</span>(store, <span class="hljs-number">2</span>));<br>            i += bytesLength - <span class="hljs-number">1</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            str += <span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(_arr[i]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> str;<br>&#125;<br><br><span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> secretKeySpec = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;javax.crypto.spec.SecretKeySpec&#x27;</span>);<br>    secretKeySpec.<span class="hljs-property">$init</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>,<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.$init(a, b);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.spec.SecretKeySpec.$init(byte[], String)</span><br><span class="hljs-string">算法名                  : <span class="hljs-subst">$&#123; b &#125;</span></span><br><span class="hljs-string">Dec密钥(String)         : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">Dec秘钥(Hex)            : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> mac = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;javax.crypto.Mac&#x27;</span>);<br>    mac.<span class="hljs-property">getInstance</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getInstance</span>(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Mac.getInstance(String)</span><br><span class="hljs-string">算法名                  : <span class="hljs-subst">$&#123; a &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    mac.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Mac.update(byte[])</span><br><span class="hljs-string">Mac update(string)      : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">Mac update(hex)         : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a);<br>    &#125;;<br>    mac.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b,c</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Mac.update(byte[], int, int)</span><br><span class="hljs-string">Mac update(string)      : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">Mac update(hex)         : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a, b, c)<br>    &#125;;<br>    mac.<span class="hljs-property">doFinal</span>.<span class="hljs-title function_">overload</span>().<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">doFinal</span>();<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Mac.doFinal()</span><br><span class="hljs-string">doFinal结果(hex)        : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    mac.<span class="hljs-property">doFinal</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">doFinal</span>(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Mac.doFinal(byte[])</span><br><span class="hljs-string">doFinal参数(string)     : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">doFinal参数(hex)        : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">---</span><br><span class="hljs-string">doFinal结果(hex)        : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> md = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;java.security.MessageDigest&#x27;</span>);<br>    md.<span class="hljs-property">getInstance</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>,<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.getInstance(String, String)</span><br><span class="hljs-string">算法名                  ：<span class="hljs-subst">$&#123; a &#125;</span></span><br><span class="hljs-string">参数2                   ：<span class="hljs-subst">$&#123; b &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getInstance</span>(a, b);<br>    &#125;;<br>    md.<span class="hljs-property">getInstance</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.getInstance(String)</span><br><span class="hljs-string">算法名                  ：<span class="hljs-subst">$&#123; a &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getInstance</span>(a);<br>    &#125;;<br>    md.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.update(byte[])</span><br><span class="hljs-string">MessageDigest update(string)    : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">MessageDigest update(hex)       : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a);<br>    &#125;;<br>    md.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b,c</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.update(byte[], int, int)</span><br><span class="hljs-string">MessageDigest update(string)    : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">MessageDigest update(hex)       : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a,b,c);<br>    &#125;;<br>    md.<span class="hljs-property">digest</span>.<span class="hljs-title function_">overload</span>().<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">digest</span>();<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.digest()</span><br><span class="hljs-string">digest结果(string)      : <span class="hljs-subst">$&#123; bytesToString(result) &#125;</span></span><br><span class="hljs-string">digest结果(hex)         : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    md.<span class="hljs-property">digest</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">digest</span>(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.MessageDigest.digest(byte[])</span><br><span class="hljs-string">digest参数(string)      : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">digest参数(hex   )      : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">---</span><br><span class="hljs-string">digest结果(string)      : <span class="hljs-subst">$&#123; bytesToString(result) &#125;</span></span><br><span class="hljs-string">digest结果(hex)         : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">digest结果(base64)      : <span class="hljs-subst">$&#123; bytesToBase64(result) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> ivParameterSpec = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;javax.crypto.spec.IvParameterSpec&#x27;</span>);<br>    ivParameterSpec.<span class="hljs-property">$init</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>       <span class="hljs-comment">// showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.spec.IvParameterSpec.$init(byte[])</span><br><span class="hljs-string">iv向量(string)          : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">iv向量(hex)             : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.$init(a);<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> cipher = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;javax.crypto.Cipher&#x27;</span>);<br>    cipher.<span class="hljs-property">getInstance</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getInstance</span>(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Cipher.getInstance(String)</span><br><span class="hljs-string">模式填充                : <span class="hljs-subst">$&#123; a &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    cipher.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Cipher.update(byte[])\n&quot; +</span><br><span class="hljs-string">Cipher update(string)   : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">Cipher update(hex)      : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a);<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    cipher.<span class="hljs-property">update</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>,<span class="hljs-string">&#x27;int&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b,c</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Cipher.update(byte[], int, int)</span><br><span class="hljs-string">Cipher update(string)   : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">Cipher update(hex)      : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span> | <span class="hljs-subst">$&#123; b &#125;</span> | <span class="hljs-subst">$&#123; c &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(a,b,c);<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    cipher.<span class="hljs-property">doFinal</span>.<span class="hljs-title function_">overload</span>().<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">doFinal</span>();<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Cipher.doFinal()</span><br><span class="hljs-string">doFinal结果(string)     : <span class="hljs-subst">$&#123; bytesToString(result) &#125;</span></span><br><span class="hljs-string">doFinal结果(hex)        : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>    cipher.<span class="hljs-property">doFinal</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">doFinal</span>(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== javax.crypto.Cipher.doFinal(byte[])</span><br><span class="hljs-string">doFinal参数(string)     : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">doFinal参数(hex)        : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">---</span><br><span class="hljs-string">doFinal结果(string)     : <span class="hljs-subst">$&#123; bytesToString(result) &#125;</span></span><br><span class="hljs-string">doFinal结果(hex)        : <span class="hljs-subst">$&#123; bytesToHex(result) &#125;</span></span><br><span class="hljs-string">Stack:</span><br><span class="hljs-string"><span class="hljs-subst">$&#123; Java.use(<span class="hljs-string">&quot;android.util.Log&quot;</span>).getStackTraceString(Java.use(<span class="hljs-string">&quot;java.lang.Exception&quot;</span>).$new()) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> x509EncodedKeySpec = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;java.security.spec.X509EncodedKeySpec&#x27;</span>);<br>    x509EncodedKeySpec.<span class="hljs-property">$init</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;[B&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.$init(a);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.spec.X509EncodedKeySpec.$init(byte[])</span><br><span class="hljs-string">RSA密钥(string)         : <span class="hljs-subst">$&#123; bytesToString(a) &#125;</span></span><br><span class="hljs-string">RSA密钥(hex)            : <span class="hljs-subst">$&#123; bytesToHex(a) &#125;</span></span><br><span class="hljs-string">RSA密钥(base64)         : <span class="hljs-subst">$&#123; bytesToBase64(a) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br><br>    <span class="hljs-keyword">var</span> rSAPublicKeySpec = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;java.security.spec.RSAPublicKeySpec&#x27;</span>);<br>    rSAPublicKeySpec.<span class="hljs-property">$init</span>.<span class="hljs-title function_">overload</span>(<span class="hljs-string">&#x27;java.math.BigInteger&#x27;</span>,<span class="hljs-string">&#x27;java.math.BigInteger&#x27;</span>).<span class="hljs-property">implementation</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">a,b</span>) &#123;<br>        <span class="hljs-comment">//showStacks();</span><br>        <span class="hljs-keyword">var</span> result = <span class="hljs-variable language_">this</span>.$init(a,b);<br>        <span class="hljs-title function_">send</span>(<br>            <span class="hljs-string">`========== java.security.spec.RSAPublicKeySpec.$init(BigInteger, BigInteger)</span><br><span class="hljs-string">RSA密钥N                : <span class="hljs-subst">$&#123; a.toString(<span class="hljs-number">16</span>) &#125;</span></span><br><span class="hljs-string">RSA密钥E                : <span class="hljs-subst">$&#123; b.toString(<span class="hljs-number">16</span>) &#125;</span></span><br><span class="hljs-string">`</span><br>            );<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;;<br>&#125;);<br></code></pre></td></tr></table></figure>
+        </div>
+      </div>
+    </div>
+
+<p>上面是js的代码，方便起见可以用python辅助hook过程，不用每次都在命令行敲进程名，并且<code>send</code>函数发送的消息也需要python代码来接收（这个我没有深究，之前找到的教程是这么做的我就这么做了）</p>
+<p>python代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: UTF-8 -*-</span><br><span class="hljs-keyword">import</span> frida, sys<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br> <br>jsCode = <span class="hljs-literal">None</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(sys.argv[<span class="hljs-number">1</span>], <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> r:<br>    jsCode = r.read()  <span class="hljs-comment"># load js code</span><br>    <span class="hljs-comment"># print(jsCode)</span><br> <br>fw = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;log/&quot;</span> + datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d_%H_%M_%S&#x27;</span>) + sys.argv[<span class="hljs-number">1</span>].replace(<span class="hljs-string">&quot;.js&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;.\\&quot;</span>, <span class="hljs-string">&quot;&quot;</span>) + <span class="hljs-string">&quot;.log&quot;</span>,<span class="hljs-string">&#x27;w+&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)  <span class="hljs-comment"># file object to write log</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">message</span>(<span class="hljs-params">message, data</span>):<br>    <span class="hljs-keyword">if</span> message[<span class="hljs-string">&quot;type&quot;</span>] == <span class="hljs-string">&#x27;send&#x27;</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">u&quot;[*] &#123;0&#125;&quot;</span>.<span class="hljs-built_in">format</span>(message[<span class="hljs-string">&#x27;payload&#x27;</span>]))<br>        fw.write(<span class="hljs-string">u&quot;[*] &#123;0&#125;\n&quot;</span>.<span class="hljs-built_in">format</span>(message[<span class="hljs-string">&#x27;payload&#x27;</span>]))<br>        fw.flush()<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(message)<br><br><br>device = frida.get_usb_device()<br><span class="hljs-comment"># print(process)</span><br>pid = <span class="hljs-literal">None</span><br><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> device.enumerate_applications():<br>    <span class="hljs-keyword">if</span> a.identifier == <span class="hljs-string">&quot;com.huawei.smarthome&quot;</span>:<br>        pid = a.pid  <span class="hljs-comment"># find the process by its&#x27; package name and get its&#x27; pid</span><br>        <span class="hljs-keyword">break</span><br>process = device.attach(pid)<br>script= process.create_script(jsCode)<br>script.on(<span class="hljs-string">&quot;message&quot;</span>, message)<br>script.load()<br>sys.stdin.read()<br></code></pre></td></tr></table></figure>
+
+<p>hook之前需要先adb<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Android 调试桥 (adb)  | Android Studio  | Android Developers](https://developer.android.com/tools/adb?hl=zh-cn)">[7]</span></a></sup><sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="[windows11安装adb步骤 - 测试0 - 博客园 (cnblogs.com)](https://www.cnblogs.com/momomolin/p/17347120.html)">[8]</span></a></sup>进入到设备的shell里然后启动frida-server</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmd">adb shell  # 先进入设备的shell<br><span class="hljs-function">oriole:/ $ <span class="hljs-title">su</span>  # 切换到<span class="hljs-title">root</span></span><br><span class="hljs-function"><span class="hljs-title">oriole</span>:/ # /<span class="hljs-title">data</span>/<span class="hljs-title">local</span>/<span class="hljs-title">tmp</span>/<span class="hljs-title">frida</span>-<span class="hljs-title">server</span>-16.1.10-<span class="hljs-title">android</span>-<span class="hljs-title">arm64</span> &amp;  # 加上&amp;，以后台方式运行<span class="hljs-title">frida</span>-<span class="hljs-title">server</span></span><br></code></pre></td></tr></table></figure>
+
+<p>注意要有root权限，并且frida-server必须是对应的架构，和pc端的frida版本是否必须保持一致我没有确认，但是，if you can, why not。</p>
+<p>然后手动启动应用，再启动python脚本文件开始hook就可以了</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">conda activate hook<br>python .\hook.py .\javaCipherAIO.js<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/topjohnwu/Magisk">topjohnwu&#x2F;Magisk: The Magic Mask for Android (github.com)</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/frida/frida">frida&#x2F;frida: Clone this repo to build Frida (github.com)</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Only-xiaoxiao/p/17294561.html">Frida 原理及简单使用 - Only-xiaoxiao - 博客园 (cnblogs.com)</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wutou/p/17884865.html">Frida server 和 python client下载 版本对应关系 - 悟透 - 博客园 (cnblogs.com)</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/skylot/jadx">skylot&#x2F;jadx: Dex to Java decompiler (github.com)</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luoyesiqiu/p/10718997.html">frida的用法–Hook Java代码篇 - luoyesiqiu - 博客园 (cnblogs.com)</a>
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://developer.android.com/tools/adb?hl=zh-cn">Android 调试桥 (adb)  | Android Studio  | Android Developers</a>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/momomolin/p/17347120.html">windows11安装adb步骤 - 测试0 - 博客园 (cnblogs.com)</a>
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/android/" class="print-no-link">#android</a>
+      
+        <a href="/tags/reverse/" class="print-no-link">#reverse</a>
+      
+        <a href="/tags/hook/" class="print-no-link">#hook</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>记Android某APP逆向</div>
+      <div>http://zr4in.github.io/2024/04/16/记Android某APP逆向/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zr4in</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/23/windows%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E6%A1%A3/" title="windows右键菜单新建markdown文档">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">windows右键菜单新建markdown文档</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/14/docker%E5%AE%B9%E5%99%A8%E4%B8%8D%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87/" title="docker容器不显示中文">
+                        <span class="hidden-mobile">docker容器不显示中文</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"zr4in/zr4in.github.io","repo-id":"MDEwOlJlcG9zaXRvcnkzMTUyNDk4Mjg=","category":"Announcements","category-id":"DIC_kwDOEspUpM4Cd9c6","theme-light":"light","theme-dark":"dark","mapping":"url","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
