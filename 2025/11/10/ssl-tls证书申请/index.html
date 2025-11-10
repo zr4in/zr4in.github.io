@@ -16,16 +16,16 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="acme.sh 是一个用 Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。  ACME &#x3D; Automatic Certificate Management Environment（自动证书管理环境协议）  它是目前最流行、最轻量的 ACME 客户">
+    <meta name="description" content="acme.sh 是一个用 Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。[1]  ACME &#x3D; Automatic Certificate Management Environment（自动证书管理环境协议）  它是目前最流行、最轻量的 ACME">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssl&#x2F;tls证书申请">
 <meta property="og:url" content="http://zr4in.github.io/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="acme.sh 是一个用 Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。  ACME &#x3D; Automatic Certificate Management Environment（自动证书管理环境协议）  它是目前最流行、最轻量的 ACME 客户">
+<meta property="og:description" content="acme.sh 是一个用 Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。[1]  ACME &#x3D; Automatic Certificate Management Environment（自动证书管理环境协议）  它是目前最流行、最轻量的 ACME">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/11/10/qcC7gU5vpT9bRwL.png">
 <meta property="article:published_time" content="2025-11-10T03:09:03.000Z">
-<meta property="article:modified_time" content="2025-11-10T03:38:20.733Z">
+<meta property="article:modified_time" content="2025-11-10T07:03:51.174Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="ssl">
 <meta property="article:tag" content="tls">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          462 字
+          720 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -289,7 +289,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-11-10T11:38:20+08:00
+                    本文最后更新于 2025-11-10T15:03:51+08:00
                   
                   
 
@@ -299,32 +299,62 @@
             
               <div class="markdown-body">
                 
-                <p><strong>acme.sh</strong> 是一个用 <strong>Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端</strong>，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。</p>
+                <p><strong>acme.sh</strong> 是一个用 <strong>Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端</strong>，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="chatgpt.com">[1]</span></a></sup></p>
 <blockquote>
 <p>ACME &#x3D; <strong>Automatic Certificate Management Environment</strong>（自动证书管理环境协议）</p>
 </blockquote>
 <p>它是目前最流行、最轻量的 ACME 客户端之一，功能上类似于 <strong>Certbot</strong>，但更加灵活、便携、无依赖。</p>
 <p><strong>官方网站：</strong> <a target="_blank" rel="noopener" href="https://acme.sh/">https://acme.sh</a><br> <strong>GitHub：</strong> <a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh">https://github.com/acmesh-official/acme.sh</a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>note：建议使用root账户，因为acme还可以直接安装证书，很多系统服务的证书可能需要root权限来安装。或者使用普通用户的话， 要有免密使用一些sudo命令的权限。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://get.acme.sh | sh<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;~/.acme.sh&quot;</span>:<span class="hljs-variable">$PATH</span><br>acme.sh -v<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://get.acme.sh | sh<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.acme.sh&quot;</span>:<span class="hljs-variable">$PATH</span><br>acme.sh -v<br></code></pre></td></tr></table></figure>
 
 <p>如果用普通账户：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo visudo<br><span class="hljs-comment"># /etc/sudoers</span><br>loginname  ALL:(ALL) NOPASSWD:ALL<br></code></pre></td></tr></table></figure>
 
-<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><p>可以使用 HTTP 验证（适用于能访问80端口的主机）：</p>
+<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><p>推荐使用let’s encrypt的证书，acme默认使用zerossl，但是zerossl需要注册账号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --set-default-ca --server letsencrypt<br></code></pre></td></tr></table></figure>
+
+<p>可以使用 HTTP 验证（适用于能访问80端口的主机）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --issue -d example.com -d www.example.com -w /var/www/html<br></code></pre></td></tr></table></figure>
 
 <p>或者使用 DNS 验证（适合在阿里云、Cloudflare等DNS上托管的域名）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --issue --dns dns_ali -d example.com -d www.example.com<br></code></pre></td></tr></table></figure>
 
-<p>（首次使用 DNS 插件前，需要配置 <code>~/.acme.sh/account.conf</code> 中的 <code>Ali_Key</code> 和 <code>Ali_Secret</code>）或者export到环境变量中。</p>
-<p>申请的证书会保存在<code>~/.acme.sh/example.com</code></p>
-<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --install-cert -d example.com \<br>--key-file       /etc/nginx/ssl/example.com.key \<br>--fullchain-file /etc/nginx/ssl/example.com.crt \<br>--reloadcmd      <span class="hljs-string">&quot;systemctl reload nginx&quot;</span><br><span class="hljs-comment"># 三个选项分别是：密钥文件安装位置，证书文件安装位置，安装完执行的重新加载命令</span><br><span class="hljs-comment">#（所以执行acme的用户要是root或者能直接执行systemctl的用户）</span><br></code></pre></td></tr></table></figure>
+<p>首次使用 DNS 插件前，需要配置 <code>~/.acme.sh/account.conf</code> 中的 <code>Ali_Key</code> 和 <code>Ali_Secret</code>或者export到环境变量中，然后acme会自动保存到account.conf里。</p>
+<p>申请的证书会保存在<code>~/.acme.sh/example.com</code>，会产生四个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> ~/.acme.sh/example.com<br>example.com.cer        <span class="hljs-comment"># 证书文件</span><br>example.com.key        <span class="hljs-comment"># 私钥</span><br>ca.cer                 <span class="hljs-comment"># 中间证书</span><br>fullchain.cer          <span class="hljs-comment"># 完整证书链</span><br></code></pre></td></tr></table></figure>
+
+<p>查看已经申请的证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --list<br></code></pre></td></tr></table></figure>
+
+<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><p>可以直接用acme安装证书，这样以后更新证书可以自动把证书放到对应的位置并重启服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --install-cert -d example.com \<br>--key-file       /etc/nginx/ssl/example.com.key \<br>--fullchain-file /etc/nginx/ssl/example.com.crt \<br>--reloadcmd      <span class="hljs-string">&quot;systemctl reload nginx&quot;</span><br><span class="hljs-comment"># 三个选项分别是：密钥文件安装位置，证书文件安装位置，安装完执行的重新加载命令</span><br><span class="hljs-comment">#（所以执行acme的用户要是root或者能直接执行systemctl的用户）</span><br></code></pre></td></tr></table></figure>
 
 <p>安装后如果acme更新了临期证书，会自动重新安装。</p>
 <h2 id="证书自动更新"><a href="#证书自动更新" class="headerlink" title="证书自动更新"></a>证书自动更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看定时任务</span><br>crontab -l<br><span class="hljs-comment"># 应该会有如下结果：</span><br>53 18 * * * <span class="hljs-string">&quot;/root/.acme.sh&quot;</span>/acme.sh --cron --home <span class="hljs-string">&quot;/root/.acme.sh&quot;</span> &gt; /dev/null<br><span class="hljs-comment"># 如果没有定时任务，执行安装</span><br>acme.sh --install-cronjob<br></code></pre></td></tr></table></figure>
 
+<h2 id="强制更新"><a href="#强制更新" class="headerlink" title="强制更新"></a>强制更新</h2><p>可以强制acme更新一次证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --renew -d example.com --force<br></code></pre></td></tr></table></figure>
 
+<ul>
+<li><p><code>--renew</code>：尝试续期证书</p>
+</li>
+<li><p><code>-d example.com</code>：指定域名</p>
+</li>
+<li><p><code>--force</code>：忽略过期时间限制，立即执行续期</p>
+</li>
+</ul>
+<p>强制更新之后原来的证书其实还是有效的，直到过期为止</p>
+<h2 id="删除证书"><a href="#删除证书" class="headerlink" title="删除证书"></a>删除证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --remove -d example.com<br></code></pre></td></tr></table></figure>
+
+<p>执行后，会删除：</p>
+<ol>
+<li><code>~/.acme.sh/example.com/</code> 下的证书文件（包括 key、fullchain 等）</li>
+<li>与该域名相关的配置文件（包含 <code>Le_ReloadCmd</code>、<code>Le_KeyFile</code>、<code>Le_FullChain</code> 等）</li>
+</ol>
+<p>但是不会删除已经安装过去的证书。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>chatgpt.com
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
