@@ -236,6 +236,56 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/" target="_self">
+          <img src="https://s2.loli.net/2025/11/14/O9uH4PXFejSGyvU.png" srcset="/img/loading.gif" lazyload alt="linux配置swap">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/" target="_self">
+          linux配置swap
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/" target="_self">
+        <div>
+          阿里云上的主机最近总是过一段时间就oom错误，不知道是不是和没开swap有关，遂打开swap观察一下 swap检查当前是否存在交换分区或者文件： 12sudo swapon -ssudo swapon --show  创建一个新的1GB的交换文件（使用文件来作为swap）： 1sudo fallocate -l 1G /swapfile  设置权限： 1sudo chomod 600 /swapf
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-11-14 15:04" pubdate>
+              2025-11-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">#linux</a>
+            
+              <a href="/tags/swap/">#swap</a>
+            
+              <a href="/tags/%E8%BF%90%E7%BB%B4/">#运维</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/" target="_self">
           <img src="https://s2.loli.net/2025/11/10/qcC7gU5vpT9bRwL.png" srcset="/img/loading.gif" lazyload alt="ssl/tls证书申请">
         </a>
@@ -659,56 +709,6 @@
               <a href="/tags/docker/">#docker</a>
             
               <a href="/tags/linuxserver/">#linuxserver</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-          <img src="https://s2.loli.net/2024/12/09/wUCfsQ9jYiWymRH.png" srcset="/img/loading.gif" lazyload alt="docker配置各种代理">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-          docker配置各种代理
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/12/09/docker%E9%85%8D%E7%BD%AE%E5%90%84%E7%A7%8D%E4%BB%A3%E7%90%86/" target="_self">
-        <div>
-          参考总结自SkyWT的博客[1] Docker daemon代理问题：从DockerHub拉取镜像时可能出现网络问题。 解决方案：在 /etc/systemd/system/docker.service.d/http-proxy.conf 编写 systemd 配置，配置 HTTP 和 HTTPS 代理： 123[Service]Environment=&quot;HTTP_PROXY=http:
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-09 17:30" pubdate>
-              2024-12-09
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-              <a href="/tags/docker/">#docker</a>
-            
-              <a href="/tags/network/">#network</a>
             
           </div>
         

@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>linux配置swap</title>
+    <link href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/"/>
+    <url>/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/</url>
+    
+    <content type="html"><![CDATA[<p>阿里云上的主机最近总是过一段时间就oom错误，不知道是不是和没开swap有关，遂打开swap观察一下</p><h2 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h2><p>检查当前是否存在交换分区或者文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon -s<br>sudo swapon --show<br></code></pre></td></tr></table></figure><p>创建一个新的1GB的交换文件（使用文件来作为swap）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo fallocate -l 1G /swapfile<br></code></pre></td></tr></table></figure><p>设置权限：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo chomod 600 /swapfile<br></code></pre></td></tr></table></figure><p>格式化文件作为交换区域：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo mkswap /swapfile<br></code></pre></td></tr></table></figure><p>启用交换文件作为交换区域：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon /swapfile<br></code></pre></td></tr></table></figure><p>更改<code>/etc/fstab</code>从而开机时自动使用这个交换文件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs conf">/swapfileswapswapdefaults00<br></code></pre></td></tr></table></figure><p>验证是否启用</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon -s<br>sudo swapon --show<br></code></pre></td></tr></table></figure><h2 id="AI建议"><a href="#AI建议" class="headerlink" title="AI建议"></a>AI建议</h2><p>关于虚拟内存大小的建议 </p><ul><li><strong>一般建议</strong>：对于物理内存小于4GB的系统，交换空间可以是物理内存的2倍。对于物理内存大于4GB但小于8GB 的系统，交换空间可以等于物理内存大小。对于物理内存大于8GB 的系统，交换空间通常设置为8GB就足够了。</li><li><strong>根据实际需求</strong>：如果你的系统需要处理大量内存密集型应用程序（例如视频编辑、大型数据库等），你可能需要设置更大的交换空间。可以根据实际情况调整大小。</li><li><strong>避免过大的设置</strong>：一般来说，没有必要将交换空间设置得比物理内存大很多，因为使用交换空间比使用物理内存效率低。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>swap</tag>
+      
+      <tag>运维</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ssl/tls证书申请</title>
     <link href="/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/"/>
     <url>/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/</url>
