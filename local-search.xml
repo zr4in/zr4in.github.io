@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>samba配置smb共享</title>
+    <link href="/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/"/>
+    <url>/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/</url>
+    
+    <content type="html"><![CDATA[<p>之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。</p><h2 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs conf">[global]<br>   browseable = no   ; 默认所有 share 不可浏览<br>   map to guest = never<br>   security = user<br>   access based share enum = yes<br><br>[share1]<br>   path = /data/share1<br>   browseable = yes           ; 允许浏览<br>   valid users = user1        ; 只有 user1 能看到这个 share<br>   read only = no<br><br>[share2]<br>   path = /data/share2<br>   browseable = yes<br>   valid users = user2 user3  ; 只有这些用户能看到<br>   read only = no<br></code></pre></td></tr></table></figure><h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>测试配置文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo testparm<br>sudo testparm /path/to/smb.conf<br></code></pre></td></tr></table></figure><p>运行之后会显示加载的配置项目。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>nas</tag>
+      
+      <tag>smb</tag>
+      
+      <tag>samba</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>linux配置swap</title>
     <link href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/"/>
     <url>/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/</url>
