@@ -16,26 +16,24 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
+    <meta name="description" content="安装CodeQL是一种将查询语言的概念引入源代码分析的工具，为开发者提供了全新的方式来发现和理解代码中的潜在问题[1] codeql分两个部分，一个是codeql-cli[2]，还有一个codeql SDK[3]（或者说codeql lib，总之是codeql官方提供的一些预定义的查询规则，codeql-cli依赖查询规则来执行查询）。 cli可以直接从[2]直接下载对应架构和操作系统的可执行文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tmux用法记录">
-<meta property="og:url" content="http://zr4in.github.io/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="codeql配置及使用">
+<meta property="og:url" content="http://zr4in.github.io/2025/09/28/codeql%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
+<meta property="og:description" content="安装CodeQL是一种将查询语言的概念引入源代码分析的工具，为开发者提供了全新的方式来发现和理解代码中的潜在问题[1] codeql分两个部分，一个是codeql-cli[2]，还有一个codeql SDK[3]（或者说codeql lib，总之是codeql官方提供的一些预定义的查询规则，codeql-cli依赖查询规则来执行查询）。 cli可以直接从[2]直接下载对应架构和操作系统的可执行文件">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
-<meta property="article:published_time" content="2025-09-10T08:31:16.000Z">
-<meta property="article:modified_time" content="2025-09-13T11:48:26.968Z">
+<meta property="og:image" content="https://s2.loli.net/2025/09/28/NZt3UlvzhMAyqTb.png">
+<meta property="article:published_time" content="2025-09-28T03:21:42.000Z">
+<meta property="article:modified_time" content="2025-11-30T02:02:53.768Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="tmux">
-<meta property="article:tag" content="terminal">
+<meta property="article:tag" content="codeql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/09/28/NZt3UlvzhMAyqTb.png">
   
   
   
-  <title>tmux用法记录 - zr4in</title>
+  <title>codeql配置及使用 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="tmux用法记录"></span>
+            <span id="subtitle" data-typed-text="codeql配置及使用"></span>
           
         </div>
 
@@ -224,8 +222,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-10 16:31" pubdate>
-          2025年9月10日 下午
+        <time datetime="2025-09-28 11:21" pubdate>
+          2025年9月28日 上午
         </time>
       </span>
     
@@ -236,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          208 字
+          338 字
         
       </span>
     
@@ -247,7 +245,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -284,12 +282,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">tmux用法记录</h1>
+            <h1 id="seo-header">codeql配置及使用</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-09-13T19:48:26+08:00
+                    本文最后更新于 2025-11-30T10:02:53+08:00
                   
                   
 
@@ -299,16 +297,23 @@
             
               <div class="markdown-body">
                 
-                <p>tmux是一个终端复用器<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Tmux 使用教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/10/tmux.html)">[1]</span></a></sup>，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。</p>
-<h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><p>在<code>~/.tmux.conf</code>中设置<code>set -g mouse on</code>可以全局启用鼠标</p>
-<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p><code>Ctrl+B</code>是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如</p>
-<p><code>Ctrl+B</code>松开之后，按下<code>D</code>可以脱离（detach）当前的session，但该session仍会在后台运行</p>
-<p><code>Ctrl+B</code>，<code>?</code>进入使用帮助，然后<code>Q</code>退出使用帮助</p>
-<h2 id="Session管理"><a href="#Session管理" class="headerlink" title="Session管理"></a>Session管理</h2><p>直接运行<code>tmux</code>命令会新建一个session并按数字自动编号，更方便的方法是通过name来命名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出当前所有的session</span><br>tmux <span class="hljs-built_in">ls</span><br>tmux list-session<br><br><span class="hljs-comment"># 新建session</span><br>tmux new -s name<br><br><span class="hljs-comment"># attach session 0/name</span><br>tmux attach -t 0<br>tmux attach -t name<br></code></pre></td></tr></table></figure>
+                <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>CodeQL是一种将查询语言的概念引入源代码分析的工具，为开发者提供了全新的方式来发现和理解代码中的潜在问题<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[CodeQL安装及使用 - you_yu - 博客园](https://www.cnblogs.com/you-fish/p/18349266)">[1]</span></a></sup></p>
+<p>codeql分两个部分，一个是codeql-cli<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Releases · github/codeql-cli-binaries](https://github.com/github/codeql-cli-binaries/releases)">[2]</span></a></sup>，还有一个codeql SDK<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[github/codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security](https://github.com/github/codeql)">[3]</span></a></sup>（或者说codeql lib，总之是codeql官方提供的一些预定义的查询规则，codeql-cli依赖查询规则来执行查询）。</p>
+<p>cli可以直接从<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Releases · github/codeql-cli-binaries](https://github.com/github/codeql-cli-binaries/releases)">[2]</span></a></sup>直接下载对应架构和操作系统的可执行文件，放入环境变量即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://github.com/github/codeql-cli-binaries/releases/download/v2.23.1/codeql-linux64.zip<br>unzip codeql-linux64.zip<br><span class="hljs-built_in">mv</span> codeql /root/.local<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/root/.local/codeql<br></code></pre></td></tr></table></figure>
 
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">Tmux 使用教程 - 阮一峰的网络日志</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<p>SDK需要直接clone <sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[github/codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security](https://github.com/github/codeql)">[3]</span></a></sup>这个仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/github/codeql<br><span class="hljs-built_in">mv</span> codeql /root/.local/codeql-lib<br></code></pre></td></tr></table></figure>
+
+<p>两个部分最好版本一致。进入SDK的仓库之后，<code>codeql pack ls</code>可以查看该SDK支持的规则集。</p>
+<p>把SDK放在和cli同一个目录，<code>codeql resolve packs</code>时会自动查询附近目录的lib。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; codeql resolve packs<br>Searching directories specified by `--additional-packs`. All directories have equal priority.<br>  Searching <span class="hljs-keyword">in</span>:<br>    No packs were found at this location.<br>Searching directories specified by `--search-path`. Directories are searched <span class="hljs-keyword">in</span> order.<br>Searching the root of the CodeQL distribution.<br>  Searching <span class="hljs-keyword">in</span>:<br>      /root/.local/codeql<br>    The following packs were found:<br>      legacy-upgrades@0.0.0: (query) /root/.local/codeql/legacy-upgrades/qlpack.yml<br>Searching the parent directory of the CodeQL distribution.<br>  Searching <span class="hljs-keyword">in</span>:<br>      /root/.local<br>    The following packs were found:<br>      codeql-csharp-consistency-queries@0.0.0: (query) /root/.local/codeql-lib/csharp/ql/consistency-queries/qlpack.yml<br>      <span class="hljs-comment"># ... ...</span><br>      legacy-libraries-python@0.0.0: (query) /root/.local/codeql-lib/misc/legacy-support/python/qlpack.yml<br>    Some packs were hidden by previously found packs. Use --show-hidden-packs to see them.<br>Searching the <span class="hljs-built_in">local</span> pack cache. This only applies when searching <span class="hljs-keyword">for</span> a particular version of a pack specified <span class="hljs-keyword">in</span> a lock file.<br>  Searching <span class="hljs-keyword">in</span>: /root/.codeql/packages<br>  No packs were found at this location.<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>待续</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.cnblogs.com/you-fish/p/18349266">CodeQL安装及使用 - you_yu - 博客园</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/github/codeql-cli-binaries/releases">Releases · github&#x2F;codeql-cli-binaries</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/github/codeql">github&#x2F;codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -320,11 +325,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
-      
-        <a href="/tags/tmux/" class="print-no-link">#tmux</a>
-      
-        <a href="/tags/terminal/" class="print-no-link">#terminal</a>
+        <a href="/tags/codeql/" class="print-no-link">#codeql</a>
       
     </div>
   
@@ -336,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>tmux用法记录</div>
-      <div>http://zr4in.github.io/2025/09/10/tmux用法记录/</div>
+      <div>codeql配置及使用</div>
+      <div>http://zr4in.github.io/2025/09/28/codeql配置及使用/</div>
     </div>
     <div class="license-meta">
       
@@ -349,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月10日</div>
+          <div>2025年9月28日</div>
         </div>
       
       
@@ -381,9 +382,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/28/codeql%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="codeql配置及使用">
+                      <a href="/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/" title="ssl/tls证书申请">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">codeql配置及使用</span>
+                        <span class="hidden-mobile">ssl/tls证书申请</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -391,8 +392,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/25/%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%A2%8E%E5%BF%B5/" title="一些碎碎念">
-                        <span class="hidden-mobile">一些碎碎念</span>
+                      <a href="/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/" title="tmux用法记录">
+                        <span class="hidden-mobile">tmux用法记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

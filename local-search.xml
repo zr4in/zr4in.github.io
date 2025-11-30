@@ -4,6 +4,96 @@
   
   
   <entry>
+    <title>samba配置smb共享</title>
+    <link href="/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/"/>
+    <url>/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/</url>
+    
+    <content type="html"><![CDATA[<p>之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。</p><h2 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs conf">[global]<br>   browseable = no   ; 默认所有 share 不可浏览<br>   map to guest = never<br>   security = user<br>   access based share enum = yes<br><br>[share1]<br>   path = /data/share1<br>   browseable = yes           ; 允许浏览<br>   valid users = user1        ; 只有 user1 能看到这个 share<br>   read only = no<br><br>[share2]<br>   path = /data/share2<br>   browseable = yes<br>   valid users = user2 user3  ; 只有这些用户能看到<br>   read only = no<br></code></pre></td></tr></table></figure><h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>测试配置文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo testparm<br>sudo testparm /path/to/smb.conf<br></code></pre></td></tr></table></figure><p>运行之后会显示加载的配置项目。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>nas</tag>
+      
+      <tag>smb</tag>
+      
+      <tag>samba</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>linux配置swap</title>
+    <link href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/"/>
+    <url>/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/</url>
+    
+    <content type="html"><![CDATA[<p>阿里云上的主机最近总是过一段时间就oom错误，不知道是不是和没开swap有关，遂打开swap观察一下</p><h2 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h2><p>检查当前是否存在交换分区或者文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon -s<br>sudo swapon --show<br></code></pre></td></tr></table></figure><p>创建一个新的1GB的交换文件（使用文件来作为swap）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo fallocate -l 1G /swapfile<br></code></pre></td></tr></table></figure><p>设置权限：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo chomod 600 /swapfile<br></code></pre></td></tr></table></figure><p>格式化文件作为交换区域：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo mkswap /swapfile<br></code></pre></td></tr></table></figure><p>启用交换文件作为交换区域：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon /swapfile<br></code></pre></td></tr></table></figure><p>更改<code>/etc/fstab</code>从而开机时自动使用这个交换文件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs conf">/swapfileswapswapdefaults00<br></code></pre></td></tr></table></figure><p>验证是否启用</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo swapon -s<br>sudo swapon --show<br></code></pre></td></tr></table></figure><h2 id="AI建议"><a href="#AI建议" class="headerlink" title="AI建议"></a>AI建议</h2><p>关于虚拟内存大小的建议 </p><ul><li><strong>一般建议</strong>：对于物理内存小于4GB的系统，交换空间可以是物理内存的2倍。对于物理内存大于4GB但小于8GB 的系统，交换空间可以等于物理内存大小。对于物理内存大于8GB 的系统，交换空间通常设置为8GB就足够了。</li><li><strong>根据实际需求</strong>：如果你的系统需要处理大量内存密集型应用程序（例如视频编辑、大型数据库等），你可能需要设置更大的交换空间。可以根据实际情况调整大小。</li><li><strong>避免过大的设置</strong>：一般来说，没有必要将交换空间设置得比物理内存大很多，因为使用交换空间比使用物理内存效率低。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>swap</tag>
+      
+      <tag>运维</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ssl/tls证书申请</title>
+    <link href="/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/"/>
+    <url>/2025/11/10/ssl-tls%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/</url>
+    
+    <content type="html"><![CDATA[<p><strong>acme.sh</strong> 是一个用 <strong>Shell（bash&#x2F;sh）编写的轻量级 ACME 客户端</strong>，用于自动向 Let’s Encrypt 等 CA（证书颁发机构）申请、更新、安装和管理 SSL&#x2F;TLS 证书。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="chatgpt.com">[1]</span></a></sup></p><blockquote><p>ACME &#x3D; <strong>Automatic Certificate Management Environment</strong>（自动证书管理环境协议）</p></blockquote><p>它是目前最流行、最轻量的 ACME 客户端之一，功能上类似于 <strong>Certbot</strong>，但更加灵活、便携、无依赖。</p><p><strong>官方网站：</strong> <a href="https://acme.sh/">https://acme.sh</a><br> <strong>GitHub：</strong> <a href="https://github.com/acmesh-official/acme.sh">https://github.com/acmesh-official/acme.sh</a></p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>note：建议使用root账户，因为acme还可以直接安装证书，很多系统服务的证书可能需要root权限来安装。或者使用普通用户的话， 要有免密使用一些sudo命令的权限。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl https://get.acme.sh | sh<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.acme.sh&quot;</span>:<span class="hljs-variable">$PATH</span><br>acme.sh -v<br></code></pre></td></tr></table></figure><p>如果用普通账户：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo visudo<br><span class="hljs-comment"># /etc/sudoers</span><br>loginname  ALL:(ALL) NOPASSWD:ALL<br></code></pre></td></tr></table></figure><h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><p>推荐使用let’s encrypt的证书，acme默认使用zerossl，但是zerossl需要注册账号</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --set-default-ca --server letsencrypt<br></code></pre></td></tr></table></figure><p>可以使用 HTTP 验证（适用于能访问80端口的主机）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --issue -d example.com -d www.example.com -w /var/www/html<br></code></pre></td></tr></table></figure><p>或者使用 DNS 验证（适合在阿里云、Cloudflare等DNS上托管的域名）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --issue --dns dns_ali -d example.com -d www.example.com<br></code></pre></td></tr></table></figure><p>首次使用 DNS 插件前，需要配置 <code>~/.acme.sh/account.conf</code> 中的 <code>Ali_Key</code> 和 <code>Ali_Secret</code>或者export到环境变量中，然后acme会自动保存到account.conf里。</p><p>申请的证书会保存在<code>~/.acme.sh/example.com</code>，会产生四个文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> ~/.acme.sh/example.com<br>example.com.cer        <span class="hljs-comment"># 证书文件</span><br>example.com.key        <span class="hljs-comment"># 私钥</span><br>ca.cer                 <span class="hljs-comment"># 中间证书</span><br>fullchain.cer          <span class="hljs-comment"># 完整证书链</span><br></code></pre></td></tr></table></figure><p>查看已经申请的证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --list<br></code></pre></td></tr></table></figure><h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><p>可以直接用acme安装证书，这样以后更新证书可以自动把证书放到对应的位置并重启服务。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --install-cert -d example.com \<br>--key-file       /etc/nginx/ssl/example.com.key \<br>--fullchain-file /etc/nginx/ssl/example.com.crt \<br>--reloadcmd      <span class="hljs-string">&quot;systemctl reload nginx&quot;</span><br><span class="hljs-comment"># 三个选项分别是：密钥文件安装位置，证书文件安装位置，安装完执行的重新加载命令</span><br><span class="hljs-comment">#（所以执行acme的用户要是root或者能直接执行systemctl的用户）</span><br></code></pre></td></tr></table></figure><p>安装后如果acme更新了临期证书，会自动重新安装。</p><h2 id="证书自动更新"><a href="#证书自动更新" class="headerlink" title="证书自动更新"></a>证书自动更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看定时任务</span><br>crontab -l<br><span class="hljs-comment"># 应该会有如下结果：</span><br>53 18 * * * <span class="hljs-string">&quot;/root/.acme.sh&quot;</span>/acme.sh --cron --home <span class="hljs-string">&quot;/root/.acme.sh&quot;</span> &gt; /dev/null<br><span class="hljs-comment"># 如果没有定时任务，执行安装</span><br>acme.sh --install-cronjob<br></code></pre></td></tr></table></figure><h2 id="强制更新"><a href="#强制更新" class="headerlink" title="强制更新"></a>强制更新</h2><p>可以强制acme更新一次证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --renew -d example.com --force<br></code></pre></td></tr></table></figure><ul><li><p><code>--renew</code>：尝试续期证书</p></li><li><p><code>-d example.com</code>：指定域名</p></li><li><p><code>--force</code>：忽略过期时间限制，立即执行续期</p></li></ul><p>强制更新之后原来的证书其实还是有效的，直到过期为止</p><h2 id="删除证书"><a href="#删除证书" class="headerlink" title="删除证书"></a>删除证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">acme.sh --remove -d example.com<br></code></pre></td></tr></table></figure><p>执行后，会删除：</p><ol><li><code>~/.acme.sh/example.com/</code> 下的证书文件（包括 key、fullchain 等）</li><li>与该域名相关的配置文件（包含 <code>Le_ReloadCmd</code>、<code>Le_KeyFile</code>、<code>Le_FullChain</code> 等）</li></ol><p>但是不会删除已经安装过去的证书。</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>chatgpt.com<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>ssl</tag>
+      
+      <tag>tls</tag>
+      
+      <tag>acme</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>codeql配置及使用</title>
+    <link href="/2025/09/28/codeql%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <url>/2025/09/28/codeql%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>CodeQL是一种将查询语言的概念引入源代码分析的工具，为开发者提供了全新的方式来发现和理解代码中的潜在问题<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[CodeQL安装及使用 - you_yu - 博客园](https://www.cnblogs.com/you-fish/p/18349266)">[1]</span></a></sup></p><p>codeql分两个部分，一个是codeql-cli<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Releases · github/codeql-cli-binaries](https://github.com/github/codeql-cli-binaries/releases)">[2]</span></a></sup>，还有一个codeql SDK<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[github/codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security](https://github.com/github/codeql)">[3]</span></a></sup>（或者说codeql lib，总之是codeql官方提供的一些预定义的查询规则，codeql-cli依赖查询规则来执行查询）。</p><p>cli可以直接从<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Releases · github/codeql-cli-binaries](https://github.com/github/codeql-cli-binaries/releases)">[2]</span></a></sup>直接下载对应架构和操作系统的可执行文件，放入环境变量即可</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://github.com/github/codeql-cli-binaries/releases/download/v2.23.1/codeql-linux64.zip<br>unzip codeql-linux64.zip<br><span class="hljs-built_in">mv</span> codeql /root/.local<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/root/.local/codeql<br></code></pre></td></tr></table></figure><p>SDK需要直接clone <sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[github/codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security](https://github.com/github/codeql)">[3]</span></a></sup>这个仓库。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/github/codeql<br><span class="hljs-built_in">mv</span> codeql /root/.local/codeql-lib<br></code></pre></td></tr></table></figure><p>两个部分最好版本一致。进入SDK的仓库之后，<code>codeql pack ls</code>可以查看该SDK支持的规则集。</p><p>把SDK放在和cli同一个目录，<code>codeql resolve packs</code>时会自动查询附近目录的lib。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; codeql resolve packs<br>Searching directories specified by `--additional-packs`. All directories have equal priority.<br>  Searching <span class="hljs-keyword">in</span>:<br>    No packs were found at this location.<br>Searching directories specified by `--search-path`. Directories are searched <span class="hljs-keyword">in</span> order.<br>Searching the root of the CodeQL distribution.<br>  Searching <span class="hljs-keyword">in</span>:<br>      /root/.local/codeql<br>    The following packs were found:<br>      legacy-upgrades@0.0.0: (query) /root/.local/codeql/legacy-upgrades/qlpack.yml<br>Searching the parent directory of the CodeQL distribution.<br>  Searching <span class="hljs-keyword">in</span>:<br>      /root/.local<br>    The following packs were found:<br>      codeql-csharp-consistency-queries@0.0.0: (query) /root/.local/codeql-lib/csharp/ql/consistency-queries/qlpack.yml<br>      <span class="hljs-comment"># ... ...</span><br>      legacy-libraries-python@0.0.0: (query) /root/.local/codeql-lib/misc/legacy-support/python/qlpack.yml<br>    Some packs were hidden by previously found packs. Use --show-hidden-packs to see them.<br>Searching the <span class="hljs-built_in">local</span> pack cache. This only applies when searching <span class="hljs-keyword">for</span> a particular version of a pack specified <span class="hljs-keyword">in</span> a lock file.<br>  Searching <span class="hljs-keyword">in</span>: /root/.codeql/packages<br>  No packs were found at this location.<br></code></pre></td></tr></table></figure><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>待续</p><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a href="https://www.cnblogs.com/you-fish/p/18349266">CodeQL安装及使用 - you_yu - 博客园</a><a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a href="https://github.com/github/codeql-cli-binaries/releases">Releases · github&#x2F;codeql-cli-binaries</a><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a href="https://github.com/github/codeql">github&#x2F;codeql: CodeQL: the libraries and queries that power security researchers around the world, as well as code scanning in GitHub Advanced Security</a><a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>codeql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>tmux用法记录</title>
     <link href="/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/"/>
     <url>/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/</url>

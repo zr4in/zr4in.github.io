@@ -16,26 +16,27 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
+    <meta name="description" content="之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。 SMB1234567891011121314151617[global]   browseable &#x3D; no   ; 默认所有 share 不可浏览   map to guest &#x3D; never   security &#x3D; user   access based share enum &#x3D; yes[share1]   p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tmux用法记录">
-<meta property="og:url" content="http://zr4in.github.io/2025/09/10/tmux%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="samba配置smb共享">
+<meta property="og:url" content="http://zr4in.github.io/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="tmux是一个终端复用器[1]，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。 常用配置在~&#x2F;.tmux.conf中设置set -g mouse on可以全局启用鼠标 常用快捷键Ctrl+B是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如 Ctrl+B松开之后，按下D可以脱离（detach）当前的session，但该session仍会在后">
+<meta property="og:description" content="之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。 SMB1234567891011121314151617[global]   browseable &#x3D; no   ; 默认所有 share 不可浏览   map to guest &#x3D; never   security &#x3D; user   access based share enum &#x3D; yes[share1]   p">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
-<meta property="article:published_time" content="2025-09-10T08:31:16.000Z">
-<meta property="article:modified_time" content="2025-09-13T11:48:26.968Z">
+<meta property="og:image" content="https://s2.loli.net/2025/11/20/gPV6kEDSu7OvpzR.png">
+<meta property="article:published_time" content="2025-11-19T08:22:07.000Z">
+<meta property="article:modified_time" content="2025-11-24T11:08:54.507Z">
 <meta property="article:author" content="zr4in">
 <meta property="article:tag" content="linux">
-<meta property="article:tag" content="tmux">
-<meta property="article:tag" content="terminal">
+<meta property="article:tag" content="nas">
+<meta property="article:tag" content="smb">
+<meta property="article:tag" content="samba">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2025/09/10/GlHxevqwsVU3QtI.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/11/20/gPV6kEDSu7OvpzR.png">
   
   
   
-  <title>tmux用法记录 - zr4in</title>
+  <title>samba配置smb共享 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="tmux用法记录"></span>
+            <span id="subtitle" data-typed-text="samba配置smb共享"></span>
           
         </div>
 
@@ -224,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-10 16:31" pubdate>
-          2025年9月10日 下午
+        <time datetime="2025-11-19 16:22" pubdate>
+          2025年11月19日 下午
         </time>
       </span>
     
@@ -236,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          208 字
+          104 字
         
       </span>
     
@@ -247,7 +248,7 @@
         
         
         
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -284,12 +285,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">tmux用法记录</h1>
+            <h1 id="seo-header">samba配置smb共享</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-09-13T19:48:26+08:00
+                    本文最后更新于 2025-11-24T19:08:54+08:00
                   
                   
 
@@ -299,16 +300,14 @@
             
               <div class="markdown-body">
                 
-                <p>tmux是一个终端复用器<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Tmux 使用教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/10/tmux.html)">[1]</span></a></sup>，可以在一个终端复用多个会话，同时还可以保持在退出终端之后后台session仍然在运行。</p>
-<h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><p>在<code>~/.tmux.conf</code>中设置<code>set -g mouse on</code>可以全局启用鼠标</p>
-<h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p><code>Ctrl+B</code>是默认的前缀快捷键，按下之后松开，然后再按其他的快捷键触发动作，比如</p>
-<p><code>Ctrl+B</code>松开之后，按下<code>D</code>可以脱离（detach）当前的session，但该session仍会在后台运行</p>
-<p><code>Ctrl+B</code>，<code>?</code>进入使用帮助，然后<code>Q</code>退出使用帮助</p>
-<h2 id="Session管理"><a href="#Session管理" class="headerlink" title="Session管理"></a>Session管理</h2><p>直接运行<code>tmux</code>命令会新建一个session并按数字自动编号，更方便的方法是通过name来命名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出当前所有的session</span><br>tmux <span class="hljs-built_in">ls</span><br>tmux list-session<br><br><span class="hljs-comment"># 新建session</span><br>tmux new -s name<br><br><span class="hljs-comment"># attach session 0/name</span><br>tmux attach -t 0<br>tmux attach -t name<br></code></pre></td></tr></table></figure>
+                <p>之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。</p>
+<h2 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs conf">[global]<br>   browseable = no   ; 默认所有 share 不可浏览<br>   map to guest = never<br>   security = user<br>   access based share enum = yes<br><br>[share1]<br>   path = /data/share1<br>   browseable = yes           ; 允许浏览<br>   valid users = user1        ; 只有 user1 能看到这个 share<br>   read only = no<br><br>[share2]<br>   path = /data/share2<br>   browseable = yes<br>   valid users = user2 user3  ; 只有这些用户能看到<br>   read only = no<br></code></pre></td></tr></table></figure>
 
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/10/tmux.html">Tmux 使用教程 - 阮一峰的网络日志</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>测试配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo testparm<br>sudo testparm /path/to/smb.conf<br></code></pre></td></tr></table></figure>
+
+<p>运行之后会显示加载的配置项目。</p>
+
                 
               </div>
             
@@ -322,9 +321,11 @@
       
         <a href="/tags/linux/" class="print-no-link">#linux</a>
       
-        <a href="/tags/tmux/" class="print-no-link">#tmux</a>
+        <a href="/tags/nas/" class="print-no-link">#nas</a>
       
-        <a href="/tags/terminal/" class="print-no-link">#terminal</a>
+        <a href="/tags/smb/" class="print-no-link">#smb</a>
+      
+        <a href="/tags/samba/" class="print-no-link">#samba</a>
       
     </div>
   
@@ -336,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>tmux用法记录</div>
-      <div>http://zr4in.github.io/2025/09/10/tmux用法记录/</div>
+      <div>samba配置smb共享</div>
+      <div>http://zr4in.github.io/2025/11/19/samba配置smb共享/</div>
     </div>
     <div class="license-meta">
       
@@ -349,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月10日</div>
+          <div>2025年11月19日</div>
         </div>
       
       
@@ -381,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/28/codeql%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="codeql配置及使用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">codeql配置及使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/25/%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%A2%8E%E5%BF%B5/" title="一些碎碎念">
-                        <span class="hidden-mobile">一些碎碎念</span>
+                      <a href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/" title="linux配置swap">
+                        <span class="hidden-mobile">linux配置swap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
