@@ -16,24 +16,25 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="记录一下2025年各大顶会上展示的研究内容 NDSS 2025Workshop on Security and Privacy in Standardized IoT (SDIoTSec) 2025 Program联合活动，关于标准化IoT隐私与安全 Poster sessionPoster: Securing IoT Edge Devices: Applying NIST IR 8259A to">
+    <meta name="description" content="记录一下在linux上部署服务的一般setup 权限隔离为了权限隔离，核心原则是每个服务使用独立用户运行，只给它最低权限（Least Privilege）。 通常建议为每个服务创建一个专用用户，例如：    服务 用户名建议    nginx nginx   mysql mysql   redis redis   yourapp appuser &#x2F; myservice   不建议用 ro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2025会议论文笔记">
-<meta property="og:url" content="http://zr4in.github.io/2025/12/15/2025%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="linux服务部署和权限管理">
+<meta property="og:url" content="http://zr4in.github.io/2026/01/22/linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="记录一下2025年各大顶会上展示的研究内容 NDSS 2025Workshop on Security and Privacy in Standardized IoT (SDIoTSec) 2025 Program联合活动，关于标准化IoT隐私与安全 Poster sessionPoster: Securing IoT Edge Devices: Applying NIST IR 8259A to">
+<meta property="og:description" content="记录一下在linux上部署服务的一般setup 权限隔离为了权限隔离，核心原则是每个服务使用独立用户运行，只给它最低权限（Least Privilege）。 通常建议为每个服务创建一个专用用户，例如：    服务 用户名建议    nginx nginx   mysql mysql   redis redis   yourapp appuser &#x2F; myservice   不建议用 ro">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-12-15T07:58:09.000Z">
-<meta property="article:modified_time" content="2025-12-15T08:34:39.410Z">
+<meta property="og:image" content="https://s2.loli.net/2026/01/22/qlUE2z6GDoM79cn.png">
+<meta property="article:published_time" content="2026-01-22T08:01:04.000Z">
+<meta property="article:modified_time" content="2026-01-22T09:19:23.951Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="note">
-<meta property="article:tag" content="research">
-<meta property="article:tag" content="scholar">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2026/01/22/qlUE2z6GDoM79cn.png">
   
   
   
-  <title>2025会议论文笔记 - zr4in</title>
+  <title>linux服务部署和权限管理 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="2025会议论文笔记"></span>
+            <span id="subtitle" data-typed-text="linux服务部署和权限管理"></span>
           
         </div>
 
@@ -222,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-15 15:58" pubdate>
-          2025年12月15日 下午
+        <time datetime="2026-01-22 16:01" pubdate>
+          2026年1月22日 下午
         </time>
       </span>
     
@@ -282,12 +283,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">2025会议论文笔记</h1>
+            <h1 id="seo-header">linux服务部署和权限管理</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-12-15T16:34:39+08:00
+                    本文最后更新于 2026-01-22T17:19:23+08:00
                   
                   
 
@@ -297,19 +298,94 @@
             
               <div class="markdown-body">
                 
-                <p>记录一下2025年各大顶会上展示的研究内容</p>
-<h2 id="NDSS-2025"><a href="#NDSS-2025" class="headerlink" title="NDSS 2025"></a>NDSS 2025</h2><h3 id="Workshop-on-Security-and-Privacy-in-Standardized-IoT-SDIoTSec-2025-Program"><a href="#Workshop-on-Security-and-Privacy-in-Standardized-IoT-SDIoTSec-2025-Program" class="headerlink" title="Workshop on Security and Privacy in Standardized IoT (SDIoTSec) 2025 Program"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-program/sdiotsec-2025/">Workshop on Security and Privacy in Standardized IoT (SDIoTSec) 2025 Program</a></h3><p>联合活动，关于标准化IoT隐私与安全</p>
-<h4 id="Poster-session"><a href="#Poster-session" class="headerlink" title="Poster session"></a>Poster session</h4><h5 id="Poster-Securing-IoT-Edge-Devices-Applying-NIST-IR-8259A-to-a-Realtime-Animal-Detection-System"><a href="#Poster-Securing-IoT-Edge-Devices-Applying-NIST-IR-8259A-to-a-Realtime-Animal-Detection-System" class="headerlink" title="Poster: Securing IoT Edge Devices: Applying NIST IR 8259A to a Realtime Animal Detection System"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-602/">Poster: Securing IoT Edge Devices: Applying NIST IR 8259A to a Realtime Animal Detection System</a></h5><p>考虑到城市安全场景下，对于车辆下的小动物的担忧，开发利用热敏相机和树莓派通过热成像的方式来进行实时监测。评估了系统的安全认证、数据保护、系统完整性和可维护性。</p>
-<h5 id="Poster-Understanding-User-Acceptance-of-Privacy-Labels-Barriers-and-Enhancements"><a href="#Poster-Understanding-User-Acceptance-of-Privacy-Labels-Barriers-and-Enhancements" class="headerlink" title="Poster: Understanding User Acceptance of Privacy Labels: Barriers and Enhancements"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-603/">Poster: Understanding User Acceptance of Privacy Labels: Barriers and Enhancements</a></h5><p>用户调查，通过收集社交网络上的帖子等方式，调查用户对于隐私标签的接受程度。</p>
-<h5 id="Poster-FORESIGHT-A-Unified-Framework-for-Threat-Modeling-and-Risk-Assessment-in-Robotics-and-IoT"><a href="#Poster-FORESIGHT-A-Unified-Framework-for-Threat-Modeling-and-Risk-Assessment-in-Robotics-and-IoT" class="headerlink" title="Poster: FORESIGHT, A Unified Framework for Threat Modeling and Risk Assessment in Robotics and IoT"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-604/">Poster: FORESIGHT, A Unified Framework for Threat Modeling and Risk Assessment in Robotics and IoT</a></h5><p>统一的威胁建模和威胁评估框架。旨在解决自主机器人和IoT生态系统中的脆弱性问题。</p>
-<h4 id="Paper-presentation-session"><a href="#Paper-presentation-session" class="headerlink" title="Paper presentation session"></a>Paper presentation session</h4><h5 id="SecuWear-Secure-Data-Sharing-Between-Wearable-Devices"><a href="#SecuWear-Secure-Data-Sharing-Between-Wearable-Devices" class="headerlink" title="SecuWear: Secure Data Sharing Between Wearable Devices"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-556/">SecuWear: Secure Data Sharing Between Wearable Devices</a></h5><p>提供了一个可穿戴设备之间的数据共享的协议</p>
-<h5 id="Analysis-of-Misconfigured-IoT-MQTT-Deployments-and-a-Lightweight-Exposure-Detection-System"><a href="#Analysis-of-Misconfigured-IoT-MQTT-Deployments-and-a-Lightweight-Exposure-Detection-System" class="headerlink" title="Analysis of Misconfigured IoT MQTT Deployments and a Lightweight Exposure Detection System"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-557/">Analysis of Misconfigured IoT MQTT Deployments and a Lightweight Exposure Detection System</a></h5><p>MQTT部署分析和轻量级暴露检测。利用github上的项目的star数量和shodan搜索引擎找到的部署数量，统计分析已经暴露的攻击面。</p>
-<h5 id="Privacy-Preserved-Integrated-Big-Data-Analytics-Framework-Using-Federated-Learning-for-Intelligent-Transportation-Systems"><a href="#Privacy-Preserved-Integrated-Big-Data-Analytics-Framework-Using-Federated-Learning-for-Intelligent-Transportation-Systems" class="headerlink" title="Privacy Preserved Integrated Big Data Analytics Framework Using Federated Learning for Intelligent Transportation Systems"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-558/">Privacy Preserved Integrated Big Data Analytics Framework Using Federated Learning for Intelligent Transportation Systems</a></h5><p>基于联邦学习的隐私保护的大数据分析框架，用于智能交通系统。在ITS数据集上评估了联邦学习的隐私性和延迟。</p>
-<h5 id="Optimizing-Trust-Centric-Authentication-in-Matter-enabled-IoT-Devices-with-PUF-and-PKI"><a href="#Optimizing-Trust-Centric-Authentication-in-Matter-enabled-IoT-Devices-with-PUF-and-PKI" class="headerlink" title="Optimizing Trust-Centric Authentication in Matter-enabled IoT Devices with PUF and PKI"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-559/">Optimizing Trust-Centric Authentication in Matter-enabled IoT Devices with PUF and PKI</a></h5><p>利用PUF和PKI优化Matter IoT设备的信任中心认证。针对使用Matter协议的设备，提出一种轻量级认证协议，结合了不可克隆函数PUF，和公钥基础设施PKI。该方法优化了设备认证、支持完备的前向安全性PFS。</p>
-<h5 id="WIP-Towards-Privacy-Compliance-by-Design-in-the-Matter-Protocol"><a href="#WIP-Towards-Privacy-Compliance-by-Design-in-the-Matter-Protocol" class="headerlink" title="WIP: Towards Privacy Compliance by Design in the Matter Protocol"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-560/">WIP: Towards Privacy Compliance by Design in the Matter Protocol</a></h5><p>Matter协议中的隐私合规性。物联网的异构性给设计有效的隐私保护机制带来了挑战。Matter提供的隐私合规功能有限，在本论文中，作者提出了一个新的框架，依赖一些设计原则，使开发者和用户可以管理他们的隐私设置。</p>
-<h5 id="IoT-Software-Updates-User-Perspectives-in-the-Context-of-NIST-IR-8259A"><a href="#IoT-Software-Updates-User-Perspectives-in-the-Context-of-NIST-IR-8259A" class="headerlink" title="IoT Software Updates: User Perspectives in the Context of NIST IR 8259A"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-561/">IoT Software Updates: User Perspectives in the Context of NIST IR 8259A</a></h5><p>用户调查，用户视角的IoT软件更新。</p>
-<h5 id="mmProcess-Phase-Based-Speech-Reconstruction-from-mmWave-Radar"><a href="#mmProcess-Phase-Based-Speech-Reconstruction-from-mmWave-Radar" class="headerlink" title="mmProcess: Phase-Based Speech Reconstruction from mmWave Radar"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/auto-draft-562/">mmProcess: Phase-Based Speech Reconstruction from mmWave Radar</a></h5><p>基于毫米波雷达的语音信号识别</p>
-<h3 id="Workshop-on-the-Security-of-Space-and-Satellite-Systems-SpaceSec-2025-Program-NDSS-Symposium"><a href="#Workshop-on-the-Security-of-Space-and-Satellite-Systems-SpaceSec-2025-Program-NDSS-Symposium" class="headerlink" title="Workshop on the Security of Space and Satellite Systems (SpaceSec) 2025 Program - NDSS Symposium"></a><a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-program/spacesec-2025/">Workshop on the Security of Space and Satellite Systems (SpaceSec) 2025 Program - NDSS Symposium</a></h3><p>联合活动，关于太空和卫星系统</p>
+                <p>记录一下在linux上部署服务的一般setup</p>
+<h2 id="权限隔离"><a href="#权限隔离" class="headerlink" title="权限隔离"></a>权限隔离</h2><p>为了权限隔离，核心原则是每个服务使用独立用户运行，只给它最低权限（Least Privilege）。</p>
+<p>通常建议为每个服务创建一个专用用户，例如：</p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>用户名建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nginx</td>
+<td>nginx</td>
+</tr>
+<tr>
+<td>mysql</td>
+<td>mysql</td>
+</tr>
+<tr>
+<td>redis</td>
+<td>redis</td>
+</tr>
+<tr>
+<td>yourapp</td>
+<td>appuser &#x2F; myservice</td>
+</tr>
+</tbody></table>
+<p>不建议用 root 运行服务，因为 root 权限太大。</p>
+<h2 id="创建服务用户"><a href="#创建服务用户" class="headerlink" title="创建服务用户"></a>创建服务用户</h2><p>创建系统用户，同时不允许登陆，<code>-r</code>表示系统用户，uid低于1000，<code>nologin</code>的用户无法使用<code>su</code>切换到改账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -r -s /usr/sbin/nologin myservice<br></code></pre></td></tr></table></figure>
+
+<p>或者如果需要登陆的话，创建普通用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -m -s /bin/bash myservice<br></code></pre></td></tr></table></figure>
+
+<p>给用户设置密码，如果需要登陆的话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo passwd myservice<br></code></pre></td></tr></table></figure>
+
+<h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><p>权限管理的核心是：<strong>把文件、目录、进程资源权限限制在最小范围</strong>。</p>
+<p>例如需要访问的文件是<code>/var/www/myapp</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /var/www/myapp<br>sudo <span class="hljs-built_in">chown</span> -R myservice:myservice /var/www/myapp<br>sudo <span class="hljs-built_in">chmod</span> -R 750 /var/www/myapp<br></code></pre></td></tr></table></figure>
+
+<p><code>chown</code>更改目录的所有权，<code>chmod -R 750</code>表示所有者：读写执行，组：读执行，其他：无权限</p>
+<p>常见服务权限需求：</p>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>权限建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日志文件</td>
+<td>644 或 640</td>
+</tr>
+<tr>
+<td>日志目录</td>
+<td>750</td>
+</tr>
+<tr>
+<td>数据目录</td>
+<td>700 或 750</td>
+</tr>
+<tr>
+<td>配置文件</td>
+<td>600 或 640</td>
+</tr>
+<tr>
+<td>可执行文件</td>
+<td>755</td>
+</tr>
+</tbody></table>
+<h2 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h2><p>如果你用 systemd 启动服务，你应该在 service 文件里指定：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">User</span>=myservice<br><span class="hljs-attr">Group</span>=myservice<br><br><span class="hljs-comment"># 更多限制</span><br><span class="hljs-attr">PrivateTmp</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">NoNewPrivileges</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">ProtectSystem</span>=full<br><span class="hljs-attr">ProtectHome</span>=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<p>这样服务进程就会以该用户身份运行。或者进一步的限制：</p>
+<ul>
+<li><code>PrivateTmp=true</code>：独立 &#x2F;tmp，避免泄漏</li>
+<li><code>NoNewPrivileges=true</code>：禁止提权</li>
+<li><code>ProtectSystem=full</code>：系统目录只读</li>
+<li><code>ProtectHome=true</code>：用户家目录只读&#x2F;不可访问</li>
+</ul>
+<p>不过禁止提权可能会导致无法监听特权端口，所以视情况而定。以及注意要配置log目录和文件的权限，确保用户可以访问。</p>
+<p>可以先在终端切换用户试一下服务是否能启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">su -u myservice /usr/bin/myservice --config /etc/myservice/some.conf<br></code></pre></td></tr></table></figure>
+
+<p>配置模板</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=Some Service<br><span class="hljs-attr">After</span>=network.target<br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">User</span>=someuser<br><span class="hljs-attr">Group</span>=somegroup<br><br><span class="hljs-comment"># 允许绑定低端口</span><br><span class="hljs-attr">CapabilityBoundingSet</span>=CAP_NET_BIND_SERVICE<br><span class="hljs-attr">AmbientCapabilities</span>=CAP_NET_BIND_SERVICE<br><span class="hljs-attr">ProtectSystem</span>=full<br><span class="hljs-attr">ProtectHome</span>=<span class="hljs-literal">true</span><br><br><span class="hljs-attr">ExecStart</span>=/some/bin run --config /some/config.json<br><span class="hljs-attr">Restart</span>=<span class="hljs-literal">on</span>-failure<br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -322,11 +398,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/note/" class="print-no-link">#note</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
-        <a href="/tags/research/" class="print-no-link">#research</a>
-      
-        <a href="/tags/scholar/" class="print-no-link">#scholar</a>
+        <a href="/tags/%E8%BF%90%E7%BB%B4/" class="print-no-link">#运维</a>
       
     </div>
   
@@ -338,8 +412,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>2025会议论文笔记</div>
-      <div>http://zr4in.github.io/2025/12/15/2025会议论文笔记/</div>
+      <div>linux服务部署和权限管理</div>
+      <div>http://zr4in.github.io/2026/01/22/linux服务部署和权限管理/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +425,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月15日</div>
+          <div>2026年1月22日</div>
         </div>
       
       
@@ -383,18 +457,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/22/linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="linux服务部署和权限管理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">linux服务部署和权限管理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/" title="samba配置smb共享">
-                        <span class="hidden-mobile">samba配置smb共享</span>
+                      <a href="/2025/12/15/2025%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" title="2025会议论文笔记">
+                        <span class="hidden-mobile">2025会议论文笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

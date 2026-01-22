@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>linux服务部署和权限管理</title>
+    <link href="/2026/01/22/linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
+    <url>/2026/01/22/linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<p>记录一下在linux上部署服务的一般setup</p><h2 id="权限隔离"><a href="#权限隔离" class="headerlink" title="权限隔离"></a>权限隔离</h2><p>为了权限隔离，核心原则是每个服务使用独立用户运行，只给它最低权限（Least Privilege）。</p><p>通常建议为每个服务创建一个专用用户，例如：</p><table><thead><tr><th>服务</th><th>用户名建议</th></tr></thead><tbody><tr><td>nginx</td><td>nginx</td></tr><tr><td>mysql</td><td>mysql</td></tr><tr><td>redis</td><td>redis</td></tr><tr><td>yourapp</td><td>appuser &#x2F; myservice</td></tr></tbody></table><p>不建议用 root 运行服务，因为 root 权限太大。</p><h2 id="创建服务用户"><a href="#创建服务用户" class="headerlink" title="创建服务用户"></a>创建服务用户</h2><p>创建系统用户，同时不允许登陆，<code>-r</code>表示系统用户，uid低于1000，<code>nologin</code>的用户无法使用<code>su</code>切换到改账户</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -r -s /usr/sbin/nologin myservice<br></code></pre></td></tr></table></figure><p>或者如果需要登陆的话，创建普通用户</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -m -s /bin/bash myservice<br></code></pre></td></tr></table></figure><p>给用户设置密码，如果需要登陆的话</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo passwd myservice<br></code></pre></td></tr></table></figure><h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><p>权限管理的核心是：<strong>把文件、目录、进程资源权限限制在最小范围</strong>。</p><p>例如需要访问的文件是<code>/var/www/myapp</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /var/www/myapp<br>sudo <span class="hljs-built_in">chown</span> -R myservice:myservice /var/www/myapp<br>sudo <span class="hljs-built_in">chmod</span> -R 750 /var/www/myapp<br></code></pre></td></tr></table></figure><p><code>chown</code>更改目录的所有权，<code>chmod -R 750</code>表示所有者：读写执行，组：读执行，其他：无权限</p><p>常见服务权限需求：</p><table><thead><tr><th>资源</th><th>权限建议</th></tr></thead><tbody><tr><td>日志文件</td><td>644 或 640</td></tr><tr><td>日志目录</td><td>750</td></tr><tr><td>数据目录</td><td>700 或 750</td></tr><tr><td>配置文件</td><td>600 或 640</td></tr><tr><td>可执行文件</td><td>755</td></tr></tbody></table><h2 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h2><p>如果你用 systemd 启动服务，你应该在 service 文件里指定：</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Service]</span><br><span class="hljs-attr">User</span>=myservice<br><span class="hljs-attr">Group</span>=myservice<br><br><span class="hljs-comment"># 更多限制</span><br><span class="hljs-attr">PrivateTmp</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">NoNewPrivileges</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">ProtectSystem</span>=full<br><span class="hljs-attr">ProtectHome</span>=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><p>这样服务进程就会以该用户身份运行。或者进一步的限制：</p><ul><li><code>PrivateTmp=true</code>：独立 &#x2F;tmp，避免泄漏</li><li><code>NoNewPrivileges=true</code>：禁止提权</li><li><code>ProtectSystem=full</code>：系统目录只读</li><li><code>ProtectHome=true</code>：用户家目录只读&#x2F;不可访问</li></ul><p>不过禁止提权可能会导致无法监听特权端口，所以视情况而定。以及注意要配置log目录和文件的权限，确保用户可以访问。</p><p>可以先在终端切换用户试一下服务是否能启动</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">su -u myservice /usr/bin/myservice --config /etc/myservice/some.conf<br></code></pre></td></tr></table></figure><p>配置模板</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=Some Service<br><span class="hljs-attr">After</span>=network.target<br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">User</span>=someuser<br><span class="hljs-attr">Group</span>=somegroup<br><br><span class="hljs-comment"># 允许绑定低端口</span><br><span class="hljs-attr">CapabilityBoundingSet</span>=CAP_NET_BIND_SERVICE<br><span class="hljs-attr">AmbientCapabilities</span>=CAP_NET_BIND_SERVICE<br><span class="hljs-attr">ProtectSystem</span>=full<br><span class="hljs-attr">ProtectHome</span>=<span class="hljs-literal">true</span><br><br><span class="hljs-attr">ExecStart</span>=/some/bin run --config /some/config.json<br><span class="hljs-attr">Restart</span>=<span class="hljs-literal">on</span>-failure<br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>运维</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2025会议论文笔记</title>
     <link href="/2025/12/15/2025%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <url>/2025/12/15/2025%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</url>
@@ -64,9 +85,9 @@
       
       <tag>linux</tag>
       
-      <tag>swap</tag>
-      
       <tag>运维</tag>
+      
+      <tag>swap</tag>
       
     </tags>
     
