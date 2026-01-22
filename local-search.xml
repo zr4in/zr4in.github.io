@@ -39,11 +39,11 @@
       
       <tag>linux</tag>
       
-      <tag>nas</tag>
-      
       <tag>smb</tag>
       
       <tag>samba</tag>
+      
+      <tag>nas</tag>
       
     </tags>
     
@@ -209,9 +209,9 @@
       
       <tag>linux</tag>
       
-      <tag>pve</tag>
-      
       <tag>nas</tag>
+      
+      <tag>pve</tag>
       
       <tag>vm</tag>
       
