@@ -16,27 +16,23 @@
   <meta name="author" content="zr4in">
   <meta name="keywords" content="">
   
-    <meta name="description" content="之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。 SMB1234567891011121314151617[global]   browseable &#x3D; no   ; 默认所有 share 不可浏览   map to guest &#x3D; never   security &#x3D; user   access based share enum &#x3D; yes[share1]   p">
+    <meta name="description" content="模型上下文协议（MCP）是一个开放标准，用于将AI模型与外部工具和服务连接起来。在Visual Studio Code中，MCP服务器提供文件操作、数据库或外部API等任务的工具。MCP服务器还可以提供资源、提示和交互式应用。[1] map.json在工作区的.vscode&#x2F;目录下，创建mcp.json用于告诉vscode有哪些mcp服务。 References在VS Code中添加和管理MCP服">
 <meta property="og:type" content="article">
-<meta property="og:title" content="samba配置smb共享">
-<meta property="og:url" content="http://zr4in.github.io/2025/11/19/samba%E9%85%8D%E7%BD%AEsmb%E5%85%B1%E4%BA%AB/index.html">
+<meta property="og:title" content="vscode copilot配置自定义mcp服务">
+<meta property="og:url" content="http://zr4in.github.io/2026/04/02/vscode-copilot%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89mcp%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="zr4in">
-<meta property="og:description" content="之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。 SMB1234567891011121314151617[global]   browseable &#x3D; no   ; 默认所有 share 不可浏览   map to guest &#x3D; never   security &#x3D; user   access based share enum &#x3D; yes[share1]   p">
+<meta property="og:description" content="模型上下文协议（MCP）是一个开放标准，用于将AI模型与外部工具和服务连接起来。在Visual Studio Code中，MCP服务器提供文件操作、数据库或外部API等任务的工具。MCP服务器还可以提供资源、提示和交互式应用。[1] map.json在工作区的.vscode&#x2F;目录下，创建mcp.json用于告诉vscode有哪些mcp服务。 References在VS Code中添加和管理MCP服">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2025/11/20/gPV6kEDSu7OvpzR.png">
-<meta property="article:published_time" content="2025-11-19T08:22:07.000Z">
-<meta property="article:modified_time" content="2025-11-20T06:58:26.136Z">
+<meta property="article:published_time" content="2026-04-02T02:17:42.000Z">
+<meta property="article:modified_time" content="2026-04-02T02:20:33.877Z">
 <meta property="article:author" content="zr4in">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="nas">
-<meta property="article:tag" content="smb">
-<meta property="article:tag" content="samba">
+<meta property="article:tag" content="llm">
+<meta property="article:tag" content="mcp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2025/11/20/gPV6kEDSu7OvpzR.png">
   
   
   
-  <title>samba配置smb共享 - zr4in</title>
+  <title>vscode copilot配置自定义mcp服务 - zr4in</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -214,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="samba配置smb共享"></span>
+            <span id="subtitle" data-typed-text="vscode copilot配置自定义mcp服务"></span>
           
         </div>
 
@@ -225,8 +221,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-19 16:22" pubdate>
-          2025年11月19日 下午
+        <time datetime="2026-04-02 10:17" pubdate>
+          2026年4月2日 上午
         </time>
       </span>
     
@@ -237,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          104 字
+          114 字
         
       </span>
     
@@ -285,12 +281,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">samba配置smb共享</h1>
+            <h1 id="seo-header">vscode copilot配置自定义mcp服务</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-11-20T14:58:26+08:00
+                    本文最后更新于 2026-04-02T10:20:33+08:00
                   
                   
 
@@ -300,14 +296,10 @@
             
               <div class="markdown-body">
                 
-                <p>之前捡垃圾组装的nas，配置一下smb，可以在windows中直接网络挂载硬盘。</p>
-<h2 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs conf">[global]<br>   browseable = no   ; 默认所有 share 不可浏览<br>   map to guest = never<br>   security = user<br>   access based share enum = yes<br><br>[share1]<br>   path = /data/share1<br>   browseable = yes           ; 允许浏览<br>   valid users = user1        ; 只有 user1 能看到这个 share<br>   read only = no<br><br>[share2]<br>   path = /data/share2<br>   browseable = yes<br>   valid users = user2 user3  ; 只有这些用户能看到<br>   read only = no<br></code></pre></td></tr></table></figure>
-
-<h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>测试配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo testparm<br>sudo testparm /path/to/smb.conf<br></code></pre></td></tr></table></figure>
-
-<p>运行之后会显示加载的配置项目。</p>
-
+                <p><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/">模型上下文协议（MCP）</a>是一个开放标准，用于将AI模型与外部工具和服务连接起来。在Visual Studio Code中，MCP服务器提供文件操作、数据库或外部API等任务<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/agents/agent-tools">的工具</a>。MCP服务器还可以提供<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_other-mcp-capabilities">资源、提示和交互式应用</a>。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[在VS Code中添加和管理MCP服务器](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)">[1]</span></a></sup></p>
+<h2 id="map-json"><a href="#map-json" class="headerlink" title="map.json"></a>map.json</h2><p>在工作区的<code>.vscode/</code>目录下，创建<code>mcp.json</code>用于告诉vscode有哪些mcp服务。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/copilot/customization/mcp-servers">在VS Code中添加和管理MCP服务器</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -319,13 +311,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/linux/" class="print-no-link">#linux</a>
+        <a href="/tags/llm/" class="print-no-link">#llm</a>
       
-        <a href="/tags/nas/" class="print-no-link">#nas</a>
-      
-        <a href="/tags/smb/" class="print-no-link">#smb</a>
-      
-        <a href="/tags/samba/" class="print-no-link">#samba</a>
+        <a href="/tags/mcp/" class="print-no-link">#mcp</a>
       
     </div>
   
@@ -337,8 +325,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>samba配置smb共享</div>
-      <div>http://zr4in.github.io/2025/11/19/samba配置smb共享/</div>
+      <div>vscode copilot配置自定义mcp服务</div>
+      <div>http://zr4in.github.io/2026/04/02/vscode-copilot配置自定义mcp服务/</div>
     </div>
     <div class="license-meta">
       
@@ -350,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月19日</div>
+          <div>2026年4月2日</div>
         </div>
       
       
@@ -382,18 +370,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/12/15/2025%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" title="2025-2026会议论文笔记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2025-2026会议论文笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/14/linux%E9%85%8D%E7%BD%AEswap/" title="linux配置swap">
-                        <span class="hidden-mobile">linux配置swap</span>
+                      <a href="/2026/01/22/linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="linux服务部署和权限管理">
+                        <span class="hidden-mobile">linux服务部署和权限管理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
